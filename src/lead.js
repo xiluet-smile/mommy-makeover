@@ -1,9 +1,9 @@
 /**
- * Cloudflare Pages Function · POST /api/lead
+ * POST /api/lead · handled by the Worker in src/worker.js
  *
  * Proxies quiz submissions to the CRM so the webhook URL (and any secret) never ships to the browser.
  *
- * Env vars (Cloudflare Pages → Settings → Environment variables):
+ * Env vars (Cloudflare → Workers & Pages → mommy-makeover → Settings → Variables and Secrets):
  *   CRM_WEBHOOK_URL         required · custom CRM endpoint that accepts the JSON lead POST
  *   CRM_PHOTOS_WEBHOOK_URL  optional · multipart target for the photo uploader (defaults to CRM_WEBHOOK_URL)
  *   CRM_WEBHOOK_SECRET      optional · sent as `X-Webhook-Secret` header to the CRM
@@ -39,7 +39,9 @@ function clean(v, max = 500) {
   return String(v ?? "").slice(0, max).trim();
 }
 
-export async function onRequestPost({ request, env }) {
+export async function handleLead(request, env) {
+  if (request.method === "OPTIONS") return new Response(null, { status: 204 });
+  if (request.method !== "POST") return json(405, { ok: false, error: "method not allowed" });
   if (!sameOrigin(request)) return json(403, { ok: false, error: "forbidden" });
 
   const target = env.CRM_WEBHOOK_URL;
@@ -107,9 +109,4 @@ export async function onRequestPost({ request, env }) {
     console.error("[lead] upstream error", e && e.message);
     return json(502, { ok: false, forwarded: false, error: "upstream unreachable" });
   }
-}
-
-export function onRequest({ request }) {
-  if (request.method === "OPTIONS") return new Response(null, { status: 204 });
-  return json(405, { ok: false, error: "method not allowed" });
 }

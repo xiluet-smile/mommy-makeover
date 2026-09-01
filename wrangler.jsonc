@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mommy-makeover",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-06-01",
+  "assets": {
+    "directory": "./site",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+  "observability": { "enabled": true }
+  // Secrets (set in the dashboard, never here): CRM_WEBHOOK_URL, CRM_PHOTOS_WEBHOOK_URL, CRM_WEBHOOK_SECRET, CRM_AUTH_HEADER
+}

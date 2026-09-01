@@ -1,17 +1,18 @@
 # Xiluet Aesthetic Surgery · Mommy Makeover landing page
 
-Google Ads landing page (EN `/` + ES `/es/`) with an inline 8-step qualification quiz, hosted on **Cloudflare Pages**.
+Google Ads landing page (EN `/` + ES `/es/`) with an inline 8-step qualification quiz, hosted on **Cloudflare Workers** (static assets + one API route).
 Design source of truth: [`design_handoff_mommy_makeover_lp/`](design_handoff_mommy_makeover_lp/README.md).
 
 ```
 content/en.js, content/es.js   all page + quiz copy (edit copy here, then rebuild)
 scripts/build.js               CONFIG (GTM, Pixel, WhatsApp, phone) + HTML template → site/index.html, site/es/index.html
-site/                          Cloudflare Pages output directory (committed, no build step needed on CF)
+site/                          static assets served by the Worker (committed, no build step needed on CF)
   assets/style.css             styles (ported from the prototype's inline styles)
   assets/app.js                quiz state machine, CRM POST, dataLayer events, videos, FAQ, sticky CTA
   assets/…                     optimized images (WebP) and compressed testimonial videos (≤2.8 MB each)
   _redirects, _headers         /es → /es/, cache + security headers
-functions/api/lead.js          Pages Function: proxies quiz POSTs to the custom CRM endpoint (URL + auth stay server-side)
+src/worker.js, src/lead.js     Worker: serves site/ and proxies POST /api/lead to the custom CRM (URL + auth stay server-side)
+wrangler.jsonc                 Worker config (assets dir, /api/* routed to the Worker)
 ```
 
 ## Edit copy or config
@@ -29,23 +30,24 @@ node scripts/build.js
 python3 -m http.server 8477 -d site
 ```
 
-Open http://localhost:8477 and http://localhost:8477/es/. (`/api/lead` only exists on Cloudflare; locally the quiz
-logs a warning and still shows the thank-you screen. To test the Function locally: `npx wrangler pages dev site`.)
+Open http://localhost:8477 and http://localhost:8477/es/. (`/api/lead` is not served by this static server; the quiz logs a warning and still shows
+the thank-you screen. Use `npm run dev` to run the Worker with the API locally.)
 
-## Deploy (Cloudflare Pages)
+## Deploy (Cloudflare Workers, Git-connected)
 
-Git-connected project → every push to `main` deploys.
+The repo is a Worker with static assets: `wrangler.jsonc` serves `site/` and `src/worker.js` handles `POST /api/lead`.
+Cloudflare Workers Builds deploys on every push to `main`.
 
-| Setting | Value |
+| Setting (Workers & Pages → Create → Import a repository) | Value |
 |---|---|
 | Repository | `xiluet-smile/mommy-makeover` |
-| Production branch | `main` |
-| Framework preset | None |
+| Project name | `mommy-makeover` |
 | Build command | *(empty)* |
-| Build output directory | `site` |
-| Functions | auto-detected from `functions/` |
+| Deploy command | `npx wrangler deploy` |
+| Non-production branch deploy command | `npx wrangler versions upload` |
+| Path | `/` |
 
-**Environment variables** (Settings → Environment variables, Production *and* Preview):
+**Variables and Secrets** (Worker → Settings → Variables and Secrets; add as *Secret*):
 
 | Name | Purpose |
 |---|---|
@@ -56,13 +58,15 @@ Git-connected project → every push to `main` deploys.
 
 Until `CRM_WEBHOOK_URL` is set, `/api/lead` answers `{ ok:false, forwarded:false }` and the page still shows the outcome screen.
 
+Local run with the API: `npm install` then `npm run dev` (wrangler dev on http://localhost:8787).
+
 ## Custom domain (SiteGround DNS)
 
-DNS for `xiluetaestheticsurgery.com` lives at SiteGround. In Cloudflare Pages → Custom domains → add the subdomain,
+DNS for `xiluetaestheticsurgery.com` lives at SiteGround. In the Worker → Settings → Domains & Routes → add a custom domain,
 then in SiteGround Site Tools → Domain → DNS Zone Editor add:
 
 ```
-CNAME   <subdomain>   →   mommy-makeover.pages.dev
+CNAME   <subdomain>   →   mommy-makeover.<your-subdomain>.workers.dev   (the workers.dev URL shown after the first deploy)
 ```
 
 Cloudflare validates the CNAME and issues the certificate automatically (a few minutes). Then update `SITE_URL` in

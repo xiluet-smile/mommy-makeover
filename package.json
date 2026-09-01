@@ -1,0 +1,12 @@
+{
+  "name": "mommy-makeover-lp",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.js",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.128.0"
+  }
+}
