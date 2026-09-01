@@ -1,18 +1,18 @@
 # Xiluet Aesthetic Surgery · Mommy Makeover landing page
 
-Google Ads landing page (EN `/` + ES `/es/`) with an inline 8-step qualification quiz, hosted on **Cloudflare Workers** (static assets + one API route).
+Google Ads landing page (EN `/` + ES `/es/`) with an inline 8-step qualification quiz, hosted on **Cloudflare Pages** (static site + one Pages Function).
 Design source of truth: [`design_handoff_mommy_makeover_lp/`](design_handoff_mommy_makeover_lp/README.md).
 
 ```
 content/en.js, content/es.js   all page + quiz copy (edit copy here, then rebuild)
 scripts/build.js               CONFIG (GTM, Pixel, WhatsApp, phone) + HTML template → site/index.html, site/es/index.html
-site/                          static assets served by the Worker (committed, no build step needed on CF)
+site/                          Cloudflare Pages output directory (committed, no build step needed on CF)
   assets/style.css             styles (ported from the prototype's inline styles)
   assets/app.js                quiz state machine, CRM POST, dataLayer events, videos, FAQ, sticky CTA
   assets/…                     optimized images (WebP) and compressed testimonial videos (≤2.8 MB each)
   _redirects, _headers         /es → /es/, cache + security headers
-src/worker.js, src/lead.js     Worker: serves site/ and proxies POST /api/lead to the custom CRM (URL + auth stay server-side)
-wrangler.jsonc                 Worker config (assets dir, /api/* routed to the Worker)
+functions/api/lead.js          Pages Function: proxies POST /api/lead to the custom CRM (URL + auth stay server-side)
+wrangler.jsonc                 Pages config for local `wrangler pages dev` (output dir only)
 ```
 
 ## Edit copy or config
@@ -31,23 +31,24 @@ python3 -m http.server 8477 -d site
 ```
 
 Open http://localhost:8477 and http://localhost:8477/es/. (`/api/lead` is not served by this static server; the quiz logs a warning and still shows
-the thank-you screen. Use `npm run dev` to run the Worker with the API locally.)
+the thank-you screen. Use `npm run dev` to run Pages with the API locally.)
 
-## Deploy (Cloudflare Workers, Git-connected)
+## Deploy (Cloudflare Pages, Git-connected)
 
-The repo is a Worker with static assets: `wrangler.jsonc` serves `site/` and `src/worker.js` handles `POST /api/lead`.
-Cloudflare Workers Builds deploys on every push to `main`.
+Every push to `main` deploys. Create the project at
+[dash.cloudflare.com → Workers & Pages → Create → Pages → Import an existing Git repository](https://dash.cloudflare.com/?to=/:account/pages/new/provider/github):
 
-| Setting (Workers & Pages → Create → Import a repository) | Value |
+| Setting | Value |
 |---|---|
 | Repository | `xiluet-smile/mommy-makeover` |
-| Project name | `mommy-makeover` |
+| Project name | `xiluet-promo` (→ `xiluet-promo.pages.dev`) |
+| Production branch | `main` |
+| Framework preset | None |
 | Build command | *(empty)* |
-| Deploy command | `npx wrangler deploy` |
-| Non-production branch deploy command | `npx wrangler versions upload` |
-| Path | `/` |
+| Build output directory | `site` |
+| Functions | auto-detected from `functions/` |
 
-**Variables and Secrets** (Worker → Settings → Variables and Secrets; add as *Secret*):
+**Variables and Secrets** (Settings → Variables and Secrets, Production *and* Preview):
 
 | Name | Purpose |
 |---|---|
@@ -58,19 +59,19 @@ Cloudflare Workers Builds deploys on every push to `main`.
 
 Until `CRM_WEBHOOK_URL` is set, `/api/lead` answers `{ ok:false, forwarded:false }` and the page still shows the outcome screen.
 
-Local run with the API: `npm install` then `npm run dev` (wrangler dev on http://localhost:8787).
+Local run with the API: `npm install` then `npm run dev` (wrangler pages dev on http://localhost:8788).
 
-## Custom domain (SiteGround DNS)
+## Custom domain: promo.xiluetaestheticsurgery.com (DNS at SiteGround)
 
-DNS for `xiluetaestheticsurgery.com` lives at SiteGround. In the Worker → Settings → Domains & Routes → add a custom domain,
-then in SiteGround Site Tools → Domain → DNS Zone Editor add:
+1. Pages project → Custom domains → Set up a custom domain → `promo.xiluetaestheticsurgery.com`.
+2. SiteGround Site Tools → Domain → DNS Zone Editor → add:
 
 ```
-CNAME   <subdomain>   →   mommy-makeover.<your-subdomain>.workers.dev   (the workers.dev URL shown after the first deploy)
+Type: CNAME   Name: promo   Resolves to: xiluet-promo.pages.dev   TTL: default
 ```
 
-Cloudflare validates the CNAME and issues the certificate automatically (a few minutes). Then update `SITE_URL` in
-`scripts/build.js`, rebuild, and commit so canonical/hreflang/OG URLs match.
+Cloudflare validates the CNAME and issues the certificate automatically (a few minutes). `SITE_URL` in
+`scripts/build.js` already points at this hostname.
 
 ## Lead payload (`POST /api/lead`, JSON)
 

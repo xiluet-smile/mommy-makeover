@@ -7,7 +7,7 @@ const fs = require("fs");
 const path = require("path");
 
 /* ═══════════════════════════════ CONFIG ═══════════════════════════════ */
-const SITE_URL = "https://mommymakeover.xiluetaestheticsurgery.com"; // canonical + hreflang + OG (change when the subdomain is decided)
+const SITE_URL = "https://promo.xiluetaestheticsurgery.com"; // canonical + hreflang + OG
 const CONFIG = {
   LEAD_ENDPOINT: "/api/lead",   // Pages Function; the CRM webhook URL is set as env var CRM_WEBHOOK_URL in Cloudflare (never in the client)
   GTM_ID: "",                   // e.g. "GTM-XXXXXXX" → injects the GTM container in <head> + <noscript>
