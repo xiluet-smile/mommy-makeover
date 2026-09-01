@@ -235,7 +235,7 @@
           var on = cur.multi ? (sel || []).indexOf(value) !== -1 : sel === value;
           var iconKey = cur.id === "smoke" && value === "yes" ? "yes" : value;
           html += '<button type="button" class="q-opt' + (on ? " on" : "") + '" data-act="pick" data-value="' + esc(value) + '" aria-pressed="' + (on ? "true" : "false") + '">' +
-            '<span class="q-icon">' + svg(ICONS[iconKey] || ICONS.unknown) + '</span><span class="q-label">' + esc(label) + '</span><span class="q-check">' + (on ? "✓" : "") + "</span></button>";
+            '<span class="q-icon">' + svg(ICONS[iconKey] || ICONS.unknown) + '</span><span class="q-opt-label">' + esc(label) + '</span><span class="q-check">' + (on ? "✓" : "") + "</span></button>";
         });
         html += "</div>";
       } else if (cur.type === "location") {
