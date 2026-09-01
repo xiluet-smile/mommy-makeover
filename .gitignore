@@ -1,0 +1,5 @@
+.DS_Store
+node_modules/
+.wrangler/
+# Large source originals: the optimized copies live in site/assets/
+design_handoff_mommy_makeover_lp/design/uploads/

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "mm-lp",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8477", "-d", "site"],
+      "port": 8477
+    }
+  ]
+}

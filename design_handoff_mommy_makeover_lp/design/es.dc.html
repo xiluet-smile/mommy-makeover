@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+body { margin: 0; background: #f7f5f0; }
+a { color: #b08d4f; } a:hover { color: #8f7038; }
+input[type=date] { font-family: Mulish, sans-serif; }
+@media (max-width: 720px) {
+  header[data-screen-label="S0 Header"] { padding: 10px 18px !important; gap: 10px !important; }
+  header[data-screen-label="S0 Header"] > div:last-child { gap: 12px !important; }
+  header[data-screen-label="S0 Header"] a { font-size: 12.5px !important; padding: 10px 16px !important; }
+  section[data-screen-label] { padding-left: 20px !important; padding-right: 20px !important; padding-top: 56px !important; padding-bottom: 56px !important; }
+  section[data-screen-label="S1 Hero"] { padding: 0 !important; }
+  [data-m="hero-grid"] { padding: 40px 20px 48px !important; gap: 40px !important; }
+  section[data-screen-label] h1 { font-size: 38px !important; }
+  section[data-screen-label] h2 { font-size: 30px !important; }
+  section[data-screen-label] h3 { font-size: 22px !important; }
+  section[data-screen-label] > div { gap: 32px !important; }
+  [data-m="grid2"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 12px !important; }
+  [data-m="grid2"] > li span:first-child { font-size: 30px !important; }
+  [data-m="price-tag"] { width: 100%; box-sizing: border-box; align-items: flex-start !important; }
+  [data-m="quiz"] { padding: 18px 16px 20px !important; gap: 14px !important; }
+  [data-m="quiz"] h2 { font-size: 22px !important; }
+  [data-m="skyline"] { height: 150px !important; }
+  [data-m="pad"] { padding: 28px 20px 36px !important; }
+  [data-m="map"] { min-height: 260px !important; }
+  section[data-screen-label="S5 Surgeons"] > div:last-child { padding: 24px 20px !important; }
+  section[data-screen-label="S5 Surgeons"] > div:last-child p { font-size: 20px !important; }
+  section[data-screen-label="S5 Surgeons"] img { height: 200px !important; }
+  section[data-screen-label="S8 Stories"] > div > div:last-child > div { width: 210px !important; }
+  section[data-screen-label="S8 Stories"] > div > div:last-child > div > div { width: 210px !important; height: 373px !important; }
+  section[data-screen-label="S13 Final CTA"] { padding-top: 72px !important; padding-bottom: 72px !important; }
+}
+</style>
+</helmet>
+
+<div style="font-family: Mulish, sans-serif; color: #10312f;">
+
+<!-- S0 · Sticky header -->
+<header data-screen-label="S0 Header" style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 14px 48px; background: rgba(11,42,41,0.97); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(200,164,101,0.25);">
+  <div style="display: flex; align-items: center; gap: 14px;">
+    <img src="uploads/Xiluet.jpg" alt="Xiluet mark" style="width: 40px; height: 44px; object-fit: contain;">
+    <div style="display: flex; flex-direction: column;">
+      <span style="font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; color: #e9dcc3; letter-spacing: 0.04em; line-height: 1;">Xiluet</span>
+      <span style="font-size: 10px; letter-spacing: 0.32em; color: #c8a465; font-weight: 600;">AESTHETIC SURGERY</span>
+    </div>
+  </div>
+  <div style="display: flex; align-items: center; gap: 24px;">
+    <div style="display: flex; gap: 2px; border: 1px solid rgba(200,164,101,0.4); border-radius: 999px; padding: 3px;">
+      <a href="Xiluet Mommy Makeover LP.dc.html" style="text-decoration: none; padding: 4px 14px; border-radius: 999px; color: #c8a465; font-size: 12px; font-weight: 600; cursor: pointer;">EN</a>
+      <span style="padding: 4px 14px; border-radius: 999px; background: #c8a465; color: #0b2a29; font-size: 12px; font-weight: 700;">ES</span>
+    </div>
+    <a href="#quiz" style="text-decoration: none; background: #c8a465; color: #0b2a29; font-size: 14px; font-weight: 700; padding: 12px 24px; border-radius: 999px; white-space: nowrap; transition: opacity .3s, transform .3s; opacity: {{ headerCtaOpacity }}; transform: {{ headerCtaTransform }}; pointer-events: {{ headerCtaEvents }};">Mira si calificas → 60 seg</a>
+  </div>
+</header>
+
+<!-- S1 · Hero -->
+<section data-screen-label="S1 Hero" style="background: #0b2a29; position: relative; overflow: hidden;">
+  <img src="uploads/Xiluet.jpg" alt="" style="position: absolute; right: -120px; bottom: -180px; width: 620px; opacity: 0.07; mix-blend-mode: luminosity; pointer-events: none;">
+  <div data-m="hero-grid" style="max-width: 1200px; margin: 0 auto; padding: 88px 48px 72px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 56px; align-items: start; position: relative;">
+    <div style="display: flex; flex-direction: column; gap: 26px; min-width: 0;">
+      <span style="font-size: 13px; letter-spacing: 0.28em; color: #c8a465; font-weight: 700;">MOMMY MAKEOVER · MIAMI, FL</span>
+      <h1 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 5vw, 62px); font-weight: 600; line-height: 1.06; color: #f4ecdc; margin: 0; text-wrap: pretty;">Mommy Makeover en Miami <span style="color: rgba(238,230,213,0.45); text-decoration: line-through; text-decoration-color: #c8a465; text-decoration-thickness: 2px; font-weight: 500;">$8,900</span> desde <span style="color: #e5c98d;">$7,500</span></h1>
+      <p style="font-size: 18px; line-height: 1.65; color: rgba(238,230,213,0.85); margin: 0; max-width: 54ch;">Abdominoplastia, levantamiento o aumento de senos y liposucción en una sola cirugía, con cotización por escrito, un plan de recuperación pensado para tus hijos y un cirujano que conoces antes de decidir nada.</p>
+      <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+        <a href="#quiz" style="text-decoration: none; background: #c8a465; color: #0b2a29; font-size: 16px; font-weight: 700; padding: 16px 30px; border-radius: 999px;" style-hover="background: #d9b878;">Mira si calificas → 60 segundos</a>
+        <a href="#whatsapp" style="text-decoration: none; border: 1.5px solid rgba(200,164,101,0.6); color: #e9dcc3; font-size: 16px; font-weight: 600; padding: 16px 30px; border-radius: 999px;" style-hover="border-color: #c8a465; color: #ffffff;">Escríbenos por WhatsApp</a>
+      </div>
+      <div style="display: flex; gap: 22px; flex-wrap: wrap; font-size: 13.5px; color: rgba(238,230,213,0.75); font-weight: 500;">
+        <span style="display: inline-flex; align-items: center; gap: 8px;"><span style="width: 18px; height: 18px; display: inline-flex;">{{ trustIcons.eval }}</span>Evaluación gratis</span>
+        <span style="display: inline-flex; align-items: center; gap: 8px;"><span style="width: 18px; height: 18px; display: inline-flex;">{{ trustIcons.finance }}</span>Financiamiento disponible</span>
+        <span style="display: inline-flex; align-items: center; gap: 8px;"><span style="width: 18px; height: 18px; display: inline-flex;">{{ trustIcons.board }}</span>Cirujanos certificados</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px; border-top: 1px solid rgba(200,164,101,0.3); padding-top: 20px;">
+        <span style="color: #c8a465; font-size: 15px;">◇</span>
+        <span style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 20px; color: #e5c98d;">Tu consulta es con tu cirujano, no con un vendedor.</span>
+      </div>
+    </div>
+    <div style="position: relative; min-width: 0;">
+      <div style="position: absolute; inset: 14px -14px -14px 14px; border: 1px solid rgba(200,164,101,0.45); border-radius: 26px; pointer-events: none;"></div>
+      <div id="quiz" data-screen-label="Quiz" data-m="quiz" style="width: 100%; box-sizing: border-box; background: linear-gradient(180deg, #fbf8f1 0%, #f3ecdd 100%); border-radius: 18px; padding: 24px 28px 28px; box-shadow: 0 30px 80px rgba(0,0,0,0.35); position: relative; display: flex; flex-direction: column; gap: 18px; scroll-margin-top: 90px;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <sc-if value="{{ canBack }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ quizBack }}" style="background: none; border: none; color: #b08d4f; font-family: Mulish, sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; padding: 0; letter-spacing: 0.06em;">← Atrás</button>
+      </sc-if>
+      <sc-if value="{{ noBack }}" hint-placeholder-val="{{ true }}"><span></span></sc-if>
+      <span style="font-size: 10.5px; letter-spacing: 0.24em; color: #8b8371; font-weight: 700;">EVALUACIÓN GRATIS · 60 SEG</span>
+    </div>
+
+    <!-- progress -->
+    <sc-if value="{{ inQuestions }}" hint-placeholder-val="{{ true }}">
+    <div style="display: flex; align-items: center;">
+      <sc-for list="{{ markers }}" as="mk" hint-placeholder-count="8">
+        <span style="display: flex; align-items: center; flex: {{ mk.flex }};">
+          <span style="font-size: 11px; color: {{ mk.color }}; line-height: 1;">{{ mk.sym }}</span>
+          <sc-if value="{{ mk.line }}" hint-placeholder-val="{{ true }}"><span style="flex: 1; height: 1px; background: {{ mk.lineColor }}; margin: 0 4px;"></span></sc-if>
+        </span>
+      </sc-for>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 6px;">
+      <span style="font-size: 11px; letter-spacing: 0.24em; color: #b08d4f; font-weight: 700;">PREGUNTA {{ qNum }} DE 8</span>
+      <h2 style="margin: 0; font-family: 'Cormorant Garamond', serif; font-size: clamp(24px, 2.2vw, 30px); font-weight: 700; line-height: 1.15; color: #10312f; text-wrap: pretty;">{{ qTitle }}</h2>
+      <sc-if value="{{ qHint }}" hint-placeholder-val="{{ true }}"><p style="margin: 0; font-size: 14px; color: #6c7f7b;">{{ qHint }}</p></sc-if>
+    </div>
+    </sc-if>
+
+    <!-- choice cards -->
+    <sc-if value="{{ isChoice }}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <sc-for list="{{ options }}" as="o" hint-placeholder-count="4">
+          <button onClick="{{ o.pick }}" style="display: flex; align-items: center; gap: 14px; min-height: 54px; padding: 10px 14px 10px 12px; border-radius: 10px; cursor: pointer; font-family: Mulish, sans-serif; font-size: 15.5px; font-weight: 600; color: #10312f; text-align: left; line-height: 1.3; background: {{ o.bg }}; border: 1.5px solid {{ o.border }}; transition: border-color .15s, background .15s;" style-hover="border-color: #c8a465;">
+            <span style="flex: none; width: 26px; height: 26px;">{{ o.icon }}</span>
+            <span style="flex: 1;">{{ o.label }}</span>
+            <span style="flex: none; width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #0b2a29; background: {{ o.checkBg }}; border: 1.5px solid {{ o.border }};">{{ o.check }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <!-- height & weight -->
+    <sc-if value="{{ isHW }}" hint-placeholder-val="{{ false }}">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px;">
+        <label style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; letter-spacing: 0.18em; color: #b08d4f; font-weight: 700;">HEIGHT (FT)<input type="number" min="3" max="7" value="{{ form.heightFt }}" onChange="{{ onHeightFt }}" placeholder="5" style="font-family: Mulish, sans-serif; font-size: 16px; padding: 12px 14px; border: 1.5px solid #d9cfb8; border-radius: 6px; background: #ffffff; color: #10312f; letter-spacing: 0;"></label>
+        <label style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; letter-spacing: 0.18em; color: #b08d4f; font-weight: 700;">HEIGHT (IN)<input type="number" min="0" max="11" value="{{ form.heightIn }}" onChange="{{ onHeightIn }}" placeholder="4" style="font-family: Mulish, sans-serif; font-size: 16px; padding: 12px 14px; border: 1.5px solid #d9cfb8; border-radius: 6px; background: #ffffff; color: #10312f; letter-spacing: 0;"></label>
+        <label style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; letter-spacing: 0.18em; color: #b08d4f; font-weight: 700;">WEIGHT (LBS)<input type="number" min="80" max="400" value="{{ form.weight }}" onChange="{{ onWeight }}" placeholder="150" style="font-family: Mulish, sans-serif; font-size: 16px; padding: 12px 14px; border: 1.5px solid #d9cfb8; border-radius: 6px; background: #ffffff; color: #10312f; letter-spacing: 0;"></label>
+      </div>
+    </sc-if>
+
+    <!-- location -->
+    <sc-if value="{{ isLocation }}" hint-placeholder-val="{{ false }}">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px;">
+        <label style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; letter-spacing: 0.18em; color: #b08d4f; font-weight: 700;">ESTADO
+          <select value="{{ form.state }}" onChange="{{ onState }}" style="font-family: Mulish, sans-serif; font-size: 16px; padding: 12px 14px; border: 1.5px solid #d9cfb8; border-radius: 6px; background: #ffffff; color: #10312f; letter-spacing: 0;">
+            <sc-for list="{{ states }}" as="st" hint-placeholder-count="3"><option value="{{ st }}">{{ st }}</option></sc-for>
+          </select>
+        </label>
+        <label style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; letter-spacing: 0.18em; color: #b08d4f; font-weight: 700;">CIUDAD (OPCIONAL)<input type="text" value="{{ form.city }}" onChange="{{ onCity }}" placeholder="Miami" style="font-family: Mulish, sans-serif; font-size: 16px; padding: 12px 14px; border: 1.5px solid #d9cfb8; border-radius: 6px; background: #ffffff; color: #10312f; letter-spacing: 0;"></label>
+      </div>
+    </sc-if>
+
+    <!-- contact -->
+    <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px;">
+          <label style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; letter-spacing: 0.18em; color: #b08d4f; font-weight: 700;">NOMBRE COMPLETO<input type="text" value="{{ form.firstName }}" onChange="{{ onFirstName }}" style="font-family: Mulish, sans-serif; font-size: 16px; padding: 12px 14px; border: 1.5px solid #d9cfb8; border-radius: 6px; background: #ffffff; color: #10312f; letter-spacing: 0;"></label>
+          <label style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; letter-spacing: 0.18em; color: #b08d4f; font-weight: 700;">TELÉFONO<input type="tel" value="{{ form.phone }}" onChange="{{ onPhone }}" placeholder="(305) 555-0123" style="font-family: Mulish, sans-serif; font-size: 16px; padding: 12px 14px; border: 1.5px solid #d9cfb8; border-radius: 6px; background: #ffffff; color: #10312f; letter-spacing: 0;"></label>
+        </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px;">
+          <label style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; letter-spacing: 0.18em; color: #b08d4f; font-weight: 700;">EMAIL<input type="email" value="{{ form.email }}" onChange="{{ onEmail }}" style="font-family: Mulish, sans-serif; font-size: 16px; padding: 12px 14px; border: 1.5px solid #d9cfb8; border-radius: 6px; background: #ffffff; color: #10312f; letter-spacing: 0;"></label>
+                  </div>
+        <p style="margin: 0; font-size: 13px; color: #6c7f7b; font-style: italic;">Al continuar aceptas ser contactada por teléfono, SMS o WhatsApp.</p>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ showContinue }}" hint-placeholder-val="{{ true }}">
+      <button onClick="{{ quizNext }}" disabled="{{ continueDisabled }}" style="width: 100%; padding: 16px; border: none; cursor: pointer; font-family: Mulish, sans-serif; font-size: 17px; font-weight: 700; color: #0b2a29; background: linear-gradient(90deg, #e2c98f 0%, #c8a465 60%, #b08d4f 100%); clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%); opacity: {{ continueOpacity }};">{{ continueLabel }}</button>
+    </sc-if>
+
+    <!-- OUTCOME: qualified -->
+    <sc-if value="{{ isQualified }}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; flex-direction: column; gap: 26px;">
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <span style="width: 44px; height: 44px; border-radius: 50%; background: #c8a465; color: #0b2a29; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700;">✓</span>
+          <h2 style="margin: 0; font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 2.6vw, 34px); font-weight: 700; line-height: 1.12; color: #10312f;">Gracias, {{ firstName }}. Un último paso para tu cirujano.</h2>
+          <p style="margin: 0; font-size: 16.5px; line-height: 1.6; color: #4c635f;">Envía 4 fotos para que tu cirujano evalúe tu caso: frente · lado izquierdo · lado derecho · espalda. En brasier y ropa interior o como te sientas cómoda, de pie y derecha, con luz natural y brazos relajados. Fotos de celular están perfectas.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+          <sc-for list="{{ silhouettes }}" as="sil" hint-placeholder-count="4">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; background: #ffffff; border: 1px solid #e6e0d2; border-radius: 6px; padding: 18px 10px;">
+              <span style="width: 56px; height: 96px;">{{ sil.icon }}</span>
+              <span style="font-size: 11.5px; letter-spacing: 0.18em; font-weight: 700; color: #b08d4f;">{{ sil.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <p style="margin: 0; font-size: 13.5px; color: #6c7f7b; font-style: italic;">🔒 Privadas. Solo las ve tu equipo quirúrgico. Nunca se usan en publicidad sin tu consentimiento escrito.</p>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <a href="{{ waLink }}" target="_blank" style="text-decoration: none; text-align: center; padding: 20px; font-size: 18px; font-weight: 700; color: #0b2a29; background: linear-gradient(90deg, #e2c98f 0%, #c8a465 60%, #b08d4f 100%); clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);">Enviar mis fotos por WhatsApp</a>
+          <button onClick="{{ toggleUploader }}" style="padding: 16px; background: none; border: 1.5px solid #c8a465; border-radius: 6px; font-family: Mulish, sans-serif; font-size: 15px; font-weight: 700; color: #b08d4f; cursor: pointer;">Prefiero subirlas aquí</button>
+        </div>
+        <sc-if value="{{ uploaderOpen }}" hint-placeholder-val="{{ false }}">
+          <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+              <sc-for list="{{ uploadSlots }}" as="u" hint-placeholder-count="4">
+                <label style="position: relative; display: flex; align-items: center; justify-content: center; height: 130px; border: 1.5px dashed #c8a465; border-radius: 6px; background: #ffffff; cursor: pointer; overflow: hidden; font-size: 12px; letter-spacing: 0.14em; font-weight: 700; color: #b08d4f; text-align: center;">
+                  <sc-if value="{{ u.src }}" hint-placeholder-val="{{ false }}"><img src="{{ u.src }}" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;"></sc-if>
+                  <sc-if value="{{ u.empty }}" hint-placeholder-val="{{ true }}"><span>+ {{ u.label }}</span></sc-if>
+                  <input type="file" accept="image/*" onChange="{{ u.onFile }}" style="position: absolute; inset: 0; opacity: 0; cursor: pointer;">
+                </label>
+              </sc-for>
+            </div>
+            <button onClick="{{ submitPhotos }}" disabled="{{ submitDisabled }}" style="padding: 16px; border: none; border-radius: 6px; font-family: Mulish, sans-serif; font-size: 15px; font-weight: 700; color: #f4ecdc; background: #0b2a29; cursor: pointer; opacity: {{ submitOpacity }};">Enviar fotos</button>
+          </div>
+          </sc-if>
+          <sc-if value="{{ photosSubmitted }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; gap: 14px; align-items: center; background: rgba(127,168,143,0.15); border: 1px solid #7fa88f; border-radius: 6px; padding: 18px 20px;">
+              <span style="width: 30px; height: 30px; border-radius: 50%; background: #7fa88f; color: #ffffff; display: flex; align-items: center; justify-content: center; font-weight: 700;">✓</span>
+              <p style="margin: 0; font-size: 15px; color: #10312f; font-weight: 600;">Fotos recibidas. Tu cirujano las revisará y te contactaremos en 24–48 horas.</p>
+            </div>
+          </sc-if>
+        </sc-if>
+        <div style="border-top: 1px solid #d9c9a3; padding-top: 22px; display: flex; flex-direction: column; gap: 14px;">
+          <span style="font-size: 12px; letter-spacing: 0.24em; color: #b08d4f; font-weight: 700;">QUÉ SIGUE</span>
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; font-size: 14px; color: #1d3d3a; font-weight: 600;">
+            <span>fotos</span><span style="color: #c8a465;">→</span><span>revisión del cirujano</span><span style="color: #c8a465;">→</span><span>cotización escrita en 24–48h</span><span style="color: #c8a465;">→</span><span>conoce a tu cirujano</span><span style="color: #c8a465;">→</span><span>reserva tu fecha</span>
+          </div>
+          <p style="margin: 0; font-size: 13px; color: #6c7f7b;">¿Prefieres llamar? <a href="tel:3056154200" style="color: #b08d4f; font-weight: 700; text-decoration: none;">(305) 615-4200</a></p>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- OUTCOME: nurture -->
+    <sc-if value="{{ isNurture }}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; flex-direction: column; gap: 26px;">
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <span style="width: 44px; height: 44px; border-radius: 50%; background: #c8a465; color: #0b2a29; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700;">✓</span>
+          <h2 style="margin: 0; font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 2.6vw, 34px); font-weight: 700; line-height: 1.12; color: #10312f;">Ya estás en nuestra lista, {{ firstName }}.</h2>
+          <p style="margin: 0; font-size: 16.5px; line-height: 1.6; color: #4c635f;">Una coordinadora te contactará con los siguientes pasos, opciones de financiamiento y, si es "todavía no", exactamente qué haría falta para el "sí".</p>
+        </div>
+        <a href="{{ waLinkNurture }}" target="_blank" style="text-decoration: none; text-align: center; padding: 20px; font-size: 18px; font-weight: 700; color: #0b2a29; background: linear-gradient(90deg, #e2c98f 0%, #c8a465 60%, #b08d4f 100%); clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);">Escríbenos por WhatsApp</a>
+        <p style="margin: 0; font-size: 13px; color: #6c7f7b;">¿Prefieres llamar? <a href="tel:3056154200" style="color: #b08d4f; font-weight: 700; text-decoration: none;">(305) 615-4200</a></p>
+      </div>
+    </sc-if>
+
+    <!-- OUTCOME: not a fit -->
+    <sc-if value="{{ isNotFit }}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; flex-direction: column; gap: 22px;">
+        <span style="color: #c8a465; font-size: 28px;">◇</span>
+        <h2 style="margin: 0; font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 2.6vw, 34px); font-weight: 700; line-height: 1.12; color: #10312f;">Gracias por tu honestidad.</h2>
+        <p style="margin: 0; font-size: 16.5px; line-height: 1.6; color: #4c635f;">{{ notFitText }}</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+          <a href="{{ waLinkNurture }}" target="_blank" style="text-decoration: none; padding: 14px 24px; border: 1.5px solid #c8a465; border-radius: 999px; font-size: 15px; font-weight: 700; color: #b08d4f;">Escríbenos por WhatsApp de todas formas</a>
+          <button onClick="{{ quizReset }}" style="padding: 14px 24px; background: none; border: none; font-family: Mulish, sans-serif; font-size: 15px; font-weight: 700; color: #6c7f7b; cursor: pointer;">Empezar de nuevo</button>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+    </div>
+  </div>
+</section>
+
+<!-- S1b · What is a Mommy Makeover -->
+<section data-screen-label="S1b What is a Mommy Makeover" style="background: #f6f2ea; padding: 80px 48px;">
+  <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 48px; align-items: center;">
+      <div style="display: flex; flex-direction: column; gap: 18px; max-width: 640px;">
+        <span style="font-size: 12px; letter-spacing: 0.28em; color: #b08d4f; font-weight: 700;">QUÉ ES UN MOMMY MAKEOVER</span>
+        <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 600; color: #10312f; margin: 0; line-height: 1.1; text-wrap: pretty;">Tu cuerpo hizo algo extraordinario. Así lo recuperas.</h2>
+        <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #4c635f;">El embarazo estira la piel, separa los músculos abdominales y cambia los senos de formas que ninguna dieta, plancha o "recuperación natural" puede revertir. Un Mommy Makeover es una sola cirugía, una sola recuperación y un solo plan que resuelve todo a la vez.</p>
+      </div>
+      <div style="position: relative;">
+        <div style="position: absolute; inset: 14px -14px -14px 14px; border: 1px solid rgba(200,164,101,0.5); border-radius: 6px; pointer-events: none;"></div>
+        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3HSeu3MiZbD5rZqN4nnQHGTvdYd/hf_20260901_201334_34daa15c-71c0-43bf-9126-1bba02cbacac.png" alt="Mujer segura junto a la piscina" style="width: 100%; height: 360px; object-fit: cover; border-radius: 6px; display: block;">
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 18px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 16px;">
+        <sc-for list="{{ procedureCards }}" as="pc" hint-placeholder-count="4">
+          <div style="background: #ffffff; border: 1px solid #e6e0d2; border-radius: 8px; padding: 20px 22px; display: flex; align-items: center; gap: 16px;">
+            <div style="flex: none; width: 32px; height: 32px;">{{ pc.icon }}</div>
+            <h3 style="margin: 0; font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: #10312f; line-height: 1.2;">{{ pc.title }}</h3>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin: 0; font-size: 14px; color: #6c7f7b; font-style: italic;">Tu cirujano arma la combinación para ti. No toda mujer necesita las cuatro.</p>
+    </div>
+
+
+  </div>
+</section>
+
+<!-- S6 · How it works -->
+<section data-screen-label="S6 Process" style="background: #0b2a29; padding: 96px 48px;">
+  <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 52px;">
+    <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 600; color: #f4ecdc; margin: 0; line-height: 1.1; max-width: 30ch;">De las fotos a la fecha de cirugía, sin presión.</h2>
+    <ol data-m="grid2" style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 28px 24px;">
+      <sc-for list="{{ steps }}" as="st" hint-placeholder-count="6">
+        <li style="display: flex; flex-direction: column; gap: 14px; border-top: 1px solid rgba(200,164,101,0.35); padding-top: 18px;">
+          <span style="font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 600; color: #c8a465; line-height: 1;">{{ st.n }}</span>
+          <span style="font-size: 22px;">{{ st.emoji }}</span>
+          <h3 style="margin: 0; font-size: 16.5px; font-weight: 700; color: #f4ecdc; line-height: 1.35;">{{ st.title }}</h3>
+          <p style="margin: 0; font-size: 14px; line-height: 1.6; color: rgba(238,230,213,0.72);">{{ st.text }}</p>
+        </li>
+      </sc-for>
+    </ol>
+    <a href="#quiz" style="align-self: flex-start; text-decoration: none; background: #c8a465; color: #0b2a29; font-size: 16px; font-weight: 700; padding: 16px 30px; border-radius: 999px;">Mira si calificas → 60 segundos</a>
+  </div>
+</section>
+
+<!-- S7 · Real results -->
+<section data-screen-label="S7 Results" style="background: #f7f5f0; padding: 96px 48px;">
+  <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px;">
+      <div style="display: flex; flex-direction: column; gap: 14px; max-width: 60ch;">
+        <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 600; color: #10312f; margin: 0; line-height: 1.1;">Resultados que hablan por sí solos</h2>
+      </div>
+    </div>
+    <div data-m="grid2" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 16px;">
+      <sc-for list="{{ results }}" as="r" hint-placeholder-count="10">
+        <figure style="margin: 0; display: flex; flex-direction: column; gap: 10px;">
+          <div style="overflow: hidden; border-radius: 8px; border: 1px solid #e6e0d2; background: #ffffff; position: relative; aspect-ratio: 1 / 1;">
+            <img src="{{ r.src }}" alt="{{ r.label }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+          </div>
+          <figcaption style="display: flex; flex-direction: column; gap: 2px;">
+            <span style="font-size: 13.5px; font-weight: 700; color: #10312f; line-height: 1.35;">{{ r.label }}</span>
+            <span style="font-size: 12px; color: #8b8371;">{{ r.doctor }}</span>
+          </figcaption>
+        </figure>
+      </sc-for>
+    </div>
+    <p style="margin: 0; font-size: 13px; color: #8b8371;">Los resultados varían. Fotos compartidas con consentimiento escrito de la paciente.</p>
+  </div>
+</section>
+
+<!-- S8 · Stories -->
+<section data-screen-label="S8 Stories" style="background: #ffffff; padding: 96px 48px;">
+  <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
+    <div style="display: flex; flex-direction: column; gap: 14px;">
+      <span style="font-size: 12px; letter-spacing: 0.28em; color: #b08d4f; font-weight: 700;">HISTORIAS</span>
+      <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 600; color: #10312f; margin: 0; line-height: 1.1;">Lo que le dirían a una amiga.</h2>
+    </div>
+    <div style="display: flex; gap: 18px; overflow-x: auto; padding-bottom: 12px; scroll-snap-type: x mandatory;">
+      <sc-for list="{{ stories }}" as="v" hint-placeholder-count="5">
+        <div style="flex: none; width: 250px; scroll-snap-align: start; display: flex; flex-direction: column; gap: 12px;">
+          <div style="position: relative; width: 250px; height: 444px; border-radius: 10px; overflow: hidden; background: #0b2a29; cursor: pointer;" onClick="{{ v.toggle }}">
+            <video src="{{ v.src }}" poster="{{ v.poster }}" ref="{{ v.ref }}" playsInline="{{ true }}" preload="metadata" muted="{{ v.muted }}" style="width: 100%; height: 100%; object-fit: cover; display: block;"></video>
+            <sc-if value="{{ v.paused }}" hint-placeholder-val="{{ true }}">
+              <span style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 56px; height: 56px; border-radius: 50%; background: rgba(11,42,41,0.75); border: 1px solid #c8a465; display: flex; align-items: center; justify-content: center; color: #c8a465; font-size: 20px; pointer-events: none;">▶</span>
+            </sc-if>
+          </div>
+          <span style="font-size: 12px; color: #b08d4f; font-weight: 700;">★★★★★ <span style="color: #8b8371; font-weight: 500;">Paciente de Xiluet</span></span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- S5 · You meet your surgeon -->
+<section data-screen-label="S5 Surgeons" style="background: #ffffff; padding: 96px 48px 0;">
+  <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+    <div style="display: flex; flex-direction: column; gap: 14px; max-width: 68ch;">
+      <span style="font-size: 12px; letter-spacing: 0.28em; color: #b08d4f; font-weight: 700;">LOS CIRUJANOS</span>
+      <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 600; color: #10312f; margin: 0; line-height: 1.1;">Tu consulta es con la persona que te va a operar.</h2>
+      <p style="margin: 0; font-size: 17px; line-height: 1.65; color: #4c635f;">En muchas clínicas de Miami conoces a un coordinador, pagas el depósito y ves al cirujano la mañana de la cirugía. Aquí no. Tu cirujano revisa tus fotos, escribe tu plan, hace tu consulta y te ve en cada seguimiento.</p>
+    </div>
+    <div data-m="grid2" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px;">
+      <sc-for list="{{ surgeons }}" as="s" hint-placeholder-count="5">
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <sc-if value="{{ s.photo }}" hint-placeholder-val="{{ false }}"><img src="{{ s.photo }}" alt="{{ s.name }}" style="width: 100%; height: 300px; object-fit: cover; object-position: top; border-radius: 6px; display: block; background: #f7f5f0;"></sc-if>
+          <h3 style="margin: 0; font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; color: #10312f;">{{ s.name }}</h3>
+          <span style="font-size: 11.5px; letter-spacing: 0.18em; font-weight: 700; color: #b08d4f;">{{ s.title }}</span>
+          <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: #4c635f;">{{ s.bio }}</p>
+          <a href="#verify" style="font-size: 12.5px; font-weight: 700; color: #b08d4f; text-decoration: none; letter-spacing: 0.04em;">Licencia [#] ↗</a>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="margin-top: 72px; background: #c8a465; padding: 36px 48px;">
+    <p style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 18px; font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 2.4vw, 30px); font-weight: 600; color: #0b2a29; line-height: 1.25;"><span style="font-size: 20px;">◇</span>Si en algún momento te sientes presionada o "vendida", dínoslo. Así no trabajamos.</p>
+  </div>
+</section>
+
+<!-- S3 · The price, in writing -->
+<section data-screen-label="S3 Price" style="background: #ffffff; padding: 96px 48px;">
+  <div style="max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 28px;">
+      <div style="display: flex; flex-direction: column; gap: 14px; max-width: 58ch;">
+        <span style="font-size: 12px; letter-spacing: 0.28em; color: #b08d4f; font-weight: 700;">PRECIO TRANSPARENTE</span>
+        <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 600; color: #10312f; margin: 0; line-height: 1.1; text-wrap: balance;">Qué significa "desde $7,500". Por escrito.</h2>
+        <p style="margin: 0; font-size: 17px; line-height: 1.65; color: #4c635f;">Cada cotización llega detallada antes de que pagues un depósito. Este es el Mommy Makeover estándar:</p>
+      </div>
+      <div data-m="price-tag" style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px; padding: 18px 24px; border: 1px solid #e6d9bd; border-radius: 8px; background: #fbf8f1;">
+        <span style="font-size: 11px; letter-spacing: 0.24em; color: #8b8371; font-weight: 700;">MOMMY MAKEOVER</span>
+        <div style="display: flex; align-items: baseline; gap: 12px;">
+          <span style="font-family: 'Cormorant Garamond', serif; font-size: 24px; color: #b7ab8f; text-decoration: line-through; text-decoration-color: #c8a465;">$8,900</span>
+          <span style="font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 600; color: #10312f; line-height: 1;">desde $7,500</span>
+        </div>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; align-items: stretch;">
+      <div style="background: #f7f5f0; border: 1px solid #e6e0d2; border-radius: 10px; padding: 34px 36px 38px; display: flex; flex-direction: column; gap: 22px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid #d9c9a3; padding-bottom: 16px;">
+          <h3 style="margin: 0; font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: #10312f;">Incluye</h3>
+          <span style="font-size: 11px; letter-spacing: 0.2em; color: #b08d4f; font-weight: 700;">7 PUNTOS</span>
+        </div>
+        <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px;">
+          <sc-for list="{{ included }}" as="it" hint-placeholder-count="7">
+            <li style="display: flex; gap: 14px; align-items: flex-start; font-size: 15.5px; line-height: 1.5; color: #1d3d3a;"><span style="flex: none; width: 22px; height: 22px; border-radius: 50%; background: #c8a465; color: #0b2a29; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; margin-top: 1px;">✓</span><span>{{ it }}</span></li>
+          </sc-for>
+        </ul>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div style="background: #ffffff; border: 1px solid #e6e0d2; border-radius: 10px; padding: 34px 36px; display: flex; flex-direction: column; gap: 22px;">
+          <div style="display: flex; flex-direction: column; gap: 4px; border-bottom: 1px solid #e6e0d2; padding-bottom: 16px;">
+            <h3 style="margin: 0; font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: #10312f;">No incluye</h3>
+            <span style="font-size: 13.5px; color: #8b8371;">para que no haya sorpresas</span>
+          </div>
+          <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px;">
+            <sc-for list="{{ notIncluded }}" as="it" hint-placeholder-count="4">
+              <li style="display: flex; gap: 14px; align-items: flex-start; font-size: 15.5px; line-height: 1.5; color: #4c635f;"><span style="flex: none; width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #d9c9a3; display: inline-flex; align-items: center; justify-content: center; margin-top: 1px;"><span style="width: 8px; height: 1.5px; background: #b7ab8f; display: block;"></span></span><span>{{ it }}</span></li>
+            </sc-for>
+          </ul>
+        </div>
+        <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 18px; background: #0b2a29; border-radius: 10px; padding: 30px 36px; position: relative; overflow: hidden;">
+          <span style="position: absolute; right: 22px; top: 14px; font-family: 'Cormorant Garamond', serif; font-size: 90px; color: rgba(200,164,101,0.12); line-height: 1; pointer-events: none;">◇</span>
+          <p style="margin: 0; font-family: 'Cormorant Garamond', serif; font-size: 23px; font-weight: 600; color: #f4ecdc; line-height: 1.3; position: relative;">Tu precio se confirma por escrito después de que tu cirujano revise tus fotos, antes de que pagues nada.</p>
+          <a href="#quiz" style="align-self: flex-start; text-decoration: none; background: #c8a465; color: #0b2a29; font-size: 14.5px; font-weight: 700; padding: 13px 24px; border-radius: 999px; position: relative;" style-hover="background: #d9b878;">Recibir mi cotización por escrito →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S4 · Recovery, day by day -->
+<section data-screen-label="S4 Recovery" style="background: #f7f5f0; padding: 96px 48px;">
+  <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 32px;">
+      <div style="display: flex; flex-direction: column; gap: 14px; max-width: 60ch;">
+        <span style="font-size: 12px; letter-spacing: 0.28em; color: #b08d4f; font-weight: 700;">RECUPERACIÓN, SIN FILTROS</span>
+        <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 600; color: #10312f; margin: 0; line-height: 1.1;">¿Cuándo vas a poder cargar a tus hijos otra vez?</h2>
+        <p style="margin: 0; font-size: 17px; line-height: 1.65; color: #4c635f;">Nadie te muestra el proceso intermedio. Nosotros sí, porque es lo que de verdad vas a tener que planear.</p>
+      </div>
+    </div>
+    <div data-m="grid2" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;">
+      <sc-for list="{{ phases }}" as="p" hint-placeholder-count="4">
+        <div style="background: #ffffff; border: 1px solid #e6e0d2; border-radius: 8px; padding: 28px 24px; display: flex; flex-direction: column; gap: 16px;">
+          <div style="width: 56px; height: 56px;">{{ p.icon }}</div>
+          <span style="font-size: 12px; letter-spacing: 0.2em; color: #b08d4f; font-weight: 700;">{{ p.label }}</span>
+          <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #1d3d3a;">{{ p.text }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- S9 · Traveling patients -->
+<section data-screen-label="S9 Travel" style="background: #f7f5f0; padding: 96px 48px;">
+  <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+    <div style="display: flex; flex-direction: column; gap: 14px; max-width: 66ch;">
+      <span style="font-size: 12px; letter-spacing: 0.28em; color: #b08d4f; font-weight: 700;">PACIENTES QUE VIAJAN</span>
+      <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 600; color: #10312f; margin: 0; line-height: 1.1;">Desde Orlando, Tampa, Atlanta o donde estés.</h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px;">
+      <sc-for list="{{ travel }}" as="t" hint-placeholder-count="4">
+        <div style="display: flex; flex-direction: column; gap: 16px; background: #ffffff; border: 1px solid #e6e0d2; border-radius: 8px; padding: 26px 24px;">
+          <div style="width: 44px; height: 44px;">{{ t.icon }}</div>
+          <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #1d3d3a;">{{ t.text }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- S12 · FAQ -->
+<section data-screen-label="S12 FAQ" style="background: #ffffff; padding: 96px 48px;">
+  <div style="max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px;">
+    <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 600; color: #10312f; margin: 0; line-height: 1.1;">Tus preguntas, respondidas sin rodeos.</h2>
+    <div style="display: flex; flex-direction: column; border-top: 1px solid #e6e0d2;">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="10">
+        <div style="border-bottom: 1px solid #e6e0d2;">
+          <button onClick="{{ f.toggle }}" style="width: 100%; text-align: left; background: none; border: none; padding: 22px 4px; display: flex; gap: 16px; align-items: flex-start; cursor: pointer; font-family: Mulish, sans-serif;">
+            <span style="color: #c8a465; font-size: 14px; margin-top: 3px; transition: transform .25s; transform: {{ f.rot }};">◇</span>
+            <span style="flex: 1; font-size: 17px; font-weight: 700; color: #10312f; line-height: 1.4;">{{ f.q }}</span>
+            <span style="color: #b7ab8f; font-size: 18px; line-height: 1;">{{ f.sign }}</span>
+          </button>
+          <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+            <p style="margin: 0; padding: 0 4px 24px 44px; font-size: 15.5px; line-height: 1.65; color: #4c635f;">{{ f.a }}</p>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- S13 · Final CTA -->
+<section data-screen-label="S13 Final CTA" style="background: #0b2a29; padding: 112px 48px; position: relative; overflow: hidden;">
+  <img src="uploads/Xiluet.jpg" alt="" style="position: absolute; left: -140px; top: -120px; width: 560px; opacity: 0.06; mix-blend-mode: luminosity; pointer-events: none;">
+  <div style="max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 28px; position: relative;">
+    <h2 style="font-family: 'Cormorant Garamond', serif; font-size: clamp(34px, 4vw, 50px); font-weight: 600; color: #f4ecdc; margin: 0; line-height: 1.1; text-wrap: pretty;">Descubre en 60 segundos si esto es para ti, y cuánto costaría.</h2>
+    <a href="#quiz" style="text-decoration: none; background: #c8a465; color: #0b2a29; font-size: 17px; font-weight: 700; padding: 18px 40px; border-radius: 999px;" style-hover="background: #d9b878;">Empezar el quiz</a>
+    <p style="margin: 0; font-size: 15px; color: rgba(238,230,213,0.7); font-style: italic;">Evaluación gratis con el cirujano. Sin depósito para recibir tu cotización.</p>
+  </div>
+</section>
+
+<!-- S14 · Visit + footer -->
+<section data-screen-label="S14 Visit" style="background: #f7f5f0; padding: 96px 48px 64px;">
+  <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: stretch;">
+      <div style="display: flex; flex-direction: column; gap: 22px;">
+        <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 600; color: #10312f; margin: 0; line-height: 1.1;">Visítanos en Miami</h2>
+        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 16px; line-height: 1.6; color: #1d3d3a;">
+          <span><span style="color: #b08d4f; font-weight: 700; letter-spacing: 0.14em; font-size: 11.5px; display: block;">DIRECCIÓN</span>7390 W Flagler St, Miami, FL 33144</span>
+          <span><span style="color: #b08d4f; font-weight: 700; letter-spacing: 0.14em; font-size: 11.5px; display: block;">HORARIO</span>Lun–Vie 9 AM–6 PM · Sáb 9 AM–2 PM · Dom cerrado</span>
+          <span><span style="color: #b08d4f; font-weight: 700; letter-spacing: 0.14em; font-size: 11.5px; display: block;">TELÉFONO</span>(305) 615-4200</span>
+        </div>
+        <img src="uploads/Office.jpg" alt="Recepción de Xiluet" style="width: 100%; flex: 1; min-height: 240px; object-fit: cover; border-radius: 8px; display: block;">
+      </div>
+      <iframe data-m="map" title="Map" src="https://maps.google.com/maps?q=7390+W+Flagler+St+Miami+FL+33144&t=&z=15&ie=UTF8&iwloc=B&output=embed" style="width: 100%; height: 100%; min-height: 420px; border: 1px solid #e6e0d2; border-radius: 8px; filter: saturate(0.6); display: block;" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+<footer style="background: #0b2a29;">
+  <div data-m="skyline" style="position: relative; height: 260px; overflow: hidden;">
+    <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3HSeu3MiZbD5rZqN4nnQHGTvdYd/hf_20260901_202312_b0f1464e-e46c-415b-b635-ec1a200db541.png" alt="Vista de Miami" style="width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.7);">
+    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(11,42,41,0.15) 0%, rgba(11,42,41,0) 40%, rgba(11,42,41,0.85) 100%);"></div>
+  </div>
+  <div data-m="pad" style="max-width: 1200px; margin: 0 auto; padding: 40px 48px 44px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 28px;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <img src="uploads/Xiluet.jpg" alt="" style="width: 32px; height: 36px; object-fit: contain;">
+      <span style="font-family: 'Cormorant Garamond', serif; font-size: 20px; color: #e9dcc3; font-weight: 600;">Xiluet</span>
+      <span style="font-size: 10px; letter-spacing: 0.32em; color: #c8a465; font-weight: 600;">AESTHETIC SURGERY</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 12px; font-size: 14px; color: rgba(238,230,213,0.8);">
+      <span>Xiluet Aesthetic Surgery · 7390 W Flagler St, Miami, FL 33144 · (305) 615-4200</span>
+      <div style="display: flex; gap: 18px;">
+        <a href="https://xiluetaestheticsurgery.com/privacy-policy/" target="_blank" rel="noopener" style="color: #e9dcc3; text-decoration: underline; text-decoration-color: rgba(200,164,101,0.6); text-underline-offset: 3px;">Política de privacidad</a>
+        <a href="https://xiluetaestheticsurgery.com/terms-and-conditions/" target="_blank" rel="noopener" style="color: #e9dcc3; text-decoration: underline; text-decoration-color: rgba(200,164,101,0.6); text-underline-offset: 3px;">Términos</a>
+      </div>
+      <span style="font-size: 12.5px; color: rgba(238,230,213,0.5);">Los resultados varían según la paciente. La cotización se entrega tras revisar tus fotos.</span>
+    </div>
+  </div>
+</footer>
+
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;sampleDate&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;2026-10-15&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Recovery timeline&quot;},&quot;blurResults&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Results&quot;}}">
+class Component extends DCLogic {
+  state = { surgeryDate: this.props.sampleDate ?? "2026-10-15", revealed: {}, openFaq: 0, pastHero: false,
+    quizOpen: false, step: 0, answers: {}, outcome: null, uploaderOpen: false, photos: [null, null, null, null], photosSubmitted: false,
+    form: { heightFt: "", heightIn: "", weight: "", state: "Florida", city: "", firstName: "", phone: "", whatsapp: true, email: "", language: "EN" } };
+  STEPS = [
+    { id: "procedures", multi: true, title: "¿Qué procedimientos te interesan?", hint: "Elige todo lo que aplique.", q: 1, options: ["Abdominoplastia", "Levantamiento de senos", "Aumento de senos", "Liposucción", "No estoy segura, que el cirujano recomiende"] },
+    { id: "timing", title: "¿Cuándo te gustaría operarte?", q: 2, options: ["Lo antes posible", "1–3 meses", "3–6 meses", "Solo estoy investigando"] },
+    { id: "travel", title: "¿Puedes viajar a nuestra clínica en Miami?", q: 3, options: ["Vivo en Miami/Sur de FL", "Sí, desde otra parte de Florida", "Sí, desde otro estado", "No"] },
+    { id: "age", title: "¿Tienes 18 años o más?", q: 4, options: ["Sí", "No"] },
+    { id: "postpartum", title: "¿Ya no planeas más embarazos, pasaron 6+ meses del parto y ya no amamantas?", q: 4, options: ["Sí", "Todavía no", "No estoy segura"] },
+    { id: "smoke", title: "¿Fumas o vapeas?", q: 4, options: ["No", "Sí", "Sí, pero lo dejaría antes de la cirugía"] },
+    { id: "pay", title: "¿Cómo planeas pagar?", q: 5, options: ["Efectivo/ahorros", "Financiamiento", "Una combinación", "No estoy segura"] },
+    { id: "credit", title: "¿Tu puntaje de crédito aproximado?", q: 6, options: ["720+", "680–719", "620–679", "Menos de 620", "No lo sé"], showIf: a => ["Financiamiento", "Una combinación", "No estoy segura"].includes(a.pay) },
+    { id: "location", type: "location", title: "¿Dónde te encuentras?", q: 7 },
+    { id: "contact", type: "contact", title: "¿A dónde te enviamos la evaluación de tu cirujano?", q: 8 },
+  ];
+  ICONS = {
+    "Abdominoplastia": ["M14 10c-2 8-2 20 0 28", "M34 10c2 8 2 20 0 28", "M14 24h20", "M20 30h8"],
+    "Levantamiento de senos": ["M24 38V14", "M16 22l8-8 8 8", "M12 40h24"],
+    "Aumento de senos": ["M14 28a8 8 0 1016 0 8 8 0 10-16 0z", "M34 20v10M29 25h10"],
+    "Liposucción": ["M18 8v14a6 6 0 1012 0V8", "M16 36c0-4 4-6 8-6s8 2 8 6"],
+    "No estoy segura, que el cirujano recomiende": ["M24 34v1", "M18 18a6 6 0 1112 0c0 4-6 5-6 9", "M24 6a18 18 0 100 36 18 18 0 100-36z"],
+    "Lo antes posible": ["M24 8a16 16 0 100 32 16 16 0 100-32z", "M24 14v10l7 4"],
+    "1–3 meses": ["M8 14h32v26H8z", "M8 22h32", "M16 8v10M32 8v10"],
+    "3–6 meses": ["M8 14h32v26H8z", "M8 22h32", "M16 8v10M32 8v10", "M16 30h6M26 30h6"],
+    "Solo estoy investigando": ["M20 8a12 12 0 100 24 12 12 0 100-24z", "M29 29l11 11"],
+    "Vivo en Miami/Sur de FL": ["M24 42s-12-12-12-22a12 12 0 0124 0c0 10-12 22-12 22z", "M24 16a4 4 0 100 8 4 4 0 100-8z"],
+    "Sí, desde otra parte de Florida": ["M8 38c8-2 14-6 16-12s4-10 12-14", "M30 12l6-2-2 6"],
+    "Sí, desde otro estado": ["M6 30l14-6 10-14 4 2-6 14 12 6-2 3-14-3-8 7-3-1 3-9-9-3z"],
+    "No": ["M24 8a16 16 0 100 32 16 16 0 100-32z", "M14 14l20 20"],
+    "Sí": ["M24 8a16 16 0 100 32 16 16 0 100-32z", "M16 24l6 6 10-12"],
+    "Todavía no": ["M24 8a16 16 0 100 32 16 16 0 100-32z", "M20 18v12M28 18v12"],
+    "No estoy segura": ["M24 34v1", "M18 18a6 6 0 1112 0c0 4-6 5-6 9", "M24 6a18 18 0 100 36 18 18 0 100-36z"],
+    "Sí, pero lo dejaría antes de la cirugía": ["M8 30h24v6H8z", "M32 30h6v6h-6z", "M20 24c0-4 4-4 4-8", "M10 40L38 12"],
+    "Efectivo/ahorros": ["M6 14h36v20H6z", "M24 18a6 6 0 100 12 6 6 0 100-12z", "M11 19h2M35 29h2"],
+    "Financiamiento": ["M8 12h32v24H8z", "M8 20h32", "M14 30h8"],
+    "Una combinación": ["M8 24a16 16 0 0132 0", "M8 24a16 16 0 0032 0", "M24 8v32"],
+    "720+": ["M24 6l5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z"],
+    "680–719": ["M24 6l5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z", "M24 6v34"],
+    "620–679": ["M8 34a16 16 0 0132 0", "M24 34V22", "M8 34h32"],
+    "Menos de 620": ["M8 30a16 16 0 0132 0", "M14 30l10-10", "M8 30h32"],
+    "No lo sé": ["M24 34v1", "M18 18a6 6 0 1112 0c0 4-6 5-6 9", "M24 6a18 18 0 100 36 18 18 0 100-36z"],
+  };
+  silhouette(kind) {
+    const paths = {
+      front: ["M28 8a5 5 0 100 10 5 5 0 100-10z", "M22 20c-4 1-6 4-6 8v10c0 3 1 5 3 7l2 22h4l2-18h2l2 18h4l2-22c2-2 3-4 3-7V28c0-4-2-7-6-8z", "M16 26l-3 14M40 26l3 14"],
+      left: ["M28 8a5 5 0 100 10 5 5 0 100-10z", "M26 20c-3 2-4 5-4 9 0 5 3 8 3 12l-2 24h6l2-22c3-3 4-7 3-12-1-6-3-9-8-11z", "M24 24l-2 16"],
+      right: ["M28 8a5 5 0 100 10 5 5 0 100-10z", "M30 20c3 2 4 5 4 9 0 5-3 8-3 12l2 24h-6l-2-22c-3-3-4-7-3-12 1-6 3-9 8-11z", "M32 24l2 16"],
+      back: ["M28 8a5 5 0 100 10 5 5 0 100-10z", "M22 20c-4 1-6 4-6 8v10c0 3 1 5 3 7l2 22h4l2-18h2l2 18h4l2-22c2-2 3-4 3-7V28c0-4-2-7-6-8z", "M28 26v14", "M16 26l-3 14M40 26l3 14"],
+    }[kind];
+    return React.createElement("svg", { viewBox: "0 0 56 76", fill: "none", stroke: "#c8a465", strokeWidth: 1.3, strokeLinecap: "round", strokeLinejoin: "round", style: { width: "100%", height: "100%" } },
+      paths.map((d, i) => React.createElement("path", { key: i, d })));
+  }
+  visibleSteps() { return this.STEPS.filter(s => !s.showIf || s.showIf(this.state.answers)); }
+  openQuiz() { const el = document.getElementById("quiz"); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 90, behavior: "smooth" }); if (window.dataLayer && !this._started) { this._started = true; window.dataLayer.push({ event: "quiz_start" }); } }
+  closeQuiz() { this.setState({ step: 0, answers: {}, outcome: null, uploaderOpen: false, photos: [null, null, null, null], photosSubmitted: false }); }
+  qualify() {
+    const a = this.state.answers;
+    if (a.age === "No" || a.travel === "No") return "not_fit";
+    if (a.timing === "Solo estoy investigando" || a.credit === "Menos de 620" || a.postpartum === "Todavía no") return "nurture";
+    return "qualified";
+  }
+  advance() {
+    const steps = this.visibleSteps();
+    const cur = steps[this.state.step];
+    const a = this.state.answers;
+    if ((cur.id === "travel" && a.travel === "No") || (cur.id === "age" && a.age === "No")) { this.setState({ outcome: "not_fit" }); return; }
+    if (this.state.step + 1 >= steps.length) {
+      const outcome = this.qualify();
+      if (window.dataLayer) { window.dataLayer.push({ event: "quiz_complete" }); if (outcome === "qualified") window.dataLayer.push({ event: "qualified_lead" }); }
+      this.setState({ outcome });
+      return;
+    }
+    this.setState(s => ({ step: s.step + 1 }));
+    if (window.dataLayer) window.dataLayer.push({ event: "quiz_step_" + (this.state.step + 2) });
+  }
+  componentDidMount() {
+    this._onHash = () => { if (location.hash === "#quiz") this.openQuiz(); };
+    window.addEventListener("hashchange", this._onHash);
+    this._onKey = () => {};
+    this._onScroll = () => {
+      const hero = document.querySelector('[data-screen-label="S1 Hero"]');
+      const past = hero ? window.scrollY > hero.offsetTop + hero.offsetHeight - 80 : true;
+      if (past !== this.state.pastHero) this.setState({ pastHero: past });
+    };
+    window.addEventListener("scroll", this._onScroll, { passive: true });
+    this._onScroll();
+  }
+  componentWillUnmount() { window.removeEventListener("scroll", this._onScroll); window.removeEventListener("hashchange", this._onHash); window.removeEventListener("keydown", this._onKey); }
+  quizVals() {
+    const { quizOpen, step, answers, outcome, form, uploaderOpen, photos, photosSubmitted } = this.state;
+    const steps = this.visibleSteps();
+    const cur = steps[Math.min(step, steps.length - 1)];
+    const inQuestions = !outcome;
+    const type = cur.type || "choice";
+    const setForm = k => e => this.setState(s => ({ form: { ...s.form, [k]: e.target.type === "checkbox" ? e.target.checked : e.target.value } }));
+    const setLang = l => () => this.setState(s => ({ form: { ...s.form, language: l } }));
+    const sel = answers[cur.id];
+    const options = (cur.options || []).map(label => {
+      const on = cur.multi ? (sel || []).includes(label) : sel === label;
+      return { label, icon: this.icon(this.ICONS[label] || ["M24 8a16 16 0 100 32 16 16 0 100-32z"]),
+        bg: on ? "#f8efd9" : "#ffffff", border: on ? "#c8a465" : "#e6dcc4", check: on ? "✓" : "", checkBg: on ? "#c8a465" : "transparent",
+        pick: () => {
+          if (cur.multi) { const next = on ? (sel || []).filter(x => x !== label) : [...(sel || []), label]; this.setState(s => ({ answers: { ...s.answers, [cur.id]: next } })); }
+          else { this.setState(s => ({ answers: { ...s.answers, [cur.id]: label } }), () => setTimeout(() => this.advance(), 220)); }
+        } };
+    });
+    let canContinue = true;
+    if (type === "choice" && cur.multi) canContinue = (sel || []).length > 0;
+    if (type === "hw") canContinue = form.heightFt && form.weight;
+    if (type === "contact") canContinue = form.firstName.trim() && form.phone.trim() && form.email.trim();
+    const showContinue = inQuestions && (type !== "choice" || cur.multi);
+    const markers = Array.from({ length: 8 }, (_, i) => { const n = i + 1; const done = n < cur.q, now = n === cur.q;
+      return { sym: done || now ? "◆" : "◇", color: done || now ? "#c8a465" : "#d9c9a3", line: n < 8, lineColor: done ? "#c8a465" : "#e3d7bd", flex: n < 8 ? "1" : "none" }; });
+    const name = form.firstName.trim() || "mamá";
+    const wa = msg => "https://wa.me/13056154200?text=" + encodeURIComponent(msg);
+    const labels = ["FRENTE", "IZQ.", "DER.", "ESPALDA"];
+    const uploadSlots = labels.map((label, i) => ({ label, src: photos[i], empty: !photos[i],
+      onFile: e => { const f = e.target.files && e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => this.setState(s => { const p = [...s.photos]; p[i] = r.result; return { photos: p }; }); r.readAsDataURL(f); } }));
+    const anyPhoto = photos.some(Boolean);
+    const notFitText = answers.travel === "No" ? "Nuestras cirugías se realizan en Miami. Si tus planes cambian, nos encantaría ayudarte." : "Nuestros procedimientos son para pacientes de 18 años o más. Cuando sea el momento, nos encantaría ayudarte.";
+    return {
+      quizOpen: true, inQuestions, canBack: inQuestions && step > 0, noBack: !(inQuestions && step > 0),
+      quizClose: () => this.closeQuiz(), quizReset: () => this.closeQuiz(), quizBack: () => this.setState(s => ({ step: Math.max(0, s.step - 1) })), quizNext: () => canContinue && this.advance(),
+      qNum: cur.q, qTitle: cur.title, qHint: cur.hint || "", markers,
+      isChoice: inQuestions && type === "choice", isHW: inQuestions && type === "hw", isLocation: inQuestions && type === "location", isContact: inQuestions && type === "contact",
+      options, form, states: this.STATES, showContinue, continueDisabled: !canContinue, continueOpacity: canContinue ? 1 : 0.45,
+      continueLabel: type === "contact" ? "Recibir mi evaluación gratis →" : "Continuar",
+      onHeightFt: setForm("heightFt"), onHeightIn: setForm("heightIn"), onWeight: setForm("weight"), onState: setForm("state"), onCity: setForm("city"),
+      onFirstName: setForm("firstName"), onPhone: setForm("phone"), onWhatsapp: setForm("whatsapp"), onEmail: setForm("email"),
+      setLangEN: setLang("EN"), setLangES: setLang("ES"),
+      langENbg: form.language === "EN" ? "#c8a465" : "#ffffff", langENfg: form.language === "EN" ? "#0b2a29" : "#b08d4f",
+      langESbg: form.language === "ES" ? "#c8a465" : "#ffffff", langESfg: form.language === "ES" ? "#0b2a29" : "#b08d4f",
+      isQualified: outcome === "qualified", isNurture: outcome === "nurture", isNotFit: outcome === "not_fit", notFitText, firstName: name,
+      waLink: wa("Hola, soy " + name + ". Acabo de completar la evaluación de Mommy Makeover y envío mis fotos."),
+      waLinkNurture: wa("Hola, soy " + name + ". Acabo de completar la evaluación de Mommy Makeover."),
+      silhouettes: [["FRENTE", "front"], ["LADO IZQUIERDO", "left"], ["LADO DERECHO", "right"], ["ESPALDA", "back"]].map(([label, k]) => ({ label, icon: this.silhouette(k) })),
+      toggleUploader: () => this.setState(s => ({ uploaderOpen: !s.uploaderOpen })), uploaderOpen, uploadSlots, notSubmitted: !photosSubmitted, photosSubmitted,
+      submitDisabled: !anyPhoto, submitOpacity: anyPhoto ? 1 : 0.45,
+      submitPhotos: () => { if (anyPhoto) { this.setState({ photosSubmitted: true }); if (window.dataLayer) window.dataLayer.push({ event: "photos_sent" }); } },
+    };
+  }
+  STATES = ["Florida", "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming", "Puerto Rico", "Fuera de EE. UU."];
+  fmt(base, days) {
+    const d = new Date(base + "T12:00:00"); d.setDate(d.getDate() + days);
+    return d.toLocaleDateString("es-US", { month: "short", day: "numeric" });
+  }
+  icon(paths) {
+    return React.createElement("svg", { viewBox: "0 0 48 48", fill: "none", stroke: "#c8a465", strokeWidth: 1.4, strokeLinecap: "round", strokeLinejoin: "round", style: { width: "100%", height: "100%" } },
+      paths.map((d, i) => React.createElement("path", { key: i, d })));
+  }
+  renderVals() {
+    const { surgeryDate, revealed, openFaq } = this.state;
+    const f = (a, b) => b === undefined ? this.fmt(surgeryDate, a) : this.fmt(surgeryDate, a) + " – " + this.fmt(surgeryDate, b);
+    const blurDefault = this.props.blurResults ?? true;
+    const faqData = [
+      ["¿Cuánto cuesta realmente un Mommy Makeover aquí?", "Desde $7,500 por [la combinación estándar]. Tu cotización escrita y detallada llega después de que tu cirujano revise tus fotos. Lo que no incluye está arriba."],
+      ["¿Conozco al cirujano antes de pagar?", "Sí. Tu consulta es con tu cirujano, antes de cualquier depósito."],
+      ["¿Qué tanto duele?", "Los primeros 2–3 días son los más difíciles; la mayoría deja los analgésicos fuertes en 3–5 días. Tu cirujano te explica el plan de manejo del dolor."],
+      ["¿Cuándo puedo cargar a mis hijos?", "Nada de más de ~10 libras por unas 6 semanas. Planea ayuda. Mira el cronograma arriba."],
+      ["¿Cuánto tiempo sin trabajar?", "Trabajo de oficina ~2 semanas; trabajo físico 4–6 semanas."],
+      ["¿Tendré drenajes? ¿Cicatriz?", "La mayoría de las abdominoplastias usan drenajes [5–7] días. La cicatriz queda baja, oculta por la ropa interior; te mostramos dónde antes de operar."],
+      ["¿Soy candidata si tuve cesárea?", "Generalmente sí. La incisión suele incorporar la cicatriz anterior."],
+      ["¿Debo haber terminado de tener hijos?", "Lo recomendamos mucho. Otro embarazo puede deshacer los resultados."],
+      ["¿El depósito es reembolsable?", "[Términos]."],
+      ["¿Tengo que vivir en Miami?", "No. Mira \"Pacientes que viajan\"."],
+    ];
+    const mkCase = (id, label, caption) => {
+      const open = revealed[id] ?? !blurDefault;
+      return { label, caption, blur: open ? "none" : "blur(18px)", btn: open ? "HIDE" : "TAP TO VIEW",
+        toggle: () => this.setState(s => ({ revealed: { ...s.revealed, [id]: !open } })),
+        stages: [["BEFORE", "before"], ["WEEK 3", "week3"], ["MONTH 6", "month6"]].map(([tag, k]) => ({ tag, slot: id + "-" + k, photo: "Case " + id.slice(-1) + " · " + tag + ". Front, neutral background, undergarments" })) };
+    };
+    const resultsOpen = revealed.all ?? !blurDefault;
+    const showCta = this.state.pastHero || (typeof window !== "undefined" && window.innerWidth >= 900);
+    return {
+      ...this.quizVals(),
+      headerCtaOpacity: showCta ? 1 : 0,
+      headerCtaTransform: showCta ? "translateY(0)" : "translateY(-6px)",
+      headerCtaEvents: showCta ? "auto" : "none",
+      surgeryDate,
+      onDateChange: e => { if (e.target.value) this.setState({ surgeryDate: e.target.value }); },
+      verifyCards: [
+        { text: "[Accreditation body]-accredited surgical facility · Cert. [#]", link: "Accreditation lookup", href: "VERIFY_URL_1" },
+        { text: "Registered Florida office surgery center · Reg. [#]", link: "FL DOH registration", href: "VERIFY_URL_2" },
+        { text: "Board-certified plastic surgeons — Dr. Liliav (American Board of Plastic Surgery & American Board of Surgery), Dr. Dillon (American Board of Plastic Surgery) · FL license [ME#]", link: "FL license lookup", href: "VERIFY_URL_3" },
+        { text: "Anesthesia by [board-certified anesthesiologist / CRNA under MD supervision]", link: "Provider credentials", href: "VERIFY_URL_4" },
+      ],
+      trustIcons: {
+        eval: this.icon(["M10 10h28v28H10z", "M16 20h16M16 26h10", "M30 30l3 3 6-6"]),
+        finance: this.icon(["M6 14h36v20H6z", "M24 18a6 6 0 100 12 6 6 0 100-12z", "M11 19h2M35 29h2"]),
+        board: this.icon(["M24 6l5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z"]),
+      },
+      procedureCards: [
+        { title: "Abdominoplastia", text: "Removes the loose skin and stretch marks below the belly button and repairs the separated muscles, so your core feels strong again and your waist is yours again.", icon: this.icon(this.ICONS["Abdominoplastia"]) },
+        { title: "Levantamiento de senos", text: "Restores the shape, position and fullness that nursing and pregnancy took — so you fit your bras, your dresses and your reflection.", icon: this.icon(this.ICONS["Levantamiento de senos"]) },
+        { title: "Aumento de senos (opcional)", text: "Adds back the volume you lost, with or without a lift. Natural size, chosen with your surgeon — never \"done\".", icon: this.icon(this.ICONS["Aumento de senos"]) },
+        { title: "Liposucción", text: "Contours the waist, flanks and back that don't respond to the gym, so everything you worked for finally shows.", icon: this.icon(this.ICONS["Liposucción"]) },
+      ],
+      moments: [
+        "You stop pulling your shirt down every time you sit.",
+        "You get in the pool with them instead of watching from the chair.",
+        "You're in the family photos again — in the front row.",
+        "You buy the dress, not the shapewear.",
+        "Your core is strong enough to carry them, and the groceries, and the day.",
+        "You catch yourself in a window and you don't look away.",
+      ],
+      included: [
+        "Honorarios del cirujano por abdominoplastia, levantamiento o aumento de senos y liposucción",
+        "Quirófano acreditado y anestesia",
+        "Implantes de senos, cuando el aumento forma parte de tu plan",
+        "Laboratorios y evaluación médica preoperatoria",
+        "Fajas postoperatorias",
+        "Todas las citas de seguimiento con tu cirujano durante 12 meses",
+        "Retiro de drenajes y kit de medicamentos postoperatorios",
+      ],
+      notIncluded: ["Viaje y hospedaje", "Procedimientos adicionales que tu cirujano recomiende", "Medicamentos con receta [si no se incluyen]", "Casa de recuperación o enfermería, si la deseas"],
+      milestones: [
+        { when: "DAY 0", date: f(0), text: "Surgery. You go home [same day / after an overnight stay] with a companion." },
+        { when: "DAYS 1–3", date: f(1, 3), text: "The hardest days. Pain is highest, you'll rest in a recliner, walk short laps every few hours. You'll need someone with you 24/7." },
+        { when: "DAYS 5–7", date: f(5, 7), text: "[Drains out]. First follow-up with your surgeon." },
+        { when: "WEEK 2", date: f(14), text: "Desk work and driving [if off pain medication]. Still no lifting over 10 lbs. No carrying toddlers yet." },
+        { when: "WEEK 3–4", date: f(21, 28), text: "Standing straight, walking normally, light cardio. Fly home if you're from out of state." },
+        { when: "WEEK 6", date: f(42), text: "Cleared for lifting and exercise [per surgeon]. Yes, you can pick them up." },
+        { when: "MONTH 3", date: f(90), text: "Swelling mostly gone. Most women say \"now I see it.\"" },
+        { when: "MONTH 6", date: f(180), text: "Final result. Scars fading." },
+      ],
+      phases: [
+        { label: "SEMANA 1", text: "Descansas en un sillón reclinable y caminas tramos cortos cada pocas horas. Alguien contigo 24/7.", icon: this.icon(["M8 30h26l4-10H14z", "M8 30v8M34 30v8", "M14 20V12h10", "M38 20l-4 10"]) },
+        { label: "SEMANAS 2–3", text: "Trabajo de escritorio y manejar. Todavía nada de cargar más de 10 libras.", icon: this.icon(["M24 8a3 3 0 100 6 3 3 0 100-6z", "M24 14v10l-5 14M24 24l5 14", "M24 17l-7 4M24 17l7 6", "M10 40h28"]) },
+        { label: "SEMANAS 4–6", text: "Alta para cargar peso y hacer ejercicio. Sí, ya puedes cargarlos.", icon: this.icon(["M20 10a3 3 0 100 6 3 3 0 100-6z", "M20 16v12l-4 12M20 28l4 12", "M20 19l-6 3M20 19l7-2", "M31 12a2.5 2.5 0 100 5 2.5 2.5 0 100-5z", "M31 17v7l-3 4M31 24l3 4", "M27 17l4 3"]) },
+        { label: "MESES 3–6", text: "La inflamación casi desaparece. Resultado final.", icon: this.icon(["M6 36c6-4 12-4 18 0s12 4 18 0", "M24 8a8 8 0 100 16 8 8 0 100-16z", "M24 4v2M24 26v2M10 16h2M36 16h2"]) },
+      ],
+      surgeons: [
+        { name: "Dr. Benjamin Liliav, MD", title: "CIRUJANO PLÁSTICO CERTIFICADO", photo: "https://lp.xiluetaestheticsurgery.com/wp-content/uploads/2026/07/65454.jpg", bio: "El Dr. Benjamin Liliav, MD, FACS, es cirujano plástico con doble certificación y más de 20 años de experiencia, especializado en resultados de aspecto natural." },
+        { name: "Dr. Marina Zorrilla, MD", title: "CIRUJANA COSMÉTICA", photo: "https://lp.xiluetaestheticsurgery.com/wp-content/uploads/2026/07/7654.jpg", bio: "La Dra. Astrid Marina Zorrilla (\"Dra. Marina\") es cirujana cosmética bilingüe especializada en procedimientos estéticos para la mujer, con atención personalizada." },
+        { name: "Dr. Felippe Sartorato, DO", title: "CIRUJANO PLÁSTICO Y RECONSTRUCTIVO", photo: "https://lp.xiluetaestheticsurgery.com/wp-content/uploads/2026/07/453t5.jpg", bio: "El Dr. Felippe Sartorato es cirujano plástico y reconstructivo especializado en cirugía estética y atención personalizada." },
+        { name: "Madeline Vazquez", title: "A.P.R.N.", photo: "https://lp.xiluetaestheticsurgery.com/wp-content/uploads/2026/07/567456.jpg", bio: "Madeline Vazquez, A.P.R.N., se especializa en tratamientos estéticos y terapias de bienestar, con atención personalizada, empatía y experiencia." },
+      ],
+      steps: [
+        { n: "01", emoji: "📸", title: "Envía 4 fotos desde tu celular", text: "frente, lados, espalda. Privadas, solo las ve tu equipo quirúrgico." },
+        { n: "02", emoji: "🩺", title: "Tu cirujano las evalúa", text: "y te dice con honestidad si eres candidata y qué recomienda." },
+        { n: "03", emoji: "📄", title: "Cotización por escrito en 24–48h", text: "detallada. Válida por [30 días]. No necesitas depósito para recibirla." },
+        { n: "04", emoji: "💬", title: "Conoce a tu cirujano", text: "en persona o por video. Trae todas tus preguntas." },
+        { n: "05", emoji: "📅", title: "Reserva tu fecha", text: "depósito de $250, se descuenta del total. [Términos de reembolso/transferencia]." },
+        { n: "06", emoji: "🌴", title: "Cirugía en Miami, recuperación con nuestro equipo", text: "seguimientos incluidos; citas virtuales si regresas a tu estado." },
+      ],
+      results: [
+        ["breast-aug-lipo-bbl-dr-benjamin", "Aumento de senos + lipo + BBL", "Dr. Benjamin Liliav"],
+        ["tummy-tuck-lipo-bbl-dr-benjamin-1", "Abdominoplastia + lipo + BBL", "Dr. Benjamin Liliav"],
+        ["lipo-bbl-3-dr-benjamin", "Lipo con BBL", "Dr. Benjamin Liliav"],
+        ["dr.marina-breast-lift-no-implants", "Levantamiento de senos, sin implantes", "Dr. Marina Zorrilla"],
+        ["DR.-Marina-Breast-augmentation-with-ext-tummy-tuck", "Aumento de senos + abdominoplastia extendida", "Dr. Marina Zorrilla"],
+        ["BA_MAR1", "Levantamiento con reducción, sin implante", "Dr. Marina Zorrilla"],
+        ["tumy-tuck-breast-lift-silicone-implants", "Abdominoplastia + levantamiento + implantes de silicona", "Dr. Marina Zorrilla"],
+        ["Dr.-Mel-Ortega-Ext-Tummy-Tuck-Breast-Augmentation-13", "Abdominoplastia extendida + aumento de senos", "Dr. Mel Ortega"],
+        ["Dr.-Mel-Ortega-Ext-Tummy-Tuck-Breast-Lift-12", "Abdominoplastia extendida + levantamiento de senos", "Dr. Mel Ortega"],
+        ["Dr.-Mel-Ortega-Ext-Tummy-Tuck-Breast-Lift-3", "Abdominoplastia extendida + levantamiento de senos", "Dr. Mel Ortega"],
+      ].map(([f, label, doctor]) => ({ src: "https://lp.xiluetaestheticsurgery.com/wp-content/uploads/2026/07/" + f + "-1024x1024." + (f === "dr.marina-breast-lift-no-implants" || f === "BA_MAR1" ? "png" : "jpg"), label, doctor })),
+      resultsHidden: !resultsOpen, resultsBlur: resultsOpen ? "none" : "blur(16px)", resultsScale: resultsOpen ? "scale(1)" : "scale(1.06)",
+      resultsBtn: resultsOpen ? "HIDE PHOTOS" : "SHOW PHOTOS",
+      toggleResults: () => this.setState(s => ({ revealed: { ...s.revealed, all: !resultsOpen } })),
+      stories: ["videos-1788297367616-tmmr", "videos-1788297366841-womk", "videos-1788297367155-9ud7", "videos-1788297368392-fcyv", "videos-1788297369311-v9w5"].map((f, i) => {
+        const playing = this.state.playingVideo === i;
+        return { src: "uploads/" + f + ".mp4", poster: f === "videos-1788297366841-womk" ? "uploads/poster-womk.png" : "", paused: !playing, muted: !playing,
+          ref: el => { this._videos = this._videos || {}; this._videos[i] = el; },
+          toggle: () => {
+            const vids = this._videos || {};
+            Object.entries(vids).forEach(([k, el]) => { if (el && +k !== i) { el.pause(); el.currentTime = 0; } });
+            const el = vids[i]; if (!el) return;
+            if (playing) { el.pause(); this.setState({ playingVideo: null }); }
+            else { el.muted = false; el.play(); this.setState({ playingVideo: i }); el.onended = () => this.setState({ playingVideo: null }); }
+          } };
+      }),
+      travel: [
+        { text: "Planea 7–10 días en Miami. Regresa después de tu revisión de la semana 1.", icon: this.icon(["M6 30l14-6 10-14 4 2-6 14 12 6-2 3-14-3-8 7-3-1 3-9-9-3z"]) },
+        { text: "Ven con un acompañante los primeros 3 días, o te conectamos con una casa de recuperación con licencia.", icon: this.icon(["M8 24L24 10l16 14", "M12 21v19h24V21", "M20 40V29h8v11"]) },
+        { text: "Tus seguimientos desde casa son por video con tu cirujano.", icon: this.icon(["M24 8a5 5 0 100 10 5 5 0 100-10z", "M12 40c0-8 5-13 12-13s12 5 12 13", "M24 30v6M21 33h6"]) },
+        { text: "Recibes una lista de qué empacar y cómo prepararte antes de reservar.", icon: this.icon(["M8 14h24v22H8z", "M32 20l8-4v18l-8-4", "M14 22l3 3 6-6"]) },
+      ],
+      goodFit: [
+        "18+, done with pregnancies, at least 6 months postpartum and finished breastfeeding",
+        "Stable weight for 6 months, BMI under [32]",
+        "Non-smoker or willing to stop [4] weeks before and after",
+        "Realistic goals. You want your body back, not someone else's",
+      ],
+      waitIf: [
+        "You plan another pregnancy",
+        "You're still breastfeeding or under 6 months postpartum",
+        "Your BMI is above [32]. We'll help you plan a safe path",
+        "You smoke and can't pause. Healing risk is real",
+      ],
+      pay: [
+        { title: "Pay in full", text: "[X%] off when paid [30] days before surgery [confirm]" },
+        { title: "Financiamiento", text: "plans from [$X/month], apply in minutes, no impact to your score to check [confirm with lender terms]" },
+        { title: "Reserve and pay over time", text: "put down your deposit, pay the balance in installments before your date [confirm]" },
+      ],
+      faqs: faqData.map(([q, a], i) => ({ q, a, open: openFaq === i, sign: openFaq === i ? "–" : "+", rot: openFaq === i ? "rotate(90deg)" : "none",
+        toggle: () => this.setState(s => ({ openFaq: s.openFaq === i ? -1 : i })) })),
+    };
+  }
+}
+</script>
+</body>
+</html>
