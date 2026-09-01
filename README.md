@@ -11,7 +11,7 @@ site/                          Cloudflare Pages output directory (committed, no 
   assets/app.js                quiz state machine, CRM POST, dataLayer events, videos, FAQ, sticky CTA
   assets/…                     optimized images (WebP) and compressed testimonial videos (≤2.8 MB each)
   _redirects, _headers         /es → /es/, cache + security headers
-functions/api/lead.js          Pages Function: proxies quiz POSTs to the CRM webhook (secret stays server-side)
+functions/api/lead.js          Pages Function: proxies quiz POSTs to the custom CRM endpoint (URL + auth stay server-side)
 ```
 
 ## Edit copy or config
@@ -49,9 +49,10 @@ Git-connected project → every push to `main` deploys.
 
 | Name | Purpose |
 |---|---|
-| `CRM_WEBHOOK_URL` | Required. JSON POST target for leads (e.g. GoHighLevel inbound webhook URL). |
+| `CRM_WEBHOOK_URL` | Required. The custom CRM endpoint that receives the JSON lead POST. |
 | `CRM_PHOTOS_WEBHOOK_URL` | Optional. Multipart target for the photo uploader. Defaults to `CRM_WEBHOOK_URL`. |
 | `CRM_WEBHOOK_SECRET` | Optional. Sent as `X-Webhook-Secret` header on every forward. |
+| `CRM_AUTH_HEADER` | Optional. Full auth header for the CRM, e.g. `Authorization: Bearer <token>` or `X-API-Key: <key>`. |
 
 Until `CRM_WEBHOOK_URL` is set, `/api/lead` answers `{ ok:false, forwarded:false }` and the page still shows the outcome screen.
 

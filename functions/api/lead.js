@@ -4,9 +4,11 @@
  * Proxies quiz submissions to the CRM so the webhook URL (and any secret) never ships to the browser.
  *
  * Env vars (Cloudflare Pages → Settings → Environment variables):
- *   CRM_WEBHOOK_URL         required · JSON lead POST target (e.g. GoHighLevel inbound webhook)
+ *   CRM_WEBHOOK_URL         required · custom CRM endpoint that accepts the JSON lead POST
  *   CRM_PHOTOS_WEBHOOK_URL  optional · multipart target for the photo uploader (defaults to CRM_WEBHOOK_URL)
  *   CRM_WEBHOOK_SECRET      optional · sent as `X-Webhook-Secret` header to the CRM
+ *   CRM_AUTH_HEADER         optional · full header for the CRM's auth scheme, e.g. "Authorization: Bearer <token>"
+ *                                      or "X-API-Key: <key>" (sent on every forward)
  *
  * Accepts:
  *   application/json   → the lead payload built by site/assets/app.js (field allowlist below)
@@ -42,7 +44,12 @@ export async function onRequestPost({ request, env }) {
 
   const target = env.CRM_WEBHOOK_URL;
   const ct = request.headers.get("Content-Type") || "";
-  const extra = env.CRM_WEBHOOK_SECRET ? { "X-Webhook-Secret": env.CRM_WEBHOOK_SECRET } : {};
+  const extra = {};
+  if (env.CRM_WEBHOOK_SECRET) extra["X-Webhook-Secret"] = env.CRM_WEBHOOK_SECRET;
+  if (env.CRM_AUTH_HEADER && env.CRM_AUTH_HEADER.includes(":")) {
+    const i = env.CRM_AUTH_HEADER.indexOf(":");
+    extra[env.CRM_AUTH_HEADER.slice(0, i).trim()] = env.CRM_AUTH_HEADER.slice(i + 1).trim();
+  }
 
   /* ---- photo uploader (multipart) ---- */
   if (ct.includes("multipart/form-data")) {
