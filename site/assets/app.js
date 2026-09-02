@@ -95,6 +95,9 @@
   /* ═══════════════════════════════ QUIZ ═══════════════════════════════ */
   var Q = I18N.quiz;
   var quizEl = $("#quiz");
+  var IS_TY = document.body.getAttribute("data-page") === "thankyou";
+  var HOME = LANG === "es" ? "/es/" : "/";
+  var TY_URL = LANG === "es" ? "/es/gracias/" : "/thank-you/";
   var state, started = false;
 
   function freshState() {
@@ -188,10 +191,9 @@
       .then(function (r) { if (!r.ok) console.warn("[lead] CRM proxy returned", r.status); })
       .catch(function (e) { console.warn("[lead] CRM proxy unreachable", e && e.message); })
       .then(function () {
-        state.submitting = false; state.outcome = qualification;
-        track("quiz_complete", { qualification: qualification, language: LANG });
-        if (qualification === "qualified") track("qualified_lead", { language: LANG });
-        render(); scrollToQuiz();
+        var lead = { outcome: qualification, name: state.form.name.trim(), phone: state.form.phone.trim(), email: state.form.email.trim(), lang: LANG, ts: Date.now() };
+        try { sessionStorage.setItem("mm_lead", JSON.stringify(lead)); sessionStorage.removeItem("mm_lead_tracked"); } catch (e) { /* storage blocked: thank-you page renders the generic version */ }
+        location.assign(TY_URL);
       });
   }
 
@@ -215,7 +217,7 @@
     var steps = visibleSteps(), cur = steps[Math.min(state.step, steps.length - 1)];
     var inQuestions = !state.outcome;
     var showBack = inQuestions && state.step > 0 && !state.submitting;
-    html += '<div class="q-top">' + (showBack ? '<button type="button" class="q-back" data-act="back">' + esc(Q.back) + "</button>" : "<span></span>") + '<span class="q-badge">' + esc(Q.badge) + "</span></div>";
+    html += '<div class="q-top">' + (IS_TY ? '<a class="q-back" href="' + HOME + '">' + esc(Q.backHome) + "</a>" : showBack ? '<button type="button" class="q-back" data-act="back">' + esc(Q.back) + "</button>" : "<span></span>") + '<span class="q-badge">' + esc(Q.badge) + "</span></div>";
 
     if (inQuestions) {
       /* progress */
@@ -309,6 +311,7 @@
     } else if (act === "back") {
       state.step = Math.max(0, state.step - 1); render();
     } else if (act === "reset") {
+      if (IS_TY) { location.assign(HOME); return; }
       state = freshState(); render(); scrollToQuiz();
     } else if (act === "uploader") {
       state.uploaderOpen = !state.uploaderOpen; render();
@@ -336,6 +339,18 @@
       var btn = $('[data-act="next"]', quizEl); if (btn && !btn.disabled) { e.preventDefault(); btn.click(); }
     }
   });
+  if (IS_TY) {
+    var lead = {};
+    try { lead = JSON.parse(sessionStorage.getItem("mm_lead") || "{}") || {}; } catch (e) { /* ignore */ }
+    state.outcome = lead.outcome === "qualified" ? "qualified" : "nurture";
+    state.form.name = lead.name || ""; state.form.phone = lead.phone || ""; state.form.email = lead.email || "";
+    var tracked = false; try { tracked = !!sessionStorage.getItem("mm_lead_tracked"); } catch (e) { /* ignore */ }
+    if (lead.outcome && !tracked) {
+      track("quiz_complete", { qualification: lead.outcome, language: LANG });
+      if (lead.outcome === "qualified") track("qualified_lead", { language: LANG });
+      try { sessionStorage.setItem("mm_lead_tracked", "1"); } catch (e) { /* ignore */ }
+    }
+  }
   render();
 
   /* CTAs → quiz: fire quiz_start on first click */

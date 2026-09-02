@@ -11,6 +11,8 @@ module.exports = {
 
   header: { cta: "Mira si calificas → 60 seg", logoAlt: "Logo de Xiluet", brand: "Xiluet", brandSub: "AESTHETIC SURGERY" },
 
+  thankYou: { path: "/es/gracias/", title: "Gracias | Xiluet Aesthetic Surgery", eyebrow: "EVALUACIÓN RECIBIDA", h1: "Tu cirujano ya tiene tus respuestas." },
+
   hero: {
     eyebrow: "MOMMY MAKEOVER · MIAMI, FL",
     h1Before: "Mommy Makeover en Miami",
@@ -41,6 +43,7 @@ module.exports = {
     emailLabel: "EMAIL",
     consent: "Al continuar aceptas ser contactada por teléfono, SMS o WhatsApp.",
     nameFallback: "mamá",
+    backHome: "← Volver a la página",
     outsideUS: "Fuera de EE. UU.",
     steps: [
       { id: "procedures", multi: true, q: 1, title: "¿Qué procedimientos te interesan?", hint: "Elige todo lo que aplique.",

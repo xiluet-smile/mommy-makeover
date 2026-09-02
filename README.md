@@ -5,7 +5,8 @@ Design source of truth: [`design_handoff_mommy_makeover_lp/`](design_handoff_mom
 
 ```
 content/en.js, content/es.js   all page + quiz copy (edit copy here, then rebuild)
-scripts/build.js               CONFIG (GTM, Pixel, WhatsApp, phone) + HTML template → site/index.html, site/es/index.html
+scripts/build.js               CONFIG (GTM, Pixel, WhatsApp, phone) + HTML templates → site/index.html, site/es/index.html,
+                               site/thank-you/index.html, site/es/gracias/index.html
 site/                          Cloudflare Pages output directory (committed, no build step needed on CF)
   assets/style.css             styles (ported from the prototype's inline styles)
   assets/app.js                quiz state machine, CRM POST, dataLayer events, videos, FAQ, sticky CTA
@@ -85,9 +86,20 @@ Answer values are canonical English keys on both languages (e.g. `timing: "1_3_m
 
 Photo uploader: multipart POST to the same endpoint with `photo_front/left/right/back`, `first_name`, `phone`, `email`, `type=photos`.
 
+## Thank-you pages
+
+After the contact step is submitted the visitor is redirected to `/thank-you/` (EN) or `/es/gracias/` (ES), where the
+outcome screen (qualified: photo instructions + WhatsApp + uploader; nurture: coordinator message + WhatsApp) is rendered
+from `sessionStorage` (`mm_lead`: outcome, name, phone, email). Nothing is put in the URL. The not-a-fit early exit stays
+inline in the quiz card (no lead is created). Both pages are `noindex`.
+
+Use a page-view of `/thank-you/` or `/es/gracias/` as the Google Ads / GA4 conversion, or the `quiz_complete` /
+`qualified_lead` dataLayer events, which fire once on the thank-you page.
+
 ## dataLayer events
 
-`quiz_start` · `quiz_step_n` · `quiz_complete` (+ `qualification`) · `qualified_lead` · `photos_sent` · `whatsapp_click` · `story_play`
+`quiz_start` · `quiz_step_n` (landing page) · `quiz_complete` (+ `qualification`) · `qualified_lead` (thank-you page, once) ·
+`photos_sent` · `whatsapp_click` · `story_play`
 
 ## Open items for the client
 

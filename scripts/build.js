@@ -326,6 +326,75 @@ ${gtmBody()}<div class="site">
 `;
 }
 
+
+function thankYouPage(c) {
+  const Qz = c.quiz, TY = c.thankYou, Ft = c.footer;
+  const i18n = { quiz: Qz };
+  const url = SITE_URL + TY.path;
+  return `<!DOCTYPE html>
+<html lang="${c.lang}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(TY.title)}</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="canonical" href="${url}">
+<link rel="icon" href="/assets/logo-mark-180.png" type="image/png">
+<meta name="theme-color" content="#0b2a29">
+${gtmHead()}<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+${metaPixel()}</head>
+<body data-page="thankyou">
+${gtmBody()}<div class="site">
+
+<header class="hdr">
+  <a class="brand" href="${c.path}" aria-label="Xiluet Aesthetic Surgery">
+    <img src="/assets/logo-mark.webp" alt="${esc(c.header.logoAlt)}" width="40" height="44">
+    <span class="brand-text"><span class="brand-name">${esc(c.header.brand)}</span><span class="brand-sub">${esc(c.header.brandSub)}</span></span>
+  </a>
+  <div class="hdr-right">
+    <div class="lang" aria-label="Language">${c.lang === "en"
+      ? `<span>EN</span><a href="/es/" hreflang="es" lang="es">ES</a>`
+      : `<a href="/" hreflang="en" lang="en">EN</a><span>ES</span>`}</div>
+  </div>
+</header>
+
+<section class="hero ty-page">
+  <img class="watermark" src="/assets/logo-mark.webp" alt="" aria-hidden="true">
+  <div class="ty-wrap">
+    <div class="ty-intro">
+      <span class="eyebrow eyebrow--gold">${esc(TY.eyebrow)}</span>
+      <h1 class="h1 h1--sm">${esc(TY.h1)}</h1>
+    </div>
+    <div class="quiz-wrap">
+      <div class="quiz-frame"></div>
+      <div id="quiz" class="quiz" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot">
+    <div class="foot-brand"><img src="/assets/logo-mark.webp" alt="" width="32" height="36"><span class="brand-name">${esc(c.header.brand)}</span><span class="brand-sub">${esc(c.header.brandSub)}</span></div>
+    <div class="foot-info">
+      <span>${esc(Ft.line)}</span>
+      <div class="foot-links"><a href="${LINKS.privacy}" target="_blank" rel="noopener">${esc(Ft.privacy)}</a><a href="${LINKS.terms}" target="_blank" rel="noopener">${esc(Ft.terms)}</a></div>
+      <span class="foot-small">${esc(Ft.disclaimer)}</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+<script id="mm-i18n" type="application/json">${JSON.stringify(i18n).replace(/</g, "\\u003c")}</script>
+<script>window.MM_CONFIG=${JSON.stringify(CONFIG).replace(/</g, "\\u003c")};</script>
+<script src="/assets/app.js" defer></script>
+</body>
+</html>
+`;
+}
+
 const root = path.join(__dirname, "..");
 for (const lang of ["en", "es"]) {
   const c = require(path.join(root, "content", lang + ".js"));
@@ -333,4 +402,8 @@ for (const lang of ["en", "es"]) {
   fs.mkdirSync(path.dirname(out), { recursive: true });
   fs.writeFileSync(out, page(c));
   console.log("wrote", path.relative(root, out), fs.statSync(out).size, "bytes");
+  const ty = path.join(root, "site", c.thankYou.path.replace(/^\//, ""), "index.html");
+  fs.mkdirSync(path.dirname(ty), { recursive: true });
+  fs.writeFileSync(ty, thankYouPage(c));
+  console.log("wrote", path.relative(root, ty), fs.statSync(ty).size, "bytes");
 }
