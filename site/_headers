@@ -6,5 +6,11 @@
 /assets/*
   Cache-Control: public, max-age=604800
 
+/assets/style.css
+  Cache-Control: public, max-age=3600
+
+/assets/app.js
+  Cache-Control: public, max-age=3600
+
 /api/*
   Cache-Control: no-store

@@ -27,6 +27,13 @@ const LINKS = {
 };
 /* ═════════════════════════════════════════════════════════════════════ */
 
+// Cache-busting version for CSS/JS links: content hash of the two files (changes only when they change)
+const crypto = require("crypto");
+const ASSET_V = crypto.createHash("md5")
+  .update(fs.readFileSync(path.join(__dirname, "../site/assets/style.css")))
+  .update(fs.readFileSync(path.join(__dirname, "../site/assets/app.js")))
+  .digest("hex").slice(0, 8);
+
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const svg = (paths, vb = "0 0 48 48", sw = 1.4) =>
   `<svg viewBox="${vb}" fill="none" stroke="#c8a465" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths.map((d) => `<path d="${d}"/>`).join("")}</svg>`;
@@ -114,7 +121,7 @@ ${gtmHead()}<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="/assets/logo-mark.webp">
-<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/assets/style.css?v=${ASSET_V}">
 ${metaPixel()}</head>
 <body>
 ${gtmBody()}<div class="site">
@@ -320,7 +327,7 @@ ${gtmBody()}<div class="site">
 </div>
 <script id="mm-i18n" type="application/json">${JSON.stringify(i18n).replace(/</g, "\\u003c")}</script>
 <script>window.MM_CONFIG=${JSON.stringify(CONFIG).replace(/</g, "\\u003c")};</script>
-<script src="/assets/app.js" defer></script>
+<script src="/assets/app.js?v=${ASSET_V}" defer></script>
 </body>
 </html>
 `;
@@ -344,7 +351,7 @@ function thankYouPage(c) {
 ${gtmHead()}<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/assets/style.css?v=${ASSET_V}">
 ${metaPixel()}</head>
 <body data-page="thankyou">
 ${gtmBody()}<div class="site">
@@ -389,7 +396,7 @@ ${gtmBody()}<div class="site">
 </div>
 <script id="mm-i18n" type="application/json">${JSON.stringify(i18n).replace(/</g, "\\u003c")}</script>
 <script>window.MM_CONFIG=${JSON.stringify(CONFIG).replace(/</g, "\\u003c")};</script>
-<script src="/assets/app.js" defer></script>
+<script src="/assets/app.js?v=${ASSET_V}" defer></script>
 </body>
 </html>
 `;
