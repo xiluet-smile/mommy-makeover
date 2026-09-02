@@ -23,7 +23,7 @@ const LINKS = {
   privacy: "https://xiluetaestheticsurgery.com/privacy-policy/",
   terms: "https://xiluetaestheticsurgery.com/terms-and-conditions/",
   map: "https://maps.google.com/maps?q=7390+W+Flagler+St+Miami+FL+33144&t=&z=15&ie=UTF8&iwloc=B&output=embed",
-  verify: ["VERIFY_URL_3", "VERIFY_URL_3", "VERIFY_URL_3", "VERIFY_URL_3"], // FL license lookup per surgeon (placeholder until client supplies)
+  verify: Array(4).fill("https://mqa-internet.doh.state.fl.us/MQASearchServices/HealthCareProviders"), // Florida DOH license lookup (replace with per-surgeon profile URLs when the client supplies them)
 };
 /* ═════════════════════════════════════════════════════════════════════ */
 

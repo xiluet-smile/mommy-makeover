@@ -89,8 +89,9 @@ Photo uploader: multipart POST to the same endpoint with `photo_front/left/right
 
 `quiz_start` · `quiz_step_n` · `quiz_complete` (+ `qualification`) · `qualified_lead` · `photos_sent` · `whatsapp_click` · `story_play`
 
-## Open items for the client (visible `[brackets]` on the page)
+## Open items for the client
 
-`[30 days]` quote validity · `[Refundable/transferable terms]` · `[the standard combination]` · `[5–7]` drain days ·
-`[Terms]` deposit refund · `[if not included]` prescriptions · `License [#]` + FL license lookup URL per surgeon
-(`LINKS.verify` in `scripts/build.js`) · GTM container ID · Meta Pixel ID · CRM webhook URL · final subdomain.
+Bracket placeholders were removed on 2026-09-01 (copy rewritten to not depend on them). Still worth confirming with the client:
+quote validity period · deposit refund/transfer terms · drain duration · whether prescriptions are included ·
+per-surgeon Florida license profile URLs (`LINKS.verify` in `scripts/build.js`, currently the generic FL DOH lookup) ·
+GTM container ID · Meta Pixel ID · CRM webhook URL.
