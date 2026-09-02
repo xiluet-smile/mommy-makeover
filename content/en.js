@@ -6,7 +6,7 @@ module.exports = {
   otherLang: { code: "ES", href: "/es/" },
   title: "Mommy Makeover in Miami from $7,500 | Xiluet Aesthetic Surgery",
   description:
-    "Tummy tuck, breast lift or augmentation, and liposuction in one surgery. Written quote after your surgeon reviews your photos. Free 60-second evaluation.",
+    "Tummy tuck, breast lift or augmentation, and liposuction in one surgery. Preliminary quote after your surgeon reviews your photos. Free 60-second evaluation.",
   ogTitle: "Mommy Makeover in Miami from $7,500",
 
   header: { cta: "See if you qualify → 60 sec", logoAlt: "Xiluet mark", brand: "Xiluet", brandSub: "AESTHETIC SURGERY" },
@@ -74,7 +74,7 @@ module.exports = {
       uploadSuccess: "Photos received. Your surgeon will review them and you'll hear from us within 24–48 hours.",
       uploadError: "We couldn't upload the photos. Please send them on WhatsApp instead.",
       nextLabel: "WHAT HAPPENS NEXT",
-      nextSteps: ["photos", "surgeon review", "written quote in 24–48h", "meet your surgeon", "reserve your date"],
+      nextSteps: ["photos", "surgeon review", "preliminary quote in 24–48h", "$250 deposit + consultation", "treatment plan + final quote", "surgery date"],
       call: "Prefer to call?",
     },
     nurture: {
@@ -108,9 +108,9 @@ module.exports = {
     steps: [
       ["01", "📸", "Send 4 photos from your phone", "front, sides, back. Private, seen only by your surgical team."],
       ["02", "🩺", "Your surgeon evaluates them", "and tells you honestly if you're a candidate and what they'd recommend."],
-      ["03", "📄", "Written quote in 24–48h", "itemized. No deposit required to receive it."],
-      ["04", "💬", "Meet your surgeon", "in person or by video. Bring every question."],
-      ["05", "📅", "Reserve your date", "$250 deposit, credited to your total."],
+      ["03", "📄", "Preliminary quote in 24–48h", "based on your photos, so you know where you stand before you book anything."],
+      ["04", "📅", "Book your consultation", "$250 deposit reserves your appointment with the surgeon. Credited to your total."],
+      ["05", "💬", "Meet your surgeon at the office", "treatment plan, analysis and final written quote, all before anything is scheduled. Bring every question."],
       ["06", "🌴", "Surgery in Miami, recovery with our team", "follow-ups included; virtual check-ins if you travel home."],
     ],
     cta: "See if you qualify → 60 seconds",
@@ -138,7 +138,7 @@ module.exports = {
   surgeons: {
     eyebrow: "THE SURGEONS",
     h2: "Your consultation is with the person who operates on you.",
-    p: "In many Miami clinics you meet a coordinator, pay a deposit, and see the surgeon on the morning of surgery. Not here. Your surgeon reviews your photos, writes your plan, does your consultation, and sees you at every follow-up.",
+    p: "In many Miami clinics you meet a coordinator and see the surgeon for the first time on the morning of surgery. Not here. Your surgeon reviews your photos, writes your plan, does your consultation, and sees you at every follow-up.",
     list: [
       ["Dr. Benjamin Liliav, MD", "BOARD-CERTIFIED PLASTIC SURGEON", "Dr. Benjamin Liliav, MD, FACS is a double board-certified plastic surgeon with over 20 years of experience, specializing in natural-looking results."],
       ["Dr. Marina Zorrilla, MD", "COSMETIC SURGEON", "Dr. Astrid Marina Zorrilla (\"Dr. Marina\") is a bilingual cosmetic surgeon specializing in women's aesthetic procedures, providing personalized care."],
@@ -152,7 +152,7 @@ module.exports = {
   pricing: {
     eyebrow: "TRANSPARENT PRICING",
     h2: "What \"from $7,500\" means. In writing.",
-    p: "Every quote we send is itemized before you pay a deposit. Here's the standard Mommy Makeover:",
+    p: "Every quote is itemized, line by line. Here's the standard Mommy Makeover:",
     tagLabel: "MOMMY MAKEOVER",
     oldPrice: "$8,900",
     newPrice: "from $7,500",
@@ -170,7 +170,7 @@ module.exports = {
     notIncludedTitle: "Not included",
     notIncludedSub: "so there are no surprises",
     notIncluded: ["Travel and lodging", "Additional procedures your surgeon may recommend", "Prescription medications", "Recovery-house / nursing care if you want it"],
-    callout: "Your price is confirmed in writing after your surgeon reviews your photos, before you pay anything.",
+    callout: "Your surgeon reviews your photos and gives you a preliminary quote. Your final price is confirmed in writing at your consultation, with your treatment plan, before anything is scheduled.",
     cta: "Get my written quote →",
   },
 
@@ -200,15 +200,15 @@ module.exports = {
   faq: {
     h2: "Your questions, answered straight.",
     items: [
-      ["How much does a Mommy Makeover really cost here?", "From $7,500 for the standard Mommy Makeover. Your written, itemized quote comes after your surgeon reviews your photos. What's not included is listed above."],
-      ["Will I meet the surgeon before I pay?", "Yes. Your consultation is with your surgeon, before any deposit."],
+      ["How much does a Mommy Makeover really cost here?", "From $7,500 for the standard Mommy Makeover. You get a preliminary quote after your surgeon reviews your photos, and your final itemized quote at your consultation. What's not included is listed above."],
+      ["Will I meet the surgeon before surgery?", "Yes. A $250 deposit books your consultation at our office, where your surgeon reviews your case, gives you your treatment plan and final quote, and answers every question before anything is scheduled."],
       ["How bad is the pain?", "The first 2–3 days are the hardest; most patients are off strong pain medication within 3–5 days. Your surgeon will explain the pain plan."],
       ["When can I lift my kids?", "No lifting over ~10 lbs for about 6 weeks. Plan help. See the timeline above."],
       ["How long am I out of work?", "Desk work ~2 weeks; physical work 4–6 weeks."],
       ["Will I have drains? A scar?", "Most tummy tucks use drains for the first few days; your surgeon will tell you exactly how long. The scar sits low, hidden by underwear; we'll show you where before surgery."],
       ["Am I a candidate if I've had a C-section?", "Usually yes. The tummy tuck incision typically incorporates the old scar."],
       ["Do I need to be done having kids?", "We strongly recommend it. Another pregnancy can undo the results."],
-      ["Is there a deposit?", "Yes. A $250 deposit is required to reserve your surgery date, and it is credited toward your total. Your quote and your consultation come first, before any deposit."],
+      ["Is there a deposit?", "Yes. A $250 deposit is required to book your consultation with the surgeon, and it is credited toward your total. The photo evaluation and preliminary quote are free."],
       ["Do I need to live in Miami?", "No. See \"Traveling patients.\""],
     ],
   },
@@ -216,7 +216,7 @@ module.exports = {
   final: {
     h2: "Find out in 60 seconds if this is right for you, and what it would cost.",
     cta: "Start the quiz",
-    sub: "Free surgeon evaluation. No deposit to get your quote.",
+    sub: "Free photo evaluation by your surgeon. The $250 deposit is only to book your consultation.",
   },
 
   visit: {
@@ -235,6 +235,6 @@ module.exports = {
     line: "Xiluet Aesthetic Surgery · 7390 W Flagler St, Miami, FL 33144 · (305) 615-4200",
     privacy: "Privacy Policy",
     terms: "Terms",
-    disclaimer: "Results vary by patient. Quote provided after photo review.",
+    disclaimer: "Results vary by patient. Preliminary quote after photo review; final quote at consultation.",
   },
 };

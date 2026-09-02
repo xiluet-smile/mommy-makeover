@@ -6,7 +6,7 @@ module.exports = {
   otherLang: { code: "EN", href: "/" },
   title: "Mommy Makeover en Miami desde $7,500 | Xiluet Aesthetic Surgery",
   description:
-    "Abdominoplastia, levantamiento o aumento de senos y liposucción en una sola cirugía. Cotización por escrito después de que tu cirujano revise tus fotos. Evaluación gratis en 60 segundos.",
+    "Abdominoplastia, levantamiento o aumento de senos y liposucción en una sola cirugía. Cotización preliminar después de que tu cirujano revise tus fotos. Evaluación gratis en 60 segundos.",
   ogTitle: "Mommy Makeover en Miami desde $7,500",
 
   header: { cta: "Mira si calificas → 60 seg", logoAlt: "Logo de Xiluet", brand: "Xiluet", brandSub: "AESTHETIC SURGERY" },
@@ -74,7 +74,7 @@ module.exports = {
       uploadSuccess: "Fotos recibidas. Tu cirujano las revisará y te contactaremos en 24–48 horas.",
       uploadError: "No pudimos subir las fotos. Por favor envíalas por WhatsApp.",
       nextLabel: "QUÉ SIGUE",
-      nextSteps: ["fotos", "revisión del cirujano", "cotización escrita en 24–48h", "conoce a tu cirujano", "reserva tu fecha"],
+      nextSteps: ["fotos", "revisión del cirujano", "cotización preliminar en 24–48h", "depósito de $250 + consulta", "plan de tratamiento + cotización final", "fecha de cirugía"],
       call: "¿Prefieres llamar?",
     },
     nurture: {
@@ -108,9 +108,9 @@ module.exports = {
     steps: [
       ["01", "📸", "Envía 4 fotos desde tu celular", "frente, lados, espalda. Privadas, solo las ve tu equipo quirúrgico."],
       ["02", "🩺", "Tu cirujano las evalúa", "y te dice con honestidad si eres candidata y qué recomienda."],
-      ["03", "📄", "Cotización por escrito en 24–48h", "detallada. No necesitas depósito para recibirla."],
-      ["04", "💬", "Conoce a tu cirujano", "en persona o por video. Trae todas tus preguntas."],
-      ["05", "📅", "Reserva tu fecha", "depósito de $250, se descuenta del total."],
+      ["03", "📄", "Cotización preliminar en 24–48h", "basada en tus fotos, para que sepas dónde estás antes de reservar nada."],
+      ["04", "📅", "Reserva tu consulta", "un depósito de $250 aparta tu cita con el cirujano. Se descuenta del total."],
+      ["05", "💬", "Conoce a tu cirujano en la clínica", "plan de tratamiento, análisis y cotización final por escrito, todo antes de programar nada. Trae todas tus preguntas."],
       ["06", "🌴", "Cirugía en Miami, recuperación con nuestro equipo", "seguimientos incluidos; citas virtuales si regresas a tu estado."],
     ],
     cta: "Mira si calificas → 60 segundos",
@@ -138,7 +138,7 @@ module.exports = {
   surgeons: {
     eyebrow: "LOS CIRUJANOS",
     h2: "Tu consulta es con la persona que te va a operar.",
-    p: "En muchas clínicas de Miami conoces a un coordinador, pagas el depósito y ves al cirujano la mañana de la cirugía. Aquí no. Tu cirujano revisa tus fotos, escribe tu plan, hace tu consulta y te ve en cada seguimiento.",
+    p: "En muchas clínicas de Miami conoces a un coordinador y ves al cirujano por primera vez la mañana de la cirugía. Aquí no. Tu cirujano revisa tus fotos, escribe tu plan, hace tu consulta y te ve en cada seguimiento.",
     list: [
       ["Dr. Benjamin Liliav, MD", "CIRUJANO PLÁSTICO CERTIFICADO", "El Dr. Benjamin Liliav, MD, FACS, es cirujano plástico con doble certificación y más de 20 años de experiencia, especializado en resultados de aspecto natural."],
       ["Dr. Marina Zorrilla, MD", "CIRUJANA COSMÉTICA", "La Dra. Astrid Marina Zorrilla (\"Dra. Marina\") es cirujana cosmética bilingüe especializada en procedimientos estéticos para la mujer, con atención personalizada."],
@@ -152,7 +152,7 @@ module.exports = {
   pricing: {
     eyebrow: "PRECIO TRANSPARENTE",
     h2: "Qué significa \"desde $7,500\". Por escrito.",
-    p: "Cada cotización llega detallada antes de que pagues un depósito. Este es el Mommy Makeover estándar:",
+    p: "Cada cotización viene detallada, punto por punto. Este es el Mommy Makeover estándar:",
     tagLabel: "MOMMY MAKEOVER",
     oldPrice: "$8,900",
     newPrice: "desde $7,500",
@@ -170,7 +170,7 @@ module.exports = {
     notIncludedTitle: "No incluye",
     notIncludedSub: "para que no haya sorpresas",
     notIncluded: ["Viaje y hospedaje", "Procedimientos adicionales que tu cirujano recomiende", "Medicamentos con receta", "Casa de recuperación o enfermería, si la deseas"],
-    callout: "Tu precio se confirma por escrito después de que tu cirujano revise tus fotos, antes de que pagues nada.",
+    callout: "Tu cirujano revisa tus fotos y te da una cotización preliminar. Tu precio final se confirma por escrito en tu consulta, junto con tu plan de tratamiento, antes de programar nada.",
     cta: "Recibir mi cotización por escrito →",
   },
 
@@ -200,15 +200,15 @@ module.exports = {
   faq: {
     h2: "Tus preguntas, respondidas sin rodeos.",
     items: [
-      ["¿Cuánto cuesta realmente un Mommy Makeover aquí?", "Desde $7,500 por el Mommy Makeover estándar. Tu cotización escrita y detallada llega después de que tu cirujano revise tus fotos. Lo que no incluye está arriba."],
-      ["¿Conozco al cirujano antes de pagar?", "Sí. Tu consulta es con tu cirujano, antes de cualquier depósito."],
+      ["¿Cuánto cuesta realmente un Mommy Makeover aquí?", "Desde $7,500 por el Mommy Makeover estándar. Recibes una cotización preliminar después de que tu cirujano revise tus fotos, y tu cotización final detallada en tu consulta. Lo que no incluye está arriba."],
+      ["¿Conozco al cirujano antes de la cirugía?", "Sí. Un depósito de $250 reserva tu consulta en nuestra clínica, donde tu cirujano revisa tu caso, te entrega tu plan de tratamiento y cotización final, y responde todas tus preguntas antes de programar nada."],
       ["¿Qué tanto duele?", "Los primeros 2–3 días son los más difíciles; la mayoría deja los analgésicos fuertes en 3–5 días. Tu cirujano te explica el plan de manejo del dolor."],
       ["¿Cuándo puedo cargar a mis hijos?", "Nada de más de ~10 libras por unas 6 semanas. Planea ayuda. Mira el cronograma arriba."],
       ["¿Cuánto tiempo sin trabajar?", "Trabajo de oficina ~2 semanas; trabajo físico 4–6 semanas."],
       ["¿Tendré drenajes? ¿Cicatriz?", "La mayoría de las abdominoplastias usan drenajes los primeros días; tu cirujano te dirá exactamente cuánto tiempo. La cicatriz queda baja, oculta por la ropa interior; te mostramos dónde antes de operar."],
       ["¿Soy candidata si tuve cesárea?", "Generalmente sí. La incisión suele incorporar la cicatriz anterior."],
       ["¿Debo haber terminado de tener hijos?", "Lo recomendamos mucho. Otro embarazo puede deshacer los resultados."],
-      ["¿Hay que dejar un depósito?", "Sí. Se requiere un depósito de $250 para reservar tu fecha de cirugía, y se descuenta del total. Tu cotización y tu consulta van primero, antes de cualquier depósito."],
+      ["¿Hay que dejar un depósito?", "Sí. Se requiere un depósito de $250 para reservar tu consulta con el cirujano, y se descuenta del total. La evaluación de fotos y la cotización preliminar son gratis."],
       ["¿Tengo que vivir en Miami?", "No. Mira \"Pacientes que viajan\"."],
     ],
   },
@@ -216,7 +216,7 @@ module.exports = {
   final: {
     h2: "Descubre en 60 segundos si esto es para ti, y cuánto costaría.",
     cta: "Empezar el quiz",
-    sub: "Evaluación gratis con el cirujano. Sin depósito para recibir tu cotización.",
+    sub: "Evaluación gratis de tus fotos por el cirujano. El depósito de $250 es solo para reservar tu consulta.",
   },
 
   visit: {
@@ -235,6 +235,6 @@ module.exports = {
     line: "Xiluet Aesthetic Surgery · 7390 W Flagler St, Miami, FL 33144 · (305) 615-4200",
     privacy: "Política de privacidad",
     terms: "Términos",
-    disclaimer: "Los resultados varían según la paciente. La cotización se entrega tras revisar tus fotos.",
+    disclaimer: "Los resultados varían según la paciente. Cotización preliminar tras revisar tus fotos; cotización final en consulta.",
   },
 };
