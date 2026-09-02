@@ -11,6 +11,7 @@ const SITE_URL = "https://promo.xiluetaestheticsurgery.com"; // canonical + href
 const CONFIG = {
   GOOGLE_ADS_ID: "AW-11505059358",   // Google tag (gtag.js): Ads conversion account, first thing in <head> on every page
   GA4_ID: "G-K59E90DQD0",            // GA4 property configured through the same tag
+  GOOGLE_ADS_CONVERSION_LABEL: "PASTE_LABEL", // from the Ads conversion action (AW-11505059358/<label>); replace before the event counts
   LEAD_ENDPOINT: "/api/lead",   // Pages Function; the CRM webhook URL is set as env var CRM_WEBHOOK_URL in Cloudflare (never in the client)
   GTM_ID: "",                   // e.g. "GTM-XXXXXXX" → injects the GTM container in <head> + <noscript>
   META_PIXEL_ID: "",            // e.g. "1234567890" → injects the Meta Pixel base code (PageView only)
@@ -377,7 +378,7 @@ ${metaPixel()}<script>
     if (email) ud.email = email;
     if (phone) ud.phone_number = phone;
     if (email || phone) gtag('set', 'user_data', ud);
-    gtag('event', 'quiz_complete', { send_to: '${CONFIG.GOOGLE_ADS_ID}' });
+    gtag('event', 'conversion', { 'send_to': '${CONFIG.GOOGLE_ADS_ID}/${CONFIG.GOOGLE_ADS_CONVERSION_LABEL}' });
     sessionStorage.removeItem('xil_lead_email');
     sessionStorage.removeItem('xil_lead_phone');
     /* GTM/GA4 parity: same events the quiz used to push in-page, once per submission */
