@@ -208,7 +208,7 @@ ${gtmBody()}<div class="site">
   <div class="wrap stories-inner">
     <div class="sec-head"><span class="eyebrow">${esc(St.eyebrow)}</span><h2 class="h2">${esc(St.h2)}</h2></div>
     <div class="stories">
-      ${STORIES.map((n) => `<div class="story"><div class="story-video" role="button" tabindex="0" aria-label="${esc(St.playLabel)} ${n}"><video src="/assets/videos/story-${n}.mp4"${n === 2 ? ' poster="/assets/videos/story-2-poster.webp"' : ""} playsinline preload="metadata"></video><span class="play-badge" aria-hidden="true">▶</span></div><span class="story-cap">★★★★★ <span>${esc(St.caption)}</span></span></div>`).join("\n      ")}
+      ${STORIES.map((n) => `<div class="story"><div class="story-video" role="button" tabindex="0" aria-label="${esc(St.playLabel)} ${n}"><video src="/assets/videos/story-${n}.mp4" poster="/assets/videos/story-${n}-poster.webp" playsinline preload="metadata"></video><span class="play-badge" aria-hidden="true">▶</span></div><span class="story-cap">★★★★★ <span>${esc(St.caption)}</span></span></div>`).join("\n      ")}
     </div>
   </div>
 </section>
