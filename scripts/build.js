@@ -11,7 +11,7 @@ const SITE_URL = "https://promo.xiluetaestheticsurgery.com"; // canonical + href
 const CONFIG = {
   GOOGLE_ADS_ID: "AW-11505059358",   // Google tag (gtag.js): Ads conversion account, first thing in <head> on every page
   GA4_ID: "G-K59E90DQD0",            // GA4 property configured through the same tag
-  GOOGLE_ADS_CONVERSION_LABEL: "PASTE_LABEL", // from the Ads conversion action (AW-11505059358/<label>); replace before the event counts
+  GOOGLE_ADS_CONVERSION_LABEL: "HytJCO7F-ewcEJ6Mhe4q", // "MM Quiz Lead (promo)" conversion action
   LEAD_ENDPOINT: "/api/lead",   // Pages Function; the CRM webhook URL is set as env var CRM_WEBHOOK_URL in Cloudflare (never in the client)
   GTM_ID: "",                   // e.g. "GTM-XXXXXXX" → injects the GTM container in <head> + <noscript>
   META_PIXEL_ID: "",            // e.g. "1234567890" → injects the Meta Pixel base code (PageView only)
