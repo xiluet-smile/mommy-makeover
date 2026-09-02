@@ -98,8 +98,19 @@ h1, h2, h3, p { margin: 0; }
 .promise .dia { color: var(--gold); font-size: 15px; }
 .promise em { font-family: var(--serif); font-style: italic; font-size: 20px; color: var(--gold-pale); }
 
-/* ---------- thank-you page (same layout as the landing page; outcome in the hero card) ---------- */
-[data-page="thankyou"] .q-back { text-decoration: none; }
+/* ---------- thank-you page (short: headline, 3 steps, WhatsApp, phone, back link) ---------- */
+.ty-page { min-height: calc(100vh - 73px); }
+.ty-wrap { max-width: 720px; margin: 0 auto; padding: 72px 48px 96px; display: flex; flex-direction: column; gap: 32px; position: relative; }
+.ty-intro { display: flex; flex-direction: column; gap: 14px; }
+.h1--sm { font-size: clamp(32px, 4vw, 44px); }
+.ty-card { gap: 22px; }
+.ty-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
+.ty-steps li { display: flex; gap: 16px; align-items: flex-start; }
+.ty-n { font-family: var(--serif); font-size: 32px; font-weight: 600; color: var(--gold); line-height: 1; flex: none; width: 44px; }
+.ty-steps h2 { font-size: 17px; font-weight: 700; color: var(--ink); line-height: 1.35; margin-bottom: 4px; }
+.ty-steps p { font-size: 14.5px; line-height: 1.55; color: var(--secondary); }
+.ty-back { align-self: flex-start; font-size: 14px; font-weight: 700; color: var(--gold-dk); text-decoration: none; letter-spacing: 0.04em; }
+@media (max-width: 720px) { .ty-wrap { padding: 36px 20px 64px; gap: 24px; } .h1--sm { font-size: 30px; } }
 
 /* ---------- quiz card ---------- */
 .quiz-wrap { position: relative; min-width: 0; }

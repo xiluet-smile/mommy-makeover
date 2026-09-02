@@ -9,6 +9,8 @@ const path = require("path");
 /* ═══════════════════════════════ CONFIG ═══════════════════════════════ */
 const SITE_URL = "https://promo.xiluetaestheticsurgery.com"; // canonical + hreflang + OG
 const CONFIG = {
+  GOOGLE_ADS_ID: "AW-11505059358",   // Google tag (gtag.js): Ads conversion account, first thing in <head> on every page
+  GA4_ID: "G-K59E90DQD0",            // GA4 property configured through the same tag
   LEAD_ENDPOINT: "/api/lead",   // Pages Function; the CRM webhook URL is set as env var CRM_WEBHOOK_URL in Cloudflare (never in the client)
   GTM_ID: "",                   // e.g. "GTM-XXXXXXX" → injects the GTM container in <head> + <noscript>
   META_PIXEL_ID: "",            // e.g. "1234567890" → injects the Meta Pixel base code (PageView only)
@@ -68,6 +70,18 @@ const RESULT_FILES = [
 const SURGEON_FILES = ["dr-liliav", "dr-zorrilla", "dr-sartorato", "madeline-vazquez"];
 const STORIES = [1, 2, 3, 4, 5];
 
+function googleTag() {
+  return `<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=${CONFIG.GOOGLE_ADS_ID}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '${CONFIG.GOOGLE_ADS_ID}', { allow_enhanced_conversions: true });
+  gtag('config', '${CONFIG.GA4_ID}');
+</script>
+`;
+}
 function gtmHead() {
   if (!CONFIG.GTM_ID) return "";
   return `<!-- Google Tag Manager -->
@@ -88,25 +102,24 @@ function metaPixel() {
 `;
 }
 
-function page(c, ty = false) {
-  const TY = c.thankYou;
-  const quizHref = ty ? `${c.path}#quiz` : "#quiz";
+function page(c) {
+  const quizHref = "#quiz";
   const H = c.hero, Qz = c.quiz, W = c.what, P = c.process, R = c.results, St = c.stories, S = c.surgeons, Pr = c.pricing, Rc = c.recovery, T = c.travel, F = c.faq, Fi = c.final, V = c.visit, Ft = c.footer;
   const i18n = { quiz: Qz };
-  const url = SITE_URL + (ty ? TY.path : c.path);
+  const url = SITE_URL + c.path;
   const heroWa = wa(H.waHeroMessage);
 
   return `<!DOCTYPE html>
 <html lang="${c.lang}">
 <head>
-<meta charset="utf-8">
+${googleTag()}<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(ty ? TY.title : c.title)}</title>
+<title>${esc(c.title)}</title>
 <meta name="description" content="${esc(c.description)}">
 <link rel="canonical" href="${url}">
-<link rel="alternate" hreflang="en" href="${SITE_URL}${ty ? "/thank-you/" : "/"}">
-<link rel="alternate" hreflang="es" href="${SITE_URL}${ty ? "/es/gracias/" : "/es/"}">
-<link rel="alternate" hreflang="x-default" href="${SITE_URL}${ty ? "/thank-you/" : "/"}">
+<link rel="alternate" hreflang="en" href="${SITE_URL}/">
+<link rel="alternate" hreflang="es" href="${SITE_URL}/es/">
+<link rel="alternate" hreflang="x-default" href="${SITE_URL}/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="${esc(c.ogTitle)}">
 <meta property="og:description" content="${esc(c.description)}">
@@ -115,7 +128,7 @@ function page(c, ty = false) {
 <meta property="og:locale" content="${c.lang === "es" ? "es_US" : "en_US"}">
 <meta property="og:site_name" content="Xiluet Aesthetic Surgery">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="robots" content="${ty ? "noindex,nofollow" : "index,follow"}">
+<meta name="robots" content="index,follow">
 <link rel="icon" href="/assets/logo-mark-180.png" type="image/png">
 <link rel="apple-touch-icon" href="/assets/logo-mark-180.png">
 <meta name="theme-color" content="#0b2a29">
@@ -125,7 +138,7 @@ ${gtmHead()}<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preload" as="image" href="/assets/logo-mark.webp">
 <link rel="stylesheet" href="/assets/style.css?v=${ASSET_V}">
 ${metaPixel()}</head>
-<body${ty ? ' data-page="thankyou"' : ""}>
+<body>
 ${gtmBody()}<div class="site">
 
 <!-- S0 · Sticky header -->
@@ -136,8 +149,8 @@ ${gtmBody()}<div class="site">
   </a>
   <div class="hdr-right">
     <div class="lang" aria-label="Language">${c.lang === "en"
-      ? `<span>EN</span><a href="${ty ? "/es/gracias/" : "/es/"}" hreflang="es" lang="es">ES</a>`
-      : `<a href="${ty ? "/thank-you/" : "/"}" hreflang="en" lang="en">EN</a><span>ES</span>`}</div>
+      ? `<span>EN</span><a href="/es/" hreflang="es" lang="es">ES</a>`
+      : `<a href="/" hreflang="en" lang="en">EN</a><span>ES</span>`}</div>
     <a class="hdr-cta" href="${quizHref}">${esc(c.header.cta)}</a>
   </div>
 </header>
@@ -147,15 +160,13 @@ ${gtmBody()}<div class="site">
   <img class="watermark" src="/assets/logo-mark.webp" alt="" aria-hidden="true">
   <div class="hero-grid">
     <div class="hero-copy">
-${ty ? `      <span class="eyebrow">${esc(TY.eyebrow)}</span>
-      <h1 class="h1">${esc(TY.h1)}</h1>
-      <p class="hero-sub">${esc(TY.sub)}</p>` : `      <span class="eyebrow">${esc(H.eyebrow)}</span>
+      <span class="eyebrow">${esc(H.eyebrow)}</span>
       <h1 class="h1">${esc(H.h1Before)} <span class="strike">${esc(H.oldPrice)}</span> ${esc(H.from)} <span class="gold">${esc(H.newPrice)}</span></h1>
       <p class="hero-sub">${esc(H.sub)}</p>
       <div class="hero-ctas">
         <a class="btn-primary" href="#quiz">${esc(H.ctaPrimary)}</a>
         <a class="btn-outline" href="${heroWa}" target="_blank" rel="noopener" data-wa="hero">${esc(H.ctaWhatsApp)}</a>
-      </div>`}
+      </div>
       <div class="trust">
         <span><span class="icon">${svg(ICON.eval)}</span>${esc(H.trust[0])}</span>
         <span><span class="icon">${svg(ICON.finance)}</span>${esc(H.trust[1])}</span>
@@ -225,7 +236,7 @@ ${ty ? `      <span class="eyebrow">${esc(TY.eyebrow)}</span>
 </section>
 
 <!-- S5 · Surgeons -->
-<section class="surgeons sec-white">
+<section class="surgeons sec-white" id="surgeons">
   <div class="wrap surgeons-inner">
     <div class="sec-head"><span class="eyebrow">${esc(S.eyebrow)}</span><h2 class="h2">${esc(S.h2)}</h2><p class="lead">${esc(S.p)}</p></div>
     <div class="surgeons-grid">
@@ -236,7 +247,7 @@ ${ty ? `      <span class="eyebrow">${esc(TY.eyebrow)}</span>
 </section>
 
 <!-- S3 · Pricing -->
-<section class="sec sec-white">
+<section class="sec sec-white" id="pricing">
   <div class="pricing-inner">
     <div class="price-head">
       <div class="sec-head"><span class="eyebrow">${esc(Pr.eyebrow)}</span><h2 class="h2">${esc(Pr.h2)}</h2><p class="lead">${esc(Pr.p)}</p></div>
@@ -259,7 +270,7 @@ ${ty ? `      <span class="eyebrow">${esc(TY.eyebrow)}</span>
 </section>
 
 <!-- S4 · Recovery -->
-<section class="sec sec-off">
+<section class="sec sec-off" id="recovery">
   <div class="wrap recovery-inner">
     <div class="sec-head"><span class="eyebrow">${esc(Rc.eyebrow)}</span><h2 class="h2">${esc(Rc.h2)}</h2><p class="lead">${esc(Rc.p)}</p></div>
     <div class="phases">
@@ -338,6 +349,102 @@ ${ty ? `      <span class="eyebrow">${esc(TY.eyebrow)}</span>
 }
 
 
+
+function thankYouPage(c) {
+  const TY = c.thankYou, Ft = c.footer;
+  const url = SITE_URL + TY.path;
+  return `<!DOCTYPE html>
+<html lang="${c.lang}">
+<head>
+${googleTag()}<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(TY.title)}</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="${url}">
+<link rel="alternate" hreflang="en" href="${SITE_URL}/thank-you/">
+<link rel="alternate" hreflang="es" href="${SITE_URL}/es/gracias/">
+<link rel="icon" href="/assets/logo-mark-180.png" type="image/png">
+<meta name="theme-color" content="#0b2a29">
+${gtmHead()}<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css?v=${ASSET_V}">
+${metaPixel()}<script>
+  (function(){
+    var email = sessionStorage.getItem('xil_lead_email');
+    var phone = sessionStorage.getItem('xil_lead_phone');
+    var ud = {};
+    if (email) ud.email = email;
+    if (phone) ud.phone_number = phone;
+    if (email || phone) gtag('set', 'user_data', ud);
+    gtag('event', 'quiz_complete', { send_to: '${CONFIG.GOOGLE_ADS_ID}' });
+    sessionStorage.removeItem('xil_lead_email');
+    sessionStorage.removeItem('xil_lead_phone');
+    /* GTM/GA4 parity: same events the quiz used to push in-page, once per submission */
+    var q = sessionStorage.getItem('xil_lead_qualification');
+    if (q) {
+      window.dataLayer.push({ event: 'quiz_complete', qualification: q, language: '${c.lang}' });
+      if (q === 'qualified') window.dataLayer.push({ event: 'qualified_lead', language: '${c.lang}' });
+      sessionStorage.removeItem('xil_lead_qualification');
+    }
+  })();
+</script>
+</head>
+<body>
+${gtmBody()}<div class="site">
+
+<header class="hdr">
+  <a class="brand" href="${c.path}" aria-label="Xiluet Aesthetic Surgery">
+    <img src="/assets/logo-mark.webp" alt="${esc(c.header.logoAlt)}" width="40" height="44">
+    <span class="brand-text"><span class="brand-name">${esc(c.header.brand)}</span><span class="brand-sub">${esc(c.header.brandSub)}</span></span>
+  </a>
+  <div class="hdr-right">
+    <div class="lang" aria-label="Language">${c.lang === "en"
+      ? `<span>EN</span><a href="/es/gracias/" hreflang="es" lang="es">ES</a>`
+      : `<a href="/thank-you/" hreflang="en" lang="en">EN</a><span>ES</span>`}</div>
+  </div>
+</header>
+
+<section class="hero ty-page">
+  <img class="watermark" src="/assets/logo-mark.webp" alt="" aria-hidden="true">
+  <div class="ty-wrap">
+    <div class="ty-intro">
+      <span class="eyebrow eyebrow--gold">${esc(TY.eyebrow)}</span>
+      <h1 class="h1 h1--sm">${esc(TY.h1)}</h1>
+      <p class="hero-sub">${esc(TY.sub)}</p>
+    </div>
+    <div class="quiz-wrap">
+      <div class="quiz-frame"></div>
+      <div class="quiz ty-card">
+        <ol class="ty-steps">
+          ${TY.steps.map((st, i) => `<li><span class="ty-n">0${i + 1}</span><div><h2>${esc(st[0])}</h2><p>${esc(st[1])}</p></div></li>`).join("\n          ")}
+        </ol>
+        <p class="ty-privacy">${esc(TY.privacy)}</p>
+        <a class="btn-grad btn-grad--lg" href="${wa(TY.waMessage)}" target="_blank" rel="noopener">${esc(TY.waButton)}</a>
+        <p class="call">${esc(TY.call)} <a href="${tel}">${esc(CONFIG.PHONE)}</a></p>
+        <a class="ty-back" href="${c.path}">${esc(TY.back)}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot">
+    <div class="foot-brand"><img src="/assets/logo-mark.webp" alt="" width="32" height="36"><span class="brand-name">${esc(c.header.brand)}</span><span class="brand-sub">${esc(c.header.brandSub)}</span></div>
+    <div class="foot-info">
+      <span>${esc(Ft.line)}</span>
+      <div class="foot-links"><a href="${LINKS.privacy}" target="_blank" rel="noopener">${esc(Ft.privacy)}</a><a href="${LINKS.terms}" target="_blank" rel="noopener">${esc(Ft.terms)}</a></div>
+      <span class="foot-small">${esc(Ft.disclaimer)}</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+</body>
+</html>
+`;
+}
+
 const root = path.join(__dirname, "..");
 for (const lang of ["en", "es"]) {
   const c = require(path.join(root, "content", lang + ".js"));
@@ -347,6 +454,6 @@ for (const lang of ["en", "es"]) {
   console.log("wrote", path.relative(root, out), fs.statSync(out).size, "bytes");
   const ty = path.join(root, "site", c.thankYou.path.replace(/^\//, ""), "index.html");
   fs.mkdirSync(path.dirname(ty), { recursive: true });
-  fs.writeFileSync(ty, page(c, true));
+  fs.writeFileSync(ty, thankYouPage(c));
   console.log("wrote", path.relative(root, ty), fs.statSync(ty).size, "bytes");
 }

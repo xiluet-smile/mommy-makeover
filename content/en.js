@@ -11,7 +11,23 @@ module.exports = {
 
   header: { cta: "See if you qualify → 60 sec", logoAlt: "Xiluet mark", brand: "Xiluet", brandSub: "AESTHETIC SURGERY" },
 
-  thankYou: { path: "/thank-you/", title: "Thank you | Xiluet Aesthetic Surgery", eyebrow: "EVALUATION RECEIVED", h1: "Your surgeon has your answers.", sub: "Your next step is in the card. We'll be in touch within 24–48 hours." },
+  thankYou: {
+    path: "/thank-you/",
+    title: "Evaluation received | Xiluet Aesthetic Surgery",
+    eyebrow: "EVALUATION RECEIVED",
+    h1: "Thank you. Your surgeon has your answers.",
+    sub: "Here is what happens next.",
+    steps: [
+      ["Send 4 photos on WhatsApp", "front · left side · right side · back. In a bra and underwear or as you feel comfortable, standing straight, natural light, arms relaxed. Phone photos are perfect."],
+      ["Your surgeon reviews them", "and tells you honestly if you're a candidate and what they'd recommend."],
+      ["Preliminary quote in 24–48h", "based on your photos, so you know where you stand before you book anything."],
+    ],
+    waButton: "Send my photos on WhatsApp",
+    waMessage: "Hi, I just completed the Mommy Makeover evaluation and I'm sending my photos.",
+    privacy: "🔒 Private. Seen only by your surgical team. Never used for marketing without your written consent.",
+    call: "Prefer to call?",
+    back: "← Back to the page",
+  },
 
   hero: {
     eyebrow: "MOMMY MAKEOVER · MIAMI, FL",

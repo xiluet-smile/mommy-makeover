@@ -79,7 +79,7 @@ Cloudflare validates the CNAME and issues the certificate automatically (a few m
 `first_name, phone, email, whatsapp_ok (true), language (en|es), procedures[], timing, travel, age_18_plus,
 postpartum_status, smoker, payment_method, credit_range, state, city,
 qualification (qualified|nurture|not_fit), source ("google_lp_mommy_makeover"), campaign_name, utm_source, utm_medium,
-utm_campaign, utm_content, utm_term, gclid, fbclid, fbp, fbc, landing_url, event_source_url, submitted_at`
+utm_campaign, utm_content, utm_term, matchtype, gclid, gbraid, wbraid, fbclid, fbp, fbc, landing_url, event_source_url, submitted_at`
 
 Answer values are canonical English keys on both languages (e.g. `timing: "1_3_months"`, `travel: "other_state"`,
 `payment_method: "financing"`, `credit_range: "below_620"`). See `content/en.js` for the full list.
@@ -89,14 +89,14 @@ Photo uploader: multipart POST to the same endpoint with `photo_front/left/right
 ## Thank-you pages
 
 After the contact step is submitted the visitor is redirected to `/thank-you/` (EN) or `/es/gracias/` (ES). Those pages
-are the full landing page (same sections) with the hero copy swapped for the thank-you headline and the outcome screen
-(qualified: photo instructions + WhatsApp + uploader; nurture: coordinator message + WhatsApp) rendered in the hero card
-from `sessionStorage` (`mm_lead`: outcome, name, phone, email). Every "See if you qualify" CTA on those pages links back
-to a fresh quiz on the landing page. Nothing is put in the URL. The not-a-fit early exit stays
+are short static pages (no quiz, no form): headline, the 3 next steps, WhatsApp button, phone, link back to the LP.
+Before redirecting, the quiz stores `xil_lead_email` / `xil_lead_phone` (E.164) / `xil_lead_qualification` in `sessionStorage`;
+the thank-you page sends email/phone to Google as enhanced-conversion user data, fires the Ads conversion event
+`quiz_complete` (send_to AW-11505059358) plus the GTM `quiz_complete` / `qualified_lead` dataLayer events, then clears them. Nothing is put in the URL. The not-a-fit early exit stays
 inline in the quiz card (no lead is created). Both pages are `noindex`.
 
-Use a page-view of `/thank-you/` or `/es/gracias/` as the Google Ads / GA4 conversion, or the `quiz_complete` /
-`qualified_lead` dataLayer events, which fire once on the thank-you page.
+Google tag (gtag.js, `AW-11505059358` + GA4 `G-K59E90DQD0`) is the first thing in `<head>` on every page (`googleTag()` in
+`scripts/build.js`). Section anchors: `#pricing`, `#surgeons`, `#recovery`.
 
 ## dataLayer events
 

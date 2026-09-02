@@ -52,7 +52,10 @@ Cada petición trae exactamente estas claves. Una cadena vacía significa "no re
   "utm_campaign": "mm-es",
   "utm_content": "",
   "utm_term": "",
+  "matchtype": "",
   "gclid": "Cj0KCQjw...",
+  "gbraid": "",
+  "wbraid": "",
   "fbclid": "",
   "fbp": "",
   "fbc": "",
@@ -85,7 +88,9 @@ Cada petición trae exactamente estas claves. Una cadena vacía significa "no re
 | `source` | string | Siempre `google_lp_mommy_makeover`. |
 | `campaign_name` | string | Igual a `utm_campaign`, o `google-lp-mm` cuando la visitante llegó sin UTMs. |
 | `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term` | string | Capturados de la URL de llegada y conservados durante el quiz. Vacíos si no existen. |
+| `matchtype` | string | Tipo de concordancia de la palabra clave de Google Ads (`e`, `p`, `b`), si la campaña lo envía. Vacío en caso contrario. |
 | `gclid` | string | ID de clic de Google Ads. Guárdalo: permite subir conversiones offline más adelante. |
+| `gbraid`, `wbraid` | string | IDs de clic de Google Ads que iOS usa en lugar de `gclid`. Guárdalos igual. |
 | `fbclid`, `fbp`, `fbc` | string | ID de clic de Meta y cookies del píxel, para la Conversions API. Vacíos si no existen. |
 | `landing_url` | string | Primera URL de la sesión, incluyendo UTMs. |
 | `event_source_url` | string | URL de la página donde se envió el formulario. |
@@ -137,7 +142,7 @@ Ejecuta esto contra tu endpoint (reemplaza la URL y el header). Deberías ver el
 curl -X POST "https://TU-CRM/endpoint" \
   -H "Content-Type: application/json" \
   -H "X-Webhook-Secret: TU-SECRETO" \
-  -d '{"first_name":"Test Lead","phone":"(305) 555-0100","email":"test@example.com","whatsapp_ok":true,"language":"es","procedures":["tummy_tuck"],"timing":"asap","travel":"miami_south_fl","age_18_plus":"yes","postpartum_status":"yes","smoker":"no","payment_method":"cash","credit_range":"","state":"Florida","city":"Miami","qualification":"qualified","source":"google_lp_mommy_makeover","campaign_name":"google-lp-mm","utm_source":"","utm_medium":"","utm_campaign":"","utm_content":"","utm_term":"","gclid":"","fbclid":"","fbp":"","fbc":"","landing_url":"https://promo.xiluetaestheticsurgery.com/es/","event_source_url":"https://promo.xiluetaestheticsurgery.com/es/","submitted_at":"2026-09-01T00:00:00.000Z"}'
+  -d '{"first_name":"Test Lead","phone":"(305) 555-0100","email":"test@example.com","whatsapp_ok":true,"language":"es","procedures":["tummy_tuck"],"timing":"asap","travel":"miami_south_fl","age_18_plus":"yes","postpartum_status":"yes","smoker":"no","payment_method":"cash","credit_range":"","state":"Florida","city":"Miami","qualification":"qualified","source":"google_lp_mommy_makeover","campaign_name":"google-lp-mm","utm_source":"","utm_medium":"","utm_campaign":"","utm_content":"","utm_term":"","matchtype":"","gclid":"","gbraid":"","wbraid":"","fbclid":"","fbp":"","fbc":"","landing_url":"https://promo.xiluetaestheticsurgery.com/es/","event_source_url":"https://promo.xiluetaestheticsurgery.com/es/","submitted_at":"2026-09-01T00:00:00.000Z"}'
 ```
 
 En cuanto nos envíes la URL y el header, haremos un lead de prueba real a través del quiz y confirmaremos que llega.

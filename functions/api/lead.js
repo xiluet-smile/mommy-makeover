@@ -19,7 +19,7 @@ const LEAD_FIELDS = [
   "first_name", "phone", "email", "whatsapp_ok", "language", "procedures", "timing", "travel",
   "age_18_plus", "postpartum_status", "smoker", "payment_method", "credit_range",
   "state", "city", "qualification", "source", "campaign_name", "utm_source", "utm_medium", "utm_campaign",
-  "utm_content", "utm_term", "gclid", "fbclid", "fbp", "fbc", "landing_url", "event_source_url", "submitted_at",
+  "utm_content", "utm_term", "matchtype", "gclid", "gbraid", "wbraid", "fbclid", "fbp", "fbc", "landing_url", "event_source_url", "submitted_at",
 ];
 const MAX_PHOTO_BYTES = 12 * 1024 * 1024; // per file
 const PHOTO_FIELDS = ["photo_front", "photo_left", "photo_right", "photo_back"];

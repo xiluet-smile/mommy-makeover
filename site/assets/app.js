@@ -30,16 +30,16 @@
   window.dataLayer = window.dataLayer || [];
   function track(event, data) { var o = Object.assign({ event: event }, data || {}); window.dataLayer.push(o); }
 
-  /* UTM / gclid / fbclid: captured on load, kept in sessionStorage, sent in the POST body only. Never written to the URL. */
-  var UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "gclid", "fbclid"];
+  /* UTM / click IDs: captured on load, kept in sessionStorage for the session (first touch wins), sent in the POST body only. Never written to the URL. */
+  var UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "matchtype", "gclid", "gbraid", "wbraid", "fbclid"];
   var utm = {};
   (function captureUtm() {
     var params = new URLSearchParams(location.search);
     UTM_KEYS.forEach(function (k) {
       var v = params.get(k) || "";
       var stored = "";
-      try { if (v) sessionStorage.setItem("mm_" + k, v); stored = sessionStorage.getItem("mm_" + k) || ""; } catch (e) { /* storage blocked */ }
-      utm[k] = v || stored || "";
+      try { stored = sessionStorage.getItem("mm_" + k) || ""; if (v && !stored) { sessionStorage.setItem("mm_" + k, v); stored = v; } } catch (e) { /* storage blocked */ }
+      utm[k] = stored || v || "";
     });
     try { if (!sessionStorage.getItem("mm_landing_url")) sessionStorage.setItem("mm_landing_url", location.href); } catch (e) { /* ignore */ }
   })();
@@ -95,8 +95,6 @@
   /* ═══════════════════════════════ QUIZ ═══════════════════════════════ */
   var Q = I18N.quiz;
   var quizEl = $("#quiz");
-  var IS_TY = document.body.getAttribute("data-page") === "thankyou";
-  var HOME = LANG === "es" ? "/es/" : "/";
   var TY_URL = LANG === "es" ? "/es/gracias/" : "/thank-you/";
   var state, started = false;
 
@@ -124,6 +122,12 @@
   function displayName() { return (state.form.name || "").trim() || Q.nameFallback; }
   function waLink(msg) { return "https://wa.me/" + CONFIG.WHATSAPP_NUMBER + "?text=" + encodeURIComponent(t(msg, { name: displayName() })); }
   function phoneLink() { return "tel:" + String(CONFIG.PHONE).replace(/[^\d+]/g, ""); }
+  function toE164(v) {
+    var d = String(v || "").replace(/\D/g, "");
+    if (d.length === 10) return "+1" + d;
+    if (d.length === 11 && d.charAt(0) === "1") return "+" + d;
+    return d ? "+" + d : "";
+  }
   function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
   function validPhone(v) { return (v.match(/\d/g) || []).length >= 7; }
   function canContinue(cur) {
@@ -165,8 +169,8 @@
       qualification: qualification,
       source: CONFIG.SOURCE,
       campaign_name: utm.utm_campaign || CONFIG.CAMPAIGN_FALLBACK,
-      utm_source: utm.utm_source, utm_medium: utm.utm_medium, utm_campaign: utm.utm_campaign, utm_content: utm.utm_content, utm_term: utm.utm_term,
-      gclid: utm.gclid, fbclid: m.fbclid, fbp: m.fbp, fbc: m.fbc,
+      utm_source: utm.utm_source, utm_medium: utm.utm_medium, utm_campaign: utm.utm_campaign, utm_content: utm.utm_content, utm_term: utm.utm_term, matchtype: utm.matchtype,
+      gclid: utm.gclid, gbraid: utm.gbraid, wbraid: utm.wbraid, fbclid: m.fbclid, fbp: m.fbp, fbc: m.fbc,
       landing_url: landingUrl(),
       event_source_url: location.href,
       submitted_at: new Date().toISOString()
@@ -189,9 +193,13 @@
       .then(function (r) { if (!r.ok) console.warn("[lead] CRM proxy returned", r.status); })
       .catch(function (e) { console.warn("[lead] CRM proxy unreachable", e && e.message); })
       .then(function () {
-        var lead = { outcome: qualification, name: state.form.name.trim(), phone: state.form.phone.trim(), email: state.form.email.trim(), lang: LANG, ts: Date.now() };
-        try { sessionStorage.setItem("mm_lead", JSON.stringify(lead)); sessionStorage.removeItem("mm_lead_tracked"); } catch (e) { /* storage blocked: thank-you page renders the generic version */ }
-        location.assign(TY_URL);
+        /* Enhanced conversions: the thank-you page reads these, sends them to Google, then clears them. Never in the URL. */
+        try {
+          sessionStorage.setItem("xil_lead_email", state.form.email.trim().toLowerCase());
+          sessionStorage.setItem("xil_lead_phone", toE164(state.form.phone));
+          sessionStorage.setItem("xil_lead_qualification", qualification);
+        } catch (e) { /* storage blocked: conversion still fires without user data */ }
+        window.location.assign(TY_URL);
       });
   }
 
@@ -215,7 +223,7 @@
     var steps = visibleSteps(), cur = steps[Math.min(state.step, steps.length - 1)];
     var inQuestions = !state.outcome;
     var showBack = inQuestions && state.step > 0 && !state.submitting;
-    html += '<div class="q-top">' + (IS_TY ? '<a class="q-back" href="' + HOME + '">' + esc(Q.backHome) + "</a>" : showBack ? '<button type="button" class="q-back" data-act="back">' + esc(Q.back) + "</button>" : "<span></span>") + '<span class="q-badge">' + esc(Q.badge) + "</span></div>";
+    html += '<div class="q-top">' + (showBack ? '<button type="button" class="q-back" data-act="back">' + esc(Q.back) + "</button>" : "<span></span>") + '<span class="q-badge">' + esc(Q.badge) + "</span></div>";
 
     if (inQuestions) {
       /* progress */
@@ -309,7 +317,6 @@
     } else if (act === "back") {
       state.step = Math.max(0, state.step - 1); render();
     } else if (act === "reset") {
-      if (IS_TY) { location.assign(HOME); return; }
       state = freshState(); render(); scrollToQuiz();
     } else if (act === "uploader") {
       state.uploaderOpen = !state.uploaderOpen; render();
@@ -337,18 +344,6 @@
       var btn = $('[data-act="next"]', quizEl); if (btn && !btn.disabled) { e.preventDefault(); btn.click(); }
     }
   });
-  if (IS_TY) {
-    var lead = {};
-    try { lead = JSON.parse(sessionStorage.getItem("mm_lead") || "{}") || {}; } catch (e) { /* ignore */ }
-    state.outcome = lead.outcome === "qualified" ? "qualified" : "nurture";
-    state.form.name = lead.name || ""; state.form.phone = lead.phone || ""; state.form.email = lead.email || "";
-    var tracked = false; try { tracked = !!sessionStorage.getItem("mm_lead_tracked"); } catch (e) { /* ignore */ }
-    if (lead.outcome && !tracked) {
-      track("quiz_complete", { qualification: lead.outcome, language: LANG });
-      if (lead.outcome === "qualified") track("qualified_lead", { language: LANG });
-      try { sessionStorage.setItem("mm_lead_tracked", "1"); } catch (e) { /* ignore */ }
-    }
-  }
   render();
 
   /* CTAs → quiz: fire quiz_start on first click */

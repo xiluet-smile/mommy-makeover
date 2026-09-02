@@ -52,7 +52,10 @@ Every request has exactly these keys. Empty strings mean "not answered / not app
   "utm_campaign": "mm-en",
   "utm_content": "",
   "utm_term": "",
+  "matchtype": "",
   "gclid": "Cj0KCQjw...",
+  "gbraid": "",
+  "wbraid": "",
   "fbclid": "",
   "fbp": "",
   "fbc": "",
@@ -85,7 +88,9 @@ Every request has exactly these keys. Empty strings mean "not answered / not app
 | `source` | string | Always `google_lp_mommy_makeover`. |
 | `campaign_name` | string | Equals `utm_campaign`, or `google-lp-mm` when the visitor arrived without UTMs. |
 | `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term` | string | Captured from the landing URL, persisted through the quiz. Empty if absent. |
+| `matchtype` | string | Google Ads keyword match type from the URL (`e`, `p`, `b`), if the campaign passes it. Empty otherwise. |
 | `gclid` | string | Google Ads click ID. Store it: it enables offline conversion uploads later. |
+| `gbraid`, `wbraid` | string | Google Ads click IDs used on iOS instead of `gclid`. Store them the same way. |
 | `fbclid`, `fbp`, `fbc` | string | Meta click ID and pixel cookies, for Conversions API. Empty if absent. |
 | `landing_url` | string | First URL of the session, including UTMs. |
 | `event_source_url` | string | URL of the page where the form was submitted. |
@@ -137,7 +142,7 @@ Run this against your endpoint (replace the URL and header). You should see the 
 curl -X POST "https://YOUR-CRM/endpoint" \
   -H "Content-Type: application/json" \
   -H "X-Webhook-Secret: YOUR-SECRET" \
-  -d '{"first_name":"Test Lead","phone":"(305) 555-0100","email":"test@example.com","whatsapp_ok":true,"language":"en","procedures":["tummy_tuck"],"timing":"asap","travel":"miami_south_fl","age_18_plus":"yes","postpartum_status":"yes","smoker":"no","payment_method":"cash","credit_range":"","state":"Florida","city":"Miami","qualification":"qualified","source":"google_lp_mommy_makeover","campaign_name":"google-lp-mm","utm_source":"","utm_medium":"","utm_campaign":"","utm_content":"","utm_term":"","gclid":"","fbclid":"","fbp":"","fbc":"","landing_url":"https://promo.xiluetaestheticsurgery.com/","event_source_url":"https://promo.xiluetaestheticsurgery.com/","submitted_at":"2026-09-01T00:00:00.000Z"}'
+  -d '{"first_name":"Test Lead","phone":"(305) 555-0100","email":"test@example.com","whatsapp_ok":true,"language":"en","procedures":["tummy_tuck"],"timing":"asap","travel":"miami_south_fl","age_18_plus":"yes","postpartum_status":"yes","smoker":"no","payment_method":"cash","credit_range":"","state":"Florida","city":"Miami","qualification":"qualified","source":"google_lp_mommy_makeover","campaign_name":"google-lp-mm","utm_source":"","utm_medium":"","utm_campaign":"","utm_content":"","utm_term":"","matchtype":"","gclid":"","gbraid":"","wbraid":"","fbclid":"","fbp":"","fbc":"","landing_url":"https://promo.xiluetaestheticsurgery.com/","event_source_url":"https://promo.xiluetaestheticsurgery.com/","submitted_at":"2026-09-01T00:00:00.000Z"}'
 ```
 
 Once you send us the URL and header, we'll submit a live test lead through the real quiz and confirm it arrives.
