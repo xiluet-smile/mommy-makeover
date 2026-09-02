@@ -208,7 +208,7 @@ module.exports = {
       ["Will I have drains? A scar?", "Most tummy tucks use drains for the first few days; your surgeon will tell you exactly how long. The scar sits low, hidden by underwear; we'll show you where before surgery."],
       ["Am I a candidate if I've had a C-section?", "Usually yes. The tummy tuck incision typically incorporates the old scar."],
       ["Do I need to be done having kids?", "We strongly recommend it. Another pregnancy can undo the results."],
-      ["Is the deposit refundable?", "Your $250 deposit is credited to your total. Ask your coordinator about refund and transfer terms before you reserve your date."],
+      ["Is there a deposit?", "Yes. A $250 deposit is required to reserve your surgery date, and it is credited toward your total. Your quote and your consultation come first, before any deposit."],
       ["Do I need to live in Miami?", "No. See \"Traveling patients.\""],
     ],
   },

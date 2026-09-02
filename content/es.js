@@ -208,7 +208,7 @@ module.exports = {
       ["¿Tendré drenajes? ¿Cicatriz?", "La mayoría de las abdominoplastias usan drenajes los primeros días; tu cirujano te dirá exactamente cuánto tiempo. La cicatriz queda baja, oculta por la ropa interior; te mostramos dónde antes de operar."],
       ["¿Soy candidata si tuve cesárea?", "Generalmente sí. La incisión suele incorporar la cicatriz anterior."],
       ["¿Debo haber terminado de tener hijos?", "Lo recomendamos mucho. Otro embarazo puede deshacer los resultados."],
-      ["¿El depósito es reembolsable?", "Tu depósito de $250 se descuenta del total. Pregunta a tu coordinadora por las condiciones de reembolso y transferencia antes de reservar tu fecha."],
+      ["¿Hay que dejar un depósito?", "Sí. Se requiere un depósito de $250 para reservar tu fecha de cirugía, y se descuenta del total. Tu cotización y tu consulta van primero, antes de cualquier depósito."],
       ["¿Tengo que vivir en Miami?", "No. Mira \"Pacientes que viajan\"."],
     ],
   },
