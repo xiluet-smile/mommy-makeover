@@ -11,7 +11,7 @@ module.exports = {
 
   header: { cta: "Mira si calificas → 60 seg", logoAlt: "Logo de Xiluet", brand: "Xiluet", brandSub: "AESTHETIC SURGERY" },
 
-  thankYou: { path: "/es/gracias/", title: "Gracias | Xiluet Aesthetic Surgery", eyebrow: "EVALUACIÓN RECIBIDA", h1: "Tu cirujano ya tiene tus respuestas." },
+  thankYou: { path: "/es/gracias/", title: "Gracias | Xiluet Aesthetic Surgery", eyebrow: "EVALUACIÓN RECIBIDA", h1: "Tu cirujano ya tiene tus respuestas.", sub: "Tu siguiente paso está en la tarjeta. Te contactamos en 24–48 horas." },
 
   hero: {
     eyebrow: "MOMMY MAKEOVER · MIAMI, FL",

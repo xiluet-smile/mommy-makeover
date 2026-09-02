@@ -98,13 +98,8 @@ h1, h2, h3, p { margin: 0; }
 .promise .dia { color: var(--gold); font-size: 15px; }
 .promise em { font-family: var(--serif); font-style: italic; font-size: 20px; color: var(--gold-pale); }
 
-/* ---------- thank-you page ---------- */
-.ty-page { min-height: calc(100vh - 73px); }
-.ty-wrap { max-width: 720px; margin: 0 auto; padding: 72px 48px 96px; display: flex; flex-direction: column; gap: 32px; position: relative; }
-.ty-intro { display: flex; flex-direction: column; gap: 14px; }
-.h1--sm { font-size: clamp(32px, 4vw, 44px); }
-.ty-page .q-back { text-decoration: none; }
-@media (max-width: 720px) { .ty-wrap { padding: 36px 20px 64px; gap: 24px; } .h1--sm { font-size: 30px; } }
+/* ---------- thank-you page (same layout as the landing page; outcome in the hero card) ---------- */
+[data-page="thankyou"] .q-back { text-decoration: none; }
 
 /* ---------- quiz card ---------- */
 .quiz-wrap { position: relative; min-width: 0; }

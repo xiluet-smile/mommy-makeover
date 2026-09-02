@@ -11,7 +11,7 @@ module.exports = {
 
   header: { cta: "See if you qualify → 60 sec", logoAlt: "Xiluet mark", brand: "Xiluet", brandSub: "AESTHETIC SURGERY" },
 
-  thankYou: { path: "/thank-you/", title: "Thank you | Xiluet Aesthetic Surgery", eyebrow: "EVALUATION RECEIVED", h1: "Your surgeon has your answers." },
+  thankYou: { path: "/thank-you/", title: "Thank you | Xiluet Aesthetic Surgery", eyebrow: "EVALUATION RECEIVED", h1: "Your surgeon has your answers.", sub: "Your next step is in the card. We'll be in touch within 24–48 hours." },
 
   hero: {
     eyebrow: "MOMMY MAKEOVER · MIAMI, FL",

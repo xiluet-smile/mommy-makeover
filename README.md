@@ -88,9 +88,11 @@ Photo uploader: multipart POST to the same endpoint with `photo_front/left/right
 
 ## Thank-you pages
 
-After the contact step is submitted the visitor is redirected to `/thank-you/` (EN) or `/es/gracias/` (ES), where the
-outcome screen (qualified: photo instructions + WhatsApp + uploader; nurture: coordinator message + WhatsApp) is rendered
-from `sessionStorage` (`mm_lead`: outcome, name, phone, email). Nothing is put in the URL. The not-a-fit early exit stays
+After the contact step is submitted the visitor is redirected to `/thank-you/` (EN) or `/es/gracias/` (ES). Those pages
+are the full landing page (same sections) with the hero copy swapped for the thank-you headline and the outcome screen
+(qualified: photo instructions + WhatsApp + uploader; nurture: coordinator message + WhatsApp) rendered in the hero card
+from `sessionStorage` (`mm_lead`: outcome, name, phone, email). Every "See if you qualify" CTA on those pages links back
+to a fresh quiz on the landing page. Nothing is put in the URL. The not-a-fit early exit stays
 inline in the quiz card (no lead is created). Both pages are `noindex`.
 
 Use a page-view of `/thank-you/` or `/es/gracias/` as the Google Ads / GA4 conversion, or the `quiz_complete` /

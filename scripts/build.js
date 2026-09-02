@@ -88,10 +88,12 @@ function metaPixel() {
 `;
 }
 
-function page(c) {
+function page(c, ty = false) {
+  const TY = c.thankYou;
+  const quizHref = ty ? `${c.path}#quiz` : "#quiz";
   const H = c.hero, Qz = c.quiz, W = c.what, P = c.process, R = c.results, St = c.stories, S = c.surgeons, Pr = c.pricing, Rc = c.recovery, T = c.travel, F = c.faq, Fi = c.final, V = c.visit, Ft = c.footer;
   const i18n = { quiz: Qz };
-  const url = SITE_URL + c.path;
+  const url = SITE_URL + (ty ? TY.path : c.path);
   const heroWa = wa(H.waHeroMessage);
 
   return `<!DOCTYPE html>
@@ -99,12 +101,12 @@ function page(c) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(c.title)}</title>
+<title>${esc(ty ? TY.title : c.title)}</title>
 <meta name="description" content="${esc(c.description)}">
 <link rel="canonical" href="${url}">
-<link rel="alternate" hreflang="en" href="${SITE_URL}/">
-<link rel="alternate" hreflang="es" href="${SITE_URL}/es/">
-<link rel="alternate" hreflang="x-default" href="${SITE_URL}/">
+<link rel="alternate" hreflang="en" href="${SITE_URL}${ty ? "/thank-you/" : "/"}">
+<link rel="alternate" hreflang="es" href="${SITE_URL}${ty ? "/es/gracias/" : "/es/"}">
+<link rel="alternate" hreflang="x-default" href="${SITE_URL}${ty ? "/thank-you/" : "/"}">
 <meta property="og:type" content="website">
 <meta property="og:title" content="${esc(c.ogTitle)}">
 <meta property="og:description" content="${esc(c.description)}">
@@ -113,7 +115,7 @@ function page(c) {
 <meta property="og:locale" content="${c.lang === "es" ? "es_US" : "en_US"}">
 <meta property="og:site_name" content="Xiluet Aesthetic Surgery">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="robots" content="index,follow">
+<meta name="robots" content="${ty ? "noindex,nofollow" : "index,follow"}">
 <link rel="icon" href="/assets/logo-mark-180.png" type="image/png">
 <link rel="apple-touch-icon" href="/assets/logo-mark-180.png">
 <meta name="theme-color" content="#0b2a29">
@@ -123,7 +125,7 @@ ${gtmHead()}<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preload" as="image" href="/assets/logo-mark.webp">
 <link rel="stylesheet" href="/assets/style.css?v=${ASSET_V}">
 ${metaPixel()}</head>
-<body>
+<body${ty ? ' data-page="thankyou"' : ""}>
 ${gtmBody()}<div class="site">
 
 <!-- S0 · Sticky header -->
@@ -134,9 +136,9 @@ ${gtmBody()}<div class="site">
   </a>
   <div class="hdr-right">
     <div class="lang" aria-label="Language">${c.lang === "en"
-      ? `<span>EN</span><a href="/es/" hreflang="es" lang="es">ES</a>`
-      : `<a href="/" hreflang="en" lang="en">EN</a><span>ES</span>`}</div>
-    <a class="hdr-cta" href="#quiz">${esc(c.header.cta)}</a>
+      ? `<span>EN</span><a href="${ty ? "/es/gracias/" : "/es/"}" hreflang="es" lang="es">ES</a>`
+      : `<a href="${ty ? "/thank-you/" : "/"}" hreflang="en" lang="en">EN</a><span>ES</span>`}</div>
+    <a class="hdr-cta" href="${quizHref}">${esc(c.header.cta)}</a>
   </div>
 </header>
 
@@ -145,13 +147,15 @@ ${gtmBody()}<div class="site">
   <img class="watermark" src="/assets/logo-mark.webp" alt="" aria-hidden="true">
   <div class="hero-grid">
     <div class="hero-copy">
-      <span class="eyebrow">${esc(H.eyebrow)}</span>
+${ty ? `      <span class="eyebrow">${esc(TY.eyebrow)}</span>
+      <h1 class="h1">${esc(TY.h1)}</h1>
+      <p class="hero-sub">${esc(TY.sub)}</p>` : `      <span class="eyebrow">${esc(H.eyebrow)}</span>
       <h1 class="h1">${esc(H.h1Before)} <span class="strike">${esc(H.oldPrice)}</span> ${esc(H.from)} <span class="gold">${esc(H.newPrice)}</span></h1>
       <p class="hero-sub">${esc(H.sub)}</p>
       <div class="hero-ctas">
         <a class="btn-primary" href="#quiz">${esc(H.ctaPrimary)}</a>
         <a class="btn-outline" href="${heroWa}" target="_blank" rel="noopener" data-wa="hero">${esc(H.ctaWhatsApp)}</a>
-      </div>
+      </div>`}
       <div class="trust">
         <span><span class="icon">${svg(ICON.eval)}</span>${esc(H.trust[0])}</span>
         <span><span class="icon">${svg(ICON.finance)}</span>${esc(H.trust[1])}</span>
@@ -195,7 +199,7 @@ ${gtmBody()}<div class="site">
     <ol class="steps">
       ${P.steps.map((s) => `<li class="step"><span class="step-n">${esc(s[0])}</span><span class="step-emoji" aria-hidden="true">${s[1]}</span><h3>${esc(s[2])}</h3><p>${esc(s[3])}</p></li>`).join("\n      ")}
     </ol>
-    <a class="btn-primary self-start" href="#quiz">${esc(P.cta)}</a>
+    <a class="btn-primary self-start" href="${quizHref}">${esc(P.cta)}</a>
   </div>
 </section>
 
@@ -248,7 +252,7 @@ ${gtmBody()}<div class="site">
           <div class="card-head"><h3>${esc(Pr.notIncludedTitle)}</h3><span class="sub">${esc(Pr.notIncludedSub)}</span></div>
           <ul class="plist">${Pr.notIncluded.map((it) => `<li><span class="dash"></span><span>${esc(it)}</span></li>`).join("")}</ul>
         </div>
-        <div class="callout"><span class="bigdia" aria-hidden="true">◇</span><p>${esc(Pr.callout)}</p><a class="btn-primary self-start" href="#quiz">${esc(Pr.cta)}</a></div>
+        <div class="callout"><span class="bigdia" aria-hidden="true">◇</span><p>${esc(Pr.callout)}</p><a class="btn-primary self-start" href="${quizHref}">${esc(Pr.cta)}</a></div>
       </div>
     </div>
   </div>
@@ -289,7 +293,7 @@ ${gtmBody()}<div class="site">
   <img class="watermark" src="/assets/logo-mark.webp" alt="" aria-hidden="true">
   <div class="final-inner">
     <h2 class="h2 h2--cream">${esc(Fi.h2)}</h2>
-    <a class="btn-primary" href="#quiz">${esc(Fi.cta)}</a>
+    <a class="btn-primary" href="${quizHref}">${esc(Fi.cta)}</a>
     <p class="final-sub">${esc(Fi.sub)}</p>
   </div>
 </section>
@@ -334,74 +338,6 @@ ${gtmBody()}<div class="site">
 }
 
 
-function thankYouPage(c) {
-  const Qz = c.quiz, TY = c.thankYou, Ft = c.footer;
-  const i18n = { quiz: Qz };
-  const url = SITE_URL + TY.path;
-  return `<!DOCTYPE html>
-<html lang="${c.lang}">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(TY.title)}</title>
-<meta name="robots" content="noindex,nofollow">
-<link rel="canonical" href="${url}">
-<link rel="icon" href="/assets/logo-mark-180.png" type="image/png">
-<meta name="theme-color" content="#0b2a29">
-${gtmHead()}<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=${ASSET_V}">
-${metaPixel()}</head>
-<body data-page="thankyou">
-${gtmBody()}<div class="site">
-
-<header class="hdr">
-  <a class="brand" href="${c.path}" aria-label="Xiluet Aesthetic Surgery">
-    <img src="/assets/logo-mark.webp" alt="${esc(c.header.logoAlt)}" width="40" height="44">
-    <span class="brand-text"><span class="brand-name">${esc(c.header.brand)}</span><span class="brand-sub">${esc(c.header.brandSub)}</span></span>
-  </a>
-  <div class="hdr-right">
-    <div class="lang" aria-label="Language">${c.lang === "en"
-      ? `<span>EN</span><a href="/es/" hreflang="es" lang="es">ES</a>`
-      : `<a href="/" hreflang="en" lang="en">EN</a><span>ES</span>`}</div>
-  </div>
-</header>
-
-<section class="hero ty-page">
-  <img class="watermark" src="/assets/logo-mark.webp" alt="" aria-hidden="true">
-  <div class="ty-wrap">
-    <div class="ty-intro">
-      <span class="eyebrow eyebrow--gold">${esc(TY.eyebrow)}</span>
-      <h1 class="h1 h1--sm">${esc(TY.h1)}</h1>
-    </div>
-    <div class="quiz-wrap">
-      <div class="quiz-frame"></div>
-      <div id="quiz" class="quiz" aria-live="polite"></div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="foot">
-    <div class="foot-brand"><img src="/assets/logo-mark.webp" alt="" width="32" height="36"><span class="brand-name">${esc(c.header.brand)}</span><span class="brand-sub">${esc(c.header.brandSub)}</span></div>
-    <div class="foot-info">
-      <span>${esc(Ft.line)}</span>
-      <div class="foot-links"><a href="${LINKS.privacy}" target="_blank" rel="noopener">${esc(Ft.privacy)}</a><a href="${LINKS.terms}" target="_blank" rel="noopener">${esc(Ft.terms)}</a></div>
-      <span class="foot-small">${esc(Ft.disclaimer)}</span>
-    </div>
-  </div>
-</footer>
-
-</div>
-<script id="mm-i18n" type="application/json">${JSON.stringify(i18n).replace(/</g, "\\u003c")}</script>
-<script>window.MM_CONFIG=${JSON.stringify(CONFIG).replace(/</g, "\\u003c")};</script>
-<script src="/assets/app.js?v=${ASSET_V}" defer></script>
-</body>
-</html>
-`;
-}
-
 const root = path.join(__dirname, "..");
 for (const lang of ["en", "es"]) {
   const c = require(path.join(root, "content", lang + ".js"));
@@ -411,6 +347,6 @@ for (const lang of ["en", "es"]) {
   console.log("wrote", path.relative(root, out), fs.statSync(out).size, "bytes");
   const ty = path.join(root, "site", c.thankYou.path.replace(/^\//, ""), "index.html");
   fs.mkdirSync(path.dirname(ty), { recursive: true });
-  fs.writeFileSync(ty, thankYouPage(c));
+  fs.writeFileSync(ty, page(c, true));
   console.log("wrote", path.relative(root, ty), fs.statSync(ty).size, "bytes");
 }
