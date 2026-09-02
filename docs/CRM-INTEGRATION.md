@@ -1,7 +1,5 @@
 # Lead webhook spec for the Mommy Makeover landing page
 
-**For:** the CRM developer  
-**From:** Xiluet Aesthetic Surgery marketing  
 **Landing page:** https://promo.xiluetaestheticsurgery.com (English) · https://promo.xiluetaestheticsurgery.com/es/ (Spanish)
 
 ## What we need from you
@@ -42,8 +40,6 @@ Every request has exactly these keys. Empty strings mean "not answered / not app
   "age_18_plus": "yes",
   "postpartum_status": "yes",
   "smoker": "no",
-  "height": "",
-  "weight": "",
   "payment_method": "financing",
   "credit_range": "720_plus",
   "state": "Georgia",
@@ -81,7 +77,6 @@ Every request has exactly these keys. Empty strings mean "not answered / not app
 | `age_18_plus` | string | `yes`, `no`. |
 | `postpartum_status` | string | `yes` (done having children, 6+ months postpartum, not breastfeeding), `not_yet`, `not_sure`. |
 | `smoker` | string | `no`, `yes`, `yes_would_stop`. |
-| `height`, `weight` | string | Always empty (the step was removed; kept for schema stability). |
 | `payment_method` | string | `cash`, `financing`, `mix`, `not_sure`. |
 | `credit_range` | string | `720_plus`, `680_719`, `620_679`, `below_620`, `unknown`, or empty when payment is `cash`. |
 | `state` | string | US state name, `Puerto Rico`, or `Outside the US` / `Fuera de EE. UU.`. Default `Florida`. |
@@ -142,7 +137,7 @@ Run this against your endpoint (replace the URL and header). You should see the 
 curl -X POST "https://YOUR-CRM/endpoint" \
   -H "Content-Type: application/json" \
   -H "X-Webhook-Secret: YOUR-SECRET" \
-  -d '{"first_name":"Test Lead","phone":"(305) 555-0100","email":"test@example.com","whatsapp_ok":true,"language":"en","procedures":["tummy_tuck"],"timing":"asap","travel":"miami_south_fl","age_18_plus":"yes","postpartum_status":"yes","smoker":"no","height":"","weight":"","payment_method":"cash","credit_range":"","state":"Florida","city":"Miami","qualification":"qualified","source":"google_lp_mommy_makeover","campaign_name":"google-lp-mm","utm_source":"","utm_medium":"","utm_campaign":"","utm_content":"","utm_term":"","gclid":"","fbclid":"","fbp":"","fbc":"","landing_url":"https://promo.xiluetaestheticsurgery.com/","event_source_url":"https://promo.xiluetaestheticsurgery.com/","submitted_at":"2026-09-01T00:00:00.000Z"}'
+  -d '{"first_name":"Test Lead","phone":"(305) 555-0100","email":"test@example.com","whatsapp_ok":true,"language":"en","procedures":["tummy_tuck"],"timing":"asap","travel":"miami_south_fl","age_18_plus":"yes","postpartum_status":"yes","smoker":"no","payment_method":"cash","credit_range":"","state":"Florida","city":"Miami","qualification":"qualified","source":"google_lp_mommy_makeover","campaign_name":"google-lp-mm","utm_source":"","utm_medium":"","utm_campaign":"","utm_content":"","utm_term":"","gclid":"","fbclid":"","fbp":"","fbc":"","landing_url":"https://promo.xiluetaestheticsurgery.com/","event_source_url":"https://promo.xiluetaestheticsurgery.com/","submitted_at":"2026-09-01T00:00:00.000Z"}'
 ```
 
 Once you send us the URL and header, we'll submit a live test lead through the real quiz and confirm it arrives.

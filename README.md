@@ -77,7 +77,7 @@ Cloudflare validates the CNAME and issues the certificate automatically (a few m
 ## Lead payload (`POST /api/lead`, JSON)
 
 `first_name, phone, email, whatsapp_ok (true), language (en|es), procedures[], timing, travel, age_18_plus,
-postpartum_status, smoker, height (""), weight (""), payment_method, credit_range, state, city,
+postpartum_status, smoker, payment_method, credit_range, state, city,
 qualification (qualified|nurture|not_fit), source ("google_lp_mommy_makeover"), campaign_name, utm_source, utm_medium,
 utm_campaign, utm_content, utm_term, gclid, fbclid, fbp, fbc, landing_url, event_source_url, submitted_at`
 

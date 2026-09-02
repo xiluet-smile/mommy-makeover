@@ -17,7 +17,7 @@
 
 const LEAD_FIELDS = [
   "first_name", "phone", "email", "whatsapp_ok", "language", "procedures", "timing", "travel",
-  "age_18_plus", "postpartum_status", "smoker", "height", "weight", "payment_method", "credit_range",
+  "age_18_plus", "postpartum_status", "smoker", "payment_method", "credit_range",
   "state", "city", "qualification", "source", "campaign_name", "utm_source", "utm_medium", "utm_campaign",
   "utm_content", "utm_term", "gclid", "fbclid", "fbp", "fbc", "landing_url", "event_source_url", "submitted_at",
 ];

@@ -158,8 +158,6 @@
       age_18_plus: a.age || "",
       postpartum_status: a.postpartum || "",
       smoker: a.smoke || "",
-      height: "",
-      weight: "",
       payment_method: a.pay || "",
       credit_range: a.credit || "",
       state: f.state,
