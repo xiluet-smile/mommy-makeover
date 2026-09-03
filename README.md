@@ -12,7 +12,7 @@ site/                          Cloudflare Pages output directory (committed, no 
   assets/app.js                quiz state machine, CRM POST, dataLayer events, videos, FAQ, sticky CTA
   assets/…                     optimized images (WebP) and compressed testimonial videos (≤2.8 MB each)
   _redirects, _headers         /es → /es/, cache + security headers
-functions/api/lead.js          Pages Function: proxies POST /api/lead to the custom CRM (URL + auth stay server-side)
+functions/api/lead.js          Pages Function: maps POST /api/lead to the Xiluet CRM contract and forwards it (credentials stay server-side)
 wrangler.jsonc                 Pages config for local `wrangler pages dev` (output dir only)
 ```
 
@@ -49,18 +49,18 @@ Every push to `main` deploys. Create the project at
 | Build output directory | `site` |
 | Functions | auto-detected from `functions/` |
 
-**Variables and Secrets** (Settings → Variables and Secrets, Production *and* Preview):
+**Variables and Secrets** (Settings → Variables and Secrets, Production *and* Preview) — see `docs/CRM-INTEGRATION.md`:
 
 | Name | Purpose |
 |---|---|
-| `CRM_WEBHOOK_URL` | Required. The custom CRM endpoint that receives the JSON lead POST. |
-| `CRM_PHOTOS_WEBHOOK_URL` | Optional. Multipart target for the photo uploader. Defaults to `CRM_WEBHOOK_URL`. |
-| `CRM_WEBHOOK_SECRET` | Optional. Sent as `X-Webhook-Secret` header on every forward. |
-| `CRM_AUTH_HEADER` | Optional. Full auth header for the CRM, e.g. `Authorization: Bearer <token>` or `X-API-Key: <key>`. |
+| `CRM_API_CLIENT` | Required (secret). `X-API-CLIENT` header for the Xiluet CRM endpoint. |
+| `CRM_API_KEY` | Required (secret). `X-API-KEY` header. |
+| `CRM_WEBHOOK_URL` | Optional. Endpoint override (default `https://securexapp.xiluetplasticsurgery.com/api/patients/create`). |
+| `CRM_REFERRAL` | Optional. CRM origin id (default `30`, "Web contact form"). |
+| `CRM_TEST_MODE` | Optional. `true` → CRM validates without writing; `/api/lead` answers synchronously with the CRM preview. |
+| `LEAD_ALERT_WEBHOOK` | Optional. Receives a JSON POST when a lead is rejected, fails, or times out. |
 
-Until `CRM_WEBHOOK_URL` is set, `/api/lead` answers `{ ok:false, forwarded:false }` and the page still shows the outcome screen.
-
-Local run with the API: `npm install` then `npm run dev` (wrangler pages dev on http://localhost:8788).
+Until the two credentials are set, `/api/lead` answers `{ ok:false, forwarded:false }` and the page still shows the thank-you page.
 
 ## Custom domain: promo.xiluetaestheticsurgery.com (DNS at SiteGround)
 
@@ -74,17 +74,16 @@ Type: CNAME   Name: promo   Resolves to: xiluet-promo.pages.dev   TTL: default
 Cloudflare validates the CNAME and issues the certificate automatically (a few minutes). `SITE_URL` in
 `scripts/build.js` already points at this hostname.
 
-## Lead payload (`POST /api/lead`, JSON)
+## Lead payload (`POST /api/lead`, JSON, page → Function)
 
-`first_name, phone, email, whatsapp_ok (true), language (en|es), procedures[], timing, travel, age_18_plus,
-postpartum_status, smoker, payment_method, credit_range, state, city,
-qualification (qualified|nurture|not_fit), source ("google_lp_mommy_makeover"), campaign_name, utm_source, utm_medium,
-utm_campaign, utm_content, utm_term, matchtype, gclid, gbraid, wbraid, fbclid, fbp, fbc, landing_url, event_source_url, submitted_at`
+`first_name, last_name, phone (10 digits), email, whatsapp_ok (true), language (en|es), procedures[], timing, travel,
+age_18_plus, postpartum_status, smoker, payment_method, credit_range, state, city, qualification (qualified|nurture|not_fit),
+source ("google_lp_mommy_makeover"), campaign_name, utm_source, utm_medium, utm_campaign, utm_content, utm_term, matchtype,
+gclid, gbraid, wbraid, fbclid, fbp, fbc, landing_url, event_source_url, submitted_at`
 
-Answer values are canonical English keys on both languages (e.g. `timing: "1_3_months"`, `travel: "other_state"`,
-`payment_method: "financing"`, `credit_range: "below_620"`). See `content/en.js` for the full list.
-
-Photo uploader: multipart POST to the same endpoint with `photo_front/left/right/back`, `first_name`, `phone`, `email`, `type=photos`.
+Answer values are canonical English keys on both languages (e.g. `timing: "1_3_months"`). The Function maps them to the
+CRM contract (readable labels, `name`/`last`, `service`, `procedure_date`, `can_relocate`, `procedure_payment`, `referral`)
+— see `docs/CRM-INTEGRATION.md` and `docs/contrato_crm_xiluet.pdf`. Photos are not uploaded from the site.
 
 ## Thank-you pages
 

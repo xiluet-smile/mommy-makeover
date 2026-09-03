@@ -1,148 +1,76 @@
-# Lead webhook spec for the Mommy Makeover landing page
+# CRM integration (Xiluet CRM endpoint)
 
-**Landing page:** https://promo.xiluetaestheticsurgery.com (English) · https://promo.xiluetaestheticsurgery.com/es/ (Spanish)
-
-## What we need from you
-
-1. An **HTTPS endpoint** on the CRM that accepts a `POST` with a JSON body (one request per lead) and answers with any `2xx` status.
-2. Optionally, the same or a second endpoint that accepts a `multipart/form-data` POST with up to 4 photos (see "Photo upload").
-3. The **authentication** you want us to send: either a shared secret header or a bearer token. Tell us the header name and value.
-
-When it's ready, send us back three things: the endpoint URL, the photo endpoint URL if different, and the auth header (name and value). We put them in Cloudflare and leads start flowing the same day. Nothing on the landing page changes.
-
-## How the request reaches you
-
-The visitor answers an 8-step quiz. On submit, the page posts to our Cloudflare function, which forwards **one JSON POST** to your endpoint from Cloudflare's network (the browser never calls your URL directly).
+The CRM contract is the developer's document **`contrato_crm_xiluet.pdf`** (2026-09-02) in this folder. It answers our
+original spec and defines the endpoint that already exists in production. The live reference inside the CRM:
+Informes › Web Leads › Endpoint.
 
 ```
-POST <your endpoint>
+POST https://securexapp.xiluetplasticsurgery.com/api/patients/create
 Content-Type: application/json
-X-Webhook-Secret: <shared secret, if you choose that>      (or)
-Authorization: Bearer <token>                               (any single header you specify)
+X-API-CLIENT: <secret>
+X-API-KEY:    <secret>
 ```
 
-Timeout: our side waits up to 8 seconds for your response. Please respond quickly (queue any slow processing).
+The page never calls the CRM. It posts its canonical payload to `/api/lead`; the Pages Function
+(`functions/api/lead.js`) maps it to the contract and forwards it. Credentials live only in Cloudflare secrets.
 
-## JSON payload
+## Cloudflare variables
 
-Every request has exactly these keys. Empty strings mean "not answered / not applicable". Values are stable English keys on both the English and Spanish page, so you never receive translated text.
-
-```json
-{
-  "first_name": "Ana Test",
-  "phone": "(305) 555-0100",
-  "email": "ana@example.com",
-  "whatsapp_ok": true,
-  "language": "en",
-  "procedures": ["tummy_tuck", "breast_lift"],
-  "timing": "1_3_months",
-  "travel": "other_state",
-  "age_18_plus": "yes",
-  "postpartum_status": "yes",
-  "smoker": "no",
-  "payment_method": "financing",
-  "credit_range": "720_plus",
-  "state": "Georgia",
-  "city": "Atlanta",
-  "qualification": "qualified",
-  "source": "google_lp_mommy_makeover",
-  "campaign_name": "mm-en",
-  "utm_source": "google",
-  "utm_medium": "cpc",
-  "utm_campaign": "mm-en",
-  "utm_content": "",
-  "utm_term": "",
-  "matchtype": "",
-  "gclid": "Cj0KCQjw...",
-  "gbraid": "",
-  "wbraid": "",
-  "fbclid": "",
-  "fbp": "",
-  "fbc": "",
-  "landing_url": "https://promo.xiluetaestheticsurgery.com/?utm_source=google&utm_campaign=mm-en&gclid=Cj0KCQjw...",
-  "event_source_url": "https://promo.xiluetaestheticsurgery.com/",
-  "submitted_at": "2026-09-01T23:27:47.220Z"
-}
-```
-
-### Field reference
-
-| Field | Type | Values / notes |
+| Name | Required | Purpose |
 |---|---|---|
-| `first_name` | string | Full name as typed by the visitor (label on the form is "Full name"). |
-| `phone` | string | As typed; not normalized. |
-| `email` | string | As typed, trimmed. |
-| `whatsapp_ok` | boolean | Always `true` (consent line on the form covers phone, SMS, WhatsApp). |
-| `language` | string | `en` or `es`. Use it to route to English- or Spanish-speaking coordinators. |
-| `procedures` | array of strings | Any of `tummy_tuck`, `breast_lift`, `breast_augmentation`, `liposuction`, `not_sure`. May be empty. |
-| `timing` | string | `asap`, `1_3_months`, `3_6_months`, `researching`. |
-| `travel` | string | `miami_south_fl`, `florida`, `other_state`, `no`. |
-| `age_18_plus` | string | `yes`, `no`. |
-| `postpartum_status` | string | `yes` (done having children, 6+ months postpartum, not breastfeeding), `not_yet`, `not_sure`. |
-| `smoker` | string | `no`, `yes`, `yes_would_stop`. |
-| `payment_method` | string | `cash`, `financing`, `mix`, `not_sure`. |
-| `credit_range` | string | `720_plus`, `680_719`, `620_679`, `below_620`, `unknown`, or empty when payment is `cash`. |
-| `state` | string | US state name, `Puerto Rico`, or `Outside the US` / `Fuera de EE. UU.`. Default `Florida`. |
-| `city` | string | Optional free text. |
-| `qualification` | string | `qualified`, `nurture`, `not_fit`. See rules below. |
-| `source` | string | Always `google_lp_mommy_makeover`. |
-| `campaign_name` | string | Equals `utm_campaign`, or `google-lp-mm` when the visitor arrived without UTMs. |
-| `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term` | string | Captured from the landing URL, persisted through the quiz. Empty if absent. |
-| `matchtype` | string | Google Ads keyword match type from the URL (`e`, `p`, `b`), if the campaign passes it. Empty otherwise. |
-| `gclid` | string | Google Ads click ID. Store it: it enables offline conversion uploads later. |
-| `gbraid`, `wbraid` | string | Google Ads click IDs used on iOS instead of `gclid`. Store them the same way. |
-| `fbclid`, `fbp`, `fbc` | string | Meta click ID and pixel cookies, for Conversions API. Empty if absent. |
-| `landing_url` | string | First URL of the session, including UTMs. |
-| `event_source_url` | string | URL of the page where the form was submitted. |
-| `submitted_at` | string | ISO 8601 UTC timestamp. |
+| `CRM_API_CLIENT` | yes (secret) | `X-API-CLIENT` header value, from Xiluet |
+| `CRM_API_KEY` | yes (secret) | `X-API-KEY` header value, from Xiluet |
+| `CRM_WEBHOOK_URL` | no | Override the endpoint URL (default: production endpoint above) |
+| `CRM_REFERRAL` | no | CRM origin id, default `30` = "Web contact form". Change if Xiluet creates a dedicated origin for this landing page |
+| `CRM_TEST_MODE` | no | `true` → every request carries `test_mode: true` (CRM validates, previews, writes nothing) and `/api/lead` answers synchronously with the CRM response |
+| `LEAD_ALERT_WEBHOOK` | no | URL that receives a JSON POST whenever a lead is rejected, fails, or times out (or credentials are missing) |
 
-### Qualification rules (computed by the page, never shown to the visitor)
+Until `CRM_API_CLIENT` / `CRM_API_KEY` exist, `/api/lead` answers `{ ok:false, forwarded:false }`; the visitor still reaches the thank-you page.
 
-- `not_fit`: `age_18_plus` = `no` **or** `travel` = `no`. These visitors exit early and **are not submitted**; you will normally not receive them.
-- `nurture`: `timing` = `researching` **or** `credit_range` = `below_620` **or** `postpartum_status` = `not_yet`.
-- `qualified`: everything else.
+## Page payload → CRM payload
 
-Suggested handling: `qualified` → sales pipeline, immediate follow-up (the visitor is asked to send 4 photos on WhatsApp right after submitting). `nurture` → coordinator follow-up sequence.
+The page keeps sending canonical keys (see README). The Function converts them:
 
-## Photo upload (optional endpoint)
+| Page sends | CRM receives | Rule |
+|---|---|---|
+| `first_name`, `last_name` | `name`, `last` | Two separate form fields (max 50 each). Legacy single-field values are split on the first space. |
+| `phone` | `phone` | Exactly 10 digits (punctuation and leading `1` removed). The form only lets a 10-digit US number through. |
+| `email` | `email` | Lowercased, max 128 |
+| `language` | `language` | `en` / `es` |
+| `procedures[]` | `service` | Labels joined with `, `: `Tummy tuck`, `Breast lift`, `Breast augmentation`, `Liposuction`, `Not sure, surgeon to recommend` |
+| `timing` | `procedure_date` | `ASAP`, `1-3 months`, `3-6 months`, `Just researching` |
+| `travel` | `can_relocate` | `In Miami / South FL`, `Yes, from elsewhere in Florida`, `Yes, from another state`, `No` |
+| `payment_method` | `procedure_payment` | `Cash / savings`, `Financing`, `A mix`, `Not sure` |
+| `smoker` | `smoker` | `No`, `Yes`, `Yes, would stop before surgery` |
+| `credit_range` | `credit_range` | `720+`, `680-719`, `620-679`, `Below 620`, `Don't know`, or `""` when payment is cash |
+| `postpartum_status` | `postpartum_status` | `Yes`, `Not yet`, `Not sure` |
+| `age_18_plus` | `age_18_plus` | `Yes`, `No` |
+| `state`, `city` | `state`, `city` | As is (city max 50) |
+| `qualification` | `qualification` | Untranslated, lowercase: `qualified`, `nurture`, `not_fit` |
+| — | `referral` | Fixed `"30"` |
+| `utm_source`, `utm_medium`, `utm_campaign`, `utm_content` | same | As is, max 128 |
+| `gclid`, `gbraid`, `wbraid` | same | Not in the contract's list; the CRM archives unknown fields in its raw log. Kept for future offline conversions. |
+| `whatsapp_ok`, `source`, `campaign_name`, `utm_term`, `fbclid`, `fbp`, `fbc`, `landing_url`, `event_source_url`, `submitted_at`, `matchtype` | dropped | Per the contract |
 
-Qualified visitors can upload photos on the thank-you page instead of using WhatsApp. If you support it, we send:
+Labels are always English, also on `/es/`. Photos are never sent: the CRM's assistant asks the patient for them itself.
 
-```
-POST <photo endpoint>            (defaults to the lead endpoint if you don't give us a second one)
-Content-Type: multipart/form-data
-<same auth header as above>
+## Delivery and response handling
 
-photo_front   file (image/*, ≤ 12 MB)   -- any subset of the four may be present
-photo_left    file
-photo_right   file
-photo_back    file
-first_name    text
-phone         text
-email         text
-language      text   en | es
-type          text   "photos"
-source        text   "google_lp_mommy_makeover"
-submitted_at  text   ISO 8601
-```
+- The browser gets `202 { ok:true, queued:true }` immediately and redirects to the thank-you page; the CRM call runs
+  in the background with a **30 s** timeout (the CRM creates the patient and sends the first SMS/WhatsApp before replying).
+- **No retries**: a retry becomes a "recontact" and the patient receives a second automatic message. Never retry a 4xx.
+- The CRM answers **HTTP 200 even when it rejects the lead**. The Function reads `data.patient_status`:
+  `created`, `recontact`, `test` → success; `invalid`, `error` → logged with `data.errors` and `data.log_id`, and posted
+  to `LEAD_ALERT_WEBHOOK` if set. Network errors and timeouts are alerted the same way.
 
-Match the photos to the lead by `email` and/or `phone`. Answer `2xx` on success. If you don't want to receive files, tell us and we'll keep the uploader on WhatsApp only.
+## Testing
 
-## Reliability notes
-
-- Deduplicate on `email` + `phone` + `submitted_at` if you see retries.
-- We do not retry on failure at the moment; a non-2xx response is logged on our side. If you want retries, tell us and we'll add them.
-- All requests originate from Cloudflare's network, so IP allowlisting is not practical. Use the auth header instead.
-
-## How to test your endpoint before we connect it
-
-Run this against your endpoint (replace the URL and header). You should see the lead appear in the CRM.
+1. Set `CRM_TEST_MODE=true` (plus the two credentials) in Cloudflare and redeploy.
+2. Submit the quiz on the live page, or run the curl below. `/api/lead` returns `{ sent: <CRM payload>, crm: { patient_status: "test", preview: … } }`.
+3. Remove `CRM_TEST_MODE`, redeploy, submit one real lead per language, confirm in the CRM (name, last name, procedure, qualification), then delete the test patients.
 
 ```bash
-curl -X POST "https://YOUR-CRM/endpoint" \
-  -H "Content-Type: application/json" \
-  -H "X-Webhook-Secret: YOUR-SECRET" \
-  -d '{"first_name":"Test Lead","phone":"(305) 555-0100","email":"test@example.com","whatsapp_ok":true,"language":"en","procedures":["tummy_tuck"],"timing":"asap","travel":"miami_south_fl","age_18_plus":"yes","postpartum_status":"yes","smoker":"no","payment_method":"cash","credit_range":"","state":"Florida","city":"Miami","qualification":"qualified","source":"google_lp_mommy_makeover","campaign_name":"google-lp-mm","utm_source":"","utm_medium":"","utm_campaign":"","utm_content":"","utm_term":"","matchtype":"","gclid":"","gbraid":"","wbraid":"","fbclid":"","fbp":"","fbc":"","landing_url":"https://promo.xiluetaestheticsurgery.com/","event_source_url":"https://promo.xiluetaestheticsurgery.com/","submitted_at":"2026-09-01T00:00:00.000Z"}'
+curl -s -X POST "https://promo.xiluetaestheticsurgery.com/api/lead" \
+  -H "Content-Type: application/json" -H "Origin: https://promo.xiluetaestheticsurgery.com" \
+  -d '{"first_name":"Ana","last_name":"Test","phone":"(305) 555-0100","email":"ana@example.com","language":"es","procedures":["tummy_tuck","breast_lift"],"timing":"1_3_months","travel":"other_state","age_18_plus":"yes","postpartum_status":"yes","smoker":"no","payment_method":"financing","credit_range":"720_plus","state":"Georgia","city":"Atlanta","qualification":"qualified","utm_source":"google","utm_medium":"cpc","utm_campaign":"mm-es","utm_content":""}'
 ```
-
-Once you send us the URL and header, we'll submit a live test lead through the real quiz and confirm it arrives.

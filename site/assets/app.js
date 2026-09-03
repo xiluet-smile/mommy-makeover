@@ -100,7 +100,7 @@
 
   function freshState() {
     return { step: 0, answers: {}, outcome: null, submitting: false, error: "",
-      form: { state: "Florida", city: "", name: "", phone: "", email: "" },
+      form: { state: "Florida", city: "", name: "", last: "", phone: "", email: "" },
       uploaderOpen: false, photos: [null, null, null, null], photosSubmitted: false, photosError: "", photosSending: false };
   }
   state = freshState();
@@ -122,18 +122,19 @@
   function displayName() { return (state.form.name || "").trim() || Q.nameFallback; }
   function waLink(msg) { return "https://wa.me/" + CONFIG.WHATSAPP_NUMBER + "?text=" + encodeURIComponent(t(msg, { name: displayName() })); }
   function phoneLink() { return "tel:" + String(CONFIG.PHONE).replace(/[^\d+]/g, ""); }
-  function toE164(v) {
+  /* CRM contract: US phone, exactly 10 digits after removing punctuation and a leading 1 */
+  function phoneDigits(v) {
     var d = String(v || "").replace(/\D/g, "");
-    if (d.length === 10) return "+1" + d;
-    if (d.length === 11 && d.charAt(0) === "1") return "+" + d;
-    return d ? "+" + d : "";
+    if (d.length === 11 && d.charAt(0) === "1") d = d.slice(1);
+    return d;
   }
+  function toE164(v) { var d = phoneDigits(v); return d.length === 10 ? "+1" + d : ""; }
   function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
-  function validPhone(v) { return (v.match(/\d/g) || []).length >= 7; }
+  function validPhone(v) { return phoneDigits(v).length === 10; }
   function canContinue(cur) {
     if (cur.multi) return (state.answers[cur.id] || []).length > 0;
     if (cur.type === "location") return true;
-    if (cur.type === "contact") return state.form.name.trim().length > 1 && validPhone(state.form.phone) && validEmail(state.form.email.trim());
+    if (cur.type === "contact") return state.form.name.trim().length > 0 && state.form.last.trim().length > 0 && validPhone(state.form.phone) && validEmail(state.form.email.trim());
     return true;
   }
 
@@ -152,7 +153,8 @@
     var a = state.answers, f = state.form, m = metaIds();
     return {
       first_name: f.name.trim(),
-      phone: f.phone.trim(),
+      last_name: f.last.trim(),
+      phone: phoneDigits(f.phone),
       email: f.email.trim(),
       whatsapp_ok: true,
       language: LANG,
@@ -203,20 +205,6 @@
       });
   }
 
-  function submitPhotos() {
-    var files = state.photos.filter(Boolean);
-    if (!files.length || state.photosSending) return;
-    state.photosSending = true; state.photosError = ""; render();
-    var fd = new FormData();
-    var keys = ["photo_front", "photo_left", "photo_right", "photo_back"];
-    state.photos.forEach(function (p, i) { if (p) fd.append(keys[i], p.file, p.file.name || keys[i] + ".jpg"); });
-    fd.append("type", "photos"); fd.append("first_name", state.form.name.trim()); fd.append("phone", state.form.phone.trim()); fd.append("email", state.form.email.trim()); fd.append("language", LANG);
-    postWithTimeout(CONFIG.LEAD_ENDPOINT, { method: "POST", body: fd }, 60000)
-      .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.json().catch(function () { return {}; }); })
-      .then(function () { state.photosSending = false; state.photosSubmitted = true; track("photos_sent"); render(); })
-      .catch(function (e) { console.warn("[photos]", e && e.message); state.photosSending = false; state.photosError = Q.qualified.uploadError; render(); });
-  }
-
   /* ---------- render ---------- */
   function render() {
     var html = "";
@@ -252,9 +240,12 @@
           '</select></label><label class="q-label">' + esc(Q.cityLabel) + '<input class="q-input" type="text" data-field="city" autocomplete="address-level2" placeholder="' + esc(Q.cityPlaceholder) + '" value="' + esc(state.form.city) + '"></label></div>';
       } else if (cur.type === "contact") {
         html += '<div class="q-fields"><div class="q-row">' +
-          '<label class="q-label">' + esc(Q.nameLabel) + '<input class="q-input" type="text" data-field="name" autocomplete="name" value="' + esc(state.form.name) + '"></label>' +
-          '<label class="q-label">' + esc(Q.phoneLabel) + '<input class="q-input" type="tel" data-field="phone" autocomplete="tel" inputmode="tel" placeholder="' + esc(Q.phonePlaceholder) + '" value="' + esc(state.form.phone) + '"></label></div>' +
-          '<div class="q-row"><label class="q-label">' + esc(Q.emailLabel) + '<input class="q-input" type="email" data-field="email" autocomplete="email" inputmode="email" value="' + esc(state.form.email) + '"></label></div>' +
+          '<label class="q-label">' + esc(Q.nameLabel) + '<input class="q-input" type="text" data-field="name" autocomplete="given-name" value="' + esc(state.form.name) + '"></label>' +
+          '<label class="q-label">' + esc(Q.lastNameLabel) + '<input class="q-input" type="text" data-field="last" autocomplete="family-name" value="' + esc(state.form.last) + '"></label></div>' +
+          '<div class="q-row">' +
+          '<label class="q-label">' + esc(Q.phoneLabel) + '<input class="q-input" type="tel" data-field="phone" autocomplete="tel" inputmode="tel" placeholder="' + esc(Q.phonePlaceholder) + '" value="' + esc(state.form.phone) + '"></label>' +
+          '<label class="q-label">' + esc(Q.emailLabel) + '<input class="q-input" type="email" data-field="email" autocomplete="email" inputmode="email" value="' + esc(state.form.email) + '"></label></div>' +
+          '<p class="q-error" data-phone-error hidden>' + esc(Q.phoneError) + "</p>" +
           '<p class="q-consent">' + esc(Q.consent) + "</p></div>";
       }
       if (cur.multi || cur.type) {
@@ -330,6 +321,7 @@
     var f = e.target.getAttribute && e.target.getAttribute("data-field"); if (!f) return;
     state.form[f] = e.target.value;
     var btn = $('[data-act="next"]', quizEl); if (btn) btn.disabled = !canContinue(visibleSteps()[state.step]);
+    if (f === "phone") { var pe = $("[data-phone-error]", quizEl); if (pe) pe.hidden = !(String(e.target.value).replace(/\D/g, "").length >= 10 && !validPhone(e.target.value)); }
   });
   quizEl.addEventListener("change", function (e) {
     var slot = e.target.getAttribute && e.target.getAttribute("data-slot");
