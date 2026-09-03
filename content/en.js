@@ -71,8 +71,6 @@ module.exports = {
       { id: "travel", q: 3, title: "Can you travel to our clinic in Miami?",
         options: [["I'm in Miami/South FL", "miami_south_fl"], ["Yes, from elsewhere in Florida", "florida"], ["Yes, from another state", "other_state"], ["No", "no"]] },
       { id: "age", q: 4, title: "Are you 18 or older?", options: [["Yes", "yes"], ["No", "no"]] },
-      { id: "postpartum", q: 4, title: "Are you done having children, at least 6 months postpartum, and no longer breastfeeding?",
-        options: [["Yes", "yes"], ["Not yet", "not_yet"], ["Not sure", "not_sure"]] },
       { id: "smoke", q: 4, title: "Do you smoke or vape?",
         options: [["No", "no"], ["Yes", "yes"], ["Yes, but I'd stop before surgery", "yes_would_stop"]] },
       { id: "pay", q: 5, title: "How do you plan to pay?",

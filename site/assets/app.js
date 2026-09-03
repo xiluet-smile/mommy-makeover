@@ -111,7 +111,7 @@
   function qualify() {
     var a = state.answers;
     if (a.age === "no" || a.travel === "no") return "not_fit";
-    if (a.timing === "researching" || a.credit === "below_620" || a.postpartum === "not_yet") return "nurture";
+    if (a.timing === "researching" || a.credit === "below_620") return "nurture";
     return "qualified";
   }
   function markStarted() { if (!started) { started = true; track("quiz_start"); } }
@@ -162,7 +162,6 @@
       timing: a.timing || "",
       travel: a.travel || "",
       age_18_plus: a.age || "",
-      postpartum_status: a.postpartum || "",
       smoker: a.smoke || "",
       payment_method: a.pay || "",
       credit_range: a.credit || "",

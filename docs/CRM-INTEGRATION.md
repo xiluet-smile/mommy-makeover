@@ -43,7 +43,7 @@ The page keeps sending canonical keys (see README). The Function converts them:
 | `payment_method` | `procedure_payment` | `Cash / savings`, `Financing`, `A mix`, `Not sure` |
 | `smoker` | `smoker` | `No`, `Yes`, `Yes, would stop before surgery` |
 | `credit_range` | `credit_range` | `720+`, `680-719`, `620-679`, `Below 620`, `Don't know`, or `""` when payment is cash |
-| `postpartum_status` | `postpartum_status` | `Yes`, `Not yet`, `Not sure` |
+| — | `postpartum_status` | Always `""` (the postpartum question was removed from the quiz on 2026-09-03) |
 | `age_18_plus` | `age_18_plus` | `Yes`, `No` |
 | `state`, `city` | `state`, `city` | As is (city max 50) |
 | `qualification` | `qualification` | Untranslated, lowercase: `qualified`, `nurture`, `not_fit` |

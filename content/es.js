@@ -71,8 +71,6 @@ module.exports = {
       { id: "travel", q: 3, title: "¿Puedes viajar a nuestra clínica en Miami?",
         options: [["Vivo en Miami/Sur de FL", "miami_south_fl"], ["Sí, desde otra parte de Florida", "florida"], ["Sí, desde otro estado", "other_state"], ["No", "no"]] },
       { id: "age", q: 4, title: "¿Tienes 18 años o más?", options: [["Sí", "yes"], ["No", "no"]] },
-      { id: "postpartum", q: 4, title: "¿Ya no planeas más embarazos, pasaron 6+ meses del parto y ya no amamantas?",
-        options: [["Sí", "yes"], ["Todavía no", "not_yet"], ["No estoy segura", "not_sure"]] },
       { id: "smoke", q: 4, title: "¿Fumas o vapeas?",
         options: [["No", "no"], ["Sí", "yes"], ["Sí, pero lo dejaría antes de la cirugía", "yes_would_stop"]] },
       { id: "pay", q: 5, title: "¿Cómo planeas pagar?",

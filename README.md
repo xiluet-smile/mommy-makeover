@@ -1,6 +1,6 @@
 # Xiluet Aesthetic Surgery · Mommy Makeover landing page
 
-Google Ads landing page (EN `/` + ES `/es/`) with an inline 8-step qualification quiz, hosted on **Cloudflare Pages** (static site + one Pages Function).
+Google Ads landing page (EN `/` + ES `/es/`) with an inline 8-step qualification quiz (9 screens; the postpartum question was removed on 2026-09-03), hosted on **Cloudflare Pages** (static site + one Pages Function).
 Design source of truth: [`design_handoff_mommy_makeover_lp/`](design_handoff_mommy_makeover_lp/README.md).
 
 ```
@@ -77,7 +77,7 @@ Cloudflare validates the CNAME and issues the certificate automatically (a few m
 ## Lead payload (`POST /api/lead`, JSON, page → Function)
 
 `first_name, last_name, phone (10 digits), email, whatsapp_ok (true), language (en|es), procedures[], timing, travel,
-age_18_plus, postpartum_status, smoker, payment_method, credit_range, state, city, qualification (qualified|nurture|not_fit),
+age_18_plus, smoker, payment_method, credit_range, state, city, qualification (qualified|nurture|not_fit),
 source ("google_lp_mommy_makeover"), campaign_name, utm_source, utm_medium, utm_campaign, utm_content, utm_term, matchtype,
 gclid, gbraid, wbraid, fbclid, fbp, fbc, landing_url, event_source_url, submitted_at`
 
