@@ -159,9 +159,9 @@ module.exports = {
     p: "En muchas clínicas de Miami conoces a un coordinador y ves al cirujano por primera vez la mañana de la cirugía. Aquí no. Tu cirujano revisa tus fotos, escribe tu plan, hace tu consulta y te ve en cada seguimiento.",
     list: [
       ["Dr. Benjamin Liliav, MD", "CIRUJANO PLÁSTICO CERTIFICADO", "El Dr. Benjamin Liliav, MD, FACS, es cirujano plástico con doble certificación y más de 20 años de experiencia, especializado en resultados de aspecto natural."],
-      ["Dr. Marina Zorrilla, MD", "CIRUJANA COSMÉTICA", "La Dra. Astrid Marina Zorrilla (\"Dra. Marina\") es cirujana cosmética bilingüe especializada en procedimientos estéticos para la mujer, con atención personalizada."],
-      ["Dr. Felippe Sartorato, DO", "CIRUJANO PLÁSTICO Y RECONSTRUCTIVO", "El Dr. Felippe Sartorato es cirujano plástico y reconstructivo especializado en cirugía estética y atención personalizada."],
-      ["Madeline Vazquez", "A.P.R.N.", "Madeline Vazquez, A.P.R.N., se especializa en tratamientos estéticos y terapias de bienestar, con atención personalizada, empatía y experiencia."],
+      ["Dr. Jaime Flores, MD", "CIRUJANO PLÁSTICO CERTIFICADO", "El Dr. Jaime Flores es cirujano plástico certificado con más de dos décadas de experiencia en cirugía reconstructiva y estética, reconocido por el contorno corporal y los procedimientos de senos, y creador de la técnica de reconstrucción mamaria LSGAP."],
+      ["Dr. Waylon Zeng, MD", "CIRUJANO PLÁSTICO", "El Dr. Waylon Zeng completó una residencia integrada de seis años en cirugía plástica y reconstructiva y formación avanzada en cirugía estética. Habla inglés, español y mandarín, y se enfoca en ayudar a cada paciente a decidir con información."],
+      ["Dr. Paul C. Dillon, MD", "CIRUJANO PLÁSTICO Y RECONSTRUCTIVO CERTIFICADO", "El Dr. Paul C. Dillon es cirujano plástico y reconstructivo certificado con décadas de experiencia y formación en cirugía general y de mano, al frente de un equipo quirúrgico enfocado en seguridad, precisión y atención personalizada."],
     ],
     license: "Verificar licencia ↗",
     band: "Si en algún momento te sientes presionada o \"vendida\", dínoslo. Así no trabajamos.",

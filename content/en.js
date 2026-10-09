@@ -159,9 +159,9 @@ module.exports = {
     p: "In many Miami clinics you meet a coordinator and see the surgeon for the first time on the morning of surgery. Not here. Your surgeon reviews your photos, writes your plan, does your consultation, and sees you at every follow-up.",
     list: [
       ["Dr. Benjamin Liliav, MD", "BOARD-CERTIFIED PLASTIC SURGEON", "Dr. Benjamin Liliav, MD, FACS is a double board-certified plastic surgeon with over 20 years of experience, specializing in natural-looking results."],
-      ["Dr. Marina Zorrilla, MD", "COSMETIC SURGEON", "Dr. Astrid Marina Zorrilla (\"Dr. Marina\") is a bilingual cosmetic surgeon specializing in women's aesthetic procedures, providing personalized care."],
-      ["Dr. Felippe Sartorato, DO", "PLASTIC AND RECONSTRUCTIVE SURGEON", "Dr. Felippe Sartorato is a plastic and reconstructive surgeon specializing in aesthetic surgery and personalized patient care."],
-      ["Madeline Vazquez", "A.P.R.N.", "Madeline Vazquez, A.P.R.N. specializes in aesthetic treatments and wellness therapies, delivering personalized care with compassion and expertise."],
+      ["Dr. Jaime Flores, MD", "BOARD-CERTIFIED PLASTIC SURGEON", "Dr. Jaime Flores is a board-certified plastic surgeon with more than two decades of reconstructive and cosmetic experience, known for body contouring and breast procedures and as the creator of the LSGAP breast reconstruction technique."],
+      ["Dr. Waylon Zeng, MD", "PLASTIC SURGEON", "Dr. Waylon Zeng completed a six-year integrated plastic and reconstructive surgery residency and advanced aesthetic training. Fluent in English, Spanish and Mandarin, he focuses on helping patients make informed decisions."],
+      ["Dr. Paul C. Dillon, MD", "BOARD-CERTIFIED PLASTIC AND RECONSTRUCTIVE SURGEON", "Dr. Paul C. Dillon is a board-certified plastic and reconstructive surgeon with decades of experience and training in general and hand surgery, leading a surgical team focused on safety, precision and personalized care."],
     ],
     license: "Verify license ↗",
     band: "If you ever feel rushed or sold to, tell us. That's not how this works.",

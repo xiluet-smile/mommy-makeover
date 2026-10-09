@@ -68,7 +68,7 @@ const RESULT_FILES = [
   "r01-breast-aug-lipo-bbl", "r02-tummy-tuck-lipo-bbl", "r03-lipo-bbl", "r04-breast-lift-no-implants", "r05-breast-aug-ext-tummy-tuck",
   "r06-breast-lift-reduction", "r07-tummy-tuck-breast-lift-implants", "r08-ext-tummy-tuck-breast-aug", "r09-ext-tummy-tuck-breast-lift", "r10-ext-tummy-tuck-breast-lift",
 ];
-const SURGEON_FILES = ["dr-liliav", "dr-zorrilla", "dr-sartorato", "madeline-vazquez"];
+const SURGEON_FILES = ["dr-liliav", "dr-flores", "dr-zeng", "dr-dillon"];
 const STORIES = [1, 2, 3, 4, 5];
 
 function googleTag() {
@@ -241,7 +241,7 @@ ${gtmBody()}<div class="site">
   <div class="wrap surgeons-inner">
     <div class="sec-head"><span class="eyebrow">${esc(S.eyebrow)}</span><h2 class="h2">${esc(S.h2)}</h2><p class="lead">${esc(S.p)}</p></div>
     <div class="surgeons-grid">
-      ${S.list.map((s, i) => `<div class="surgeon"><img src="/assets/surgeons/${SURGEON_FILES[i]}.webp" alt="${esc(s[0])}" width="500" height="500" loading="lazy"><h3>${esc(s[0])}</h3><span class="surgeon-title">${esc(s[1])}</span><p>${esc(s[2])}</p><a class="license" href="${LINKS.verify[i]}" target="_blank" rel="noopener">${esc(S.license)}</a></div>`).join("\n      ")}
+      ${S.list.map((s, i) => `<div class="surgeon"><img src="/assets/surgeons/${SURGEON_FILES[i]}.webp" alt="${esc(s[0])}" width="500" height="500" loading="lazy"><h3>${esc(s[0])}</h3><span class="surgeon-title">${esc(s[1])}</span><p>${esc(s[2])}</p></div>`).join("\n      ")}
     </div>
   </div>
   <div class="band"><p><span class="dia">◇</span>${esc(S.band)}</p></div>
