@@ -161,7 +161,6 @@ module.exports = {
       ["Dr. Benjamin Liliav, MD", "BOARD-CERTIFIED PLASTIC SURGEON", "Dr. Benjamin Liliav, MD, FACS is a double board-certified plastic surgeon with over 20 years of experience, specializing in natural-looking results."],
       ["Dr. Jaime Flores, MD", "BOARD-CERTIFIED PLASTIC SURGEON", "Dr. Jaime Flores is a board-certified plastic surgeon with more than two decades of reconstructive and cosmetic experience, known for body contouring and breast procedures and as the creator of the LSGAP breast reconstruction technique."],
       ["Dr. Waylon Zeng, MD", "PLASTIC SURGEON", "Dr. Waylon Zeng completed a six-year integrated plastic and reconstructive surgery residency and advanced aesthetic training. Fluent in English, Spanish and Mandarin, he focuses on helping patients make informed decisions."],
-      ["Dr. Paul C. Dillon, MD", "BOARD-CERTIFIED PLASTIC AND RECONSTRUCTIVE SURGEON", "Dr. Paul C. Dillon is a board-certified plastic and reconstructive surgeon with decades of experience and training in general and hand surgery, leading a surgical team focused on safety, precision and personalized care."],
     ],
     license: "Verify license ↗",
     band: "If you ever feel rushed or sold to, tell us. That's not how this works.",

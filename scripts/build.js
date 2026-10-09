@@ -68,7 +68,7 @@ const RESULT_FILES = [
   "r01-breast-aug-lipo-bbl", "r02-tummy-tuck-lipo-bbl", "r03-lipo-bbl", "r04-breast-lift-no-implants", "r05-breast-aug-ext-tummy-tuck",
   "r06-breast-lift-reduction", "r07-tummy-tuck-breast-lift-implants", "r08-ext-tummy-tuck-breast-aug", "r09-ext-tummy-tuck-breast-lift", "r10-ext-tummy-tuck-breast-lift",
 ];
-const SURGEON_FILES = ["dr-liliav", "dr-flores", "dr-zeng", "dr-dillon"];
+const SURGEON_FILES = ["dr-liliav", "dr-flores", "dr-zeng"];
 const STORIES = [1, 2, 3, 4, 5];
 
 function googleTag() {
@@ -192,14 +192,10 @@ ${gtmBody()}<div class="site">
         <span class="eyebrow">${esc(W.eyebrow)}</span>
         <h2 class="h2">${esc(W.h2)}</h2>
         <p class="lead">${esc(W.p)}</p>
+        <ul class="plist what-list">${W.cards.map((txt) => `<li><span class="check">✓</span><span>${esc(txt)}</span></li>`).join("")}</ul>
+        <p class="note what-note">${esc(W.note)}</p>
       </div>
       <div class="what-img"><div class="frame"></div><img src="/assets/lifestyle.webp" alt="${esc(W.imgAlt)}" width="1400" height="939" loading="lazy"></div>
-    </div>
-    <div class="proc">
-      <div class="proc-cards">
-        ${W.cards.map((txt) => `<div class="proc-card"><span class="icon check"><svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M7.5 12.4l3 3 6-6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h3>${esc(txt)}</h3></div>`).join("\n        ")}
-      </div>
-      <p class="note">${esc(W.note)}</p>
     </div>
   </div>
 </section>

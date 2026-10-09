@@ -187,6 +187,9 @@ h1, h2, h3, p { margin: 0; }
 .what-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 48px; align-items: center; }
 .what-copy { display: flex; flex-direction: column; gap: 18px; max-width: 640px; }
 .what-copy .lead { line-height: 1.7; }
+.what-list { margin-top: 6px; gap: 12px; }
+.what-list li { font-family: var(--serif); font-size: 19px; font-weight: 600; color: var(--ink); align-items: center; }
+.what-note { margin-top: 2px; }
 .what-img { position: relative; }
 .what-img .frame { position: absolute; inset: 14px -14px -14px 14px; border: 1px solid rgba(200,164,101,0.5); border-radius: 6px; pointer-events: none; }
 .what-img img { width: 100%; height: 360px; object-fit: cover; border-radius: 6px; display: block; }
