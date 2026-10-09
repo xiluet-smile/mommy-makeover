@@ -68,7 +68,7 @@ const RESULT_FILES = [
   "r01-breast-aug-lipo-bbl", "r02-tummy-tuck-lipo-bbl", "r03-lipo-bbl", "r04-breast-lift-no-implants", "r05-breast-aug-ext-tummy-tuck",
   "r06-breast-lift-reduction", "r07-tummy-tuck-breast-lift-implants", "r08-ext-tummy-tuck-breast-aug", "r09-ext-tummy-tuck-breast-lift", "r10-ext-tummy-tuck-breast-lift",
 ];
-const SURGEON_FILES = ["dr-liliav", "dr-flores", "dr-zeng"];
+const SURGEON_FILES = ["dr-liliav", "dr-flores-2", "dr-zeng-2"];
 const STORIES = [1, 2, 3, 4, 5];
 
 function googleTag() {
