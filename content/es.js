@@ -4,10 +4,10 @@ module.exports = {
   lang: "es",
   path: "/es/",
   otherLang: { code: "EN", href: "/" },
-  title: "Mommy Makeover en Miami desde $7,500 | Xiluet Aesthetic Surgery",
+  title: "Mommy Makeover en Miami desde $6,999 | Xiluet Aesthetic Surgery",
   description:
     "Abdominoplastia, levantamiento o aumento de senos y liposucción en una sola cirugía. Cotización preliminar después de que tu cirujano revise tus fotos. Evaluación gratis en 60 segundos.",
-  ogTitle: "Mommy Makeover en Miami desde $7,500",
+  ogTitle: "Mommy Makeover en Miami desde $6,999",
 
   header: { cta: "Mira si calificas → 60 seg", logoAlt: "Logo de Xiluet", brand: "Xiluet", brandSub: "AESTHETIC SURGERY" },
 
@@ -32,9 +32,9 @@ module.exports = {
   hero: {
     eyebrow: "MOMMY MAKEOVER · MIAMI, FL",
     h1Before: "Mommy Makeover en Miami",
-    oldPrice: "$8,900",
+    oldPrice: "$8,500",
     from: "desde",
-    newPrice: "$7,500",
+    newPrice: "$6,999",
     sub: "Abdominoplastia, levantamiento o aumento de senos y liposucción en una sola cirugía, con cotización por escrito, un plan de recuperación pensado para tus hijos y un cirujano que conoces antes de decidir nada.",
     ctaPrimary: "Mira si calificas → 60 segundos",
     ctaWhatsApp: "Escríbenos por WhatsApp",
@@ -169,11 +169,11 @@ module.exports = {
 
   pricing: {
     eyebrow: "PRECIO TRANSPARENTE",
-    h2: "Qué significa \"desde $7,500\". Por escrito.",
+    h2: "Qué significa \"desde $6,999\". Por escrito.",
     p: "Cada cotización viene detallada, punto por punto. Este es el Mommy Makeover estándar:",
     tagLabel: "MOMMY MAKEOVER",
-    oldPrice: "$8,900",
-    newPrice: "desde $7,500",
+    oldPrice: "$8,500",
+    newPrice: "desde $6,999",
     includedTitle: "Incluye",
     includedCount: "7 PUNTOS",
     included: [
@@ -218,7 +218,7 @@ module.exports = {
   faq: {
     h2: "Tus preguntas, respondidas sin rodeos.",
     items: [
-      ["¿Cuánto cuesta realmente un Mommy Makeover aquí?", "Desde $7,500 por el Mommy Makeover estándar. Recibes una cotización preliminar después de que tu cirujano revise tus fotos, y tu cotización final detallada en tu consulta. Lo que no incluye está arriba."],
+      ["¿Cuánto cuesta realmente un Mommy Makeover aquí?", "Desde $6,999 por el Mommy Makeover estándar. Recibes una cotización preliminar después de que tu cirujano revise tus fotos, y tu cotización final detallada en tu consulta. Lo que no incluye está arriba."],
       ["¿Conozco al cirujano antes de la cirugía?", "Sí. Un depósito de $250 reserva tu consulta en nuestra clínica, donde tu cirujano revisa tu caso, te entrega tu plan de tratamiento y cotización final, y responde todas tus preguntas antes de programar nada."],
       ["¿Qué tanto duele?", "Los primeros 2–3 días son los más difíciles; la mayoría deja los analgésicos fuertes en 3–5 días. Tu cirujano te explica el plan de manejo del dolor."],
       ["¿Cuándo puedo cargar a mis hijos?", "Nada de más de ~10 libras por unas 6 semanas. Planea ayuda. Mira el cronograma arriba."],

@@ -197,7 +197,7 @@ ${gtmBody()}<div class="site">
     </div>
     <div class="proc">
       <div class="proc-cards">
-        ${[ICON.tummy, ICON.lift, ICON.aug, ICON.lipo].map((ic, i) => `<div class="proc-card"><span class="icon">${svg(ic)}</span><h3>${esc(W.cards[i])}</h3></div>`).join("\n        ")}
+        ${W.cards.map((txt) => `<div class="proc-card"><span class="icon check"><svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M7.5 12.4l3 3 6-6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><h3>${esc(txt)}</h3></div>`).join("\n        ")}
       </div>
       <p class="note">${esc(W.note)}</p>
     </div>

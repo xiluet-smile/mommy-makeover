@@ -193,7 +193,7 @@ h1, h2, h3, p { margin: 0; }
 .proc { display: flex; flex-direction: column; gap: 18px; }
 .proc-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 16px; }
 .proc-card { background: #ffffff; border: 1px solid var(--card-border); border-radius: 8px; padding: 20px 22px; display: flex; align-items: center; gap: 16px; }
-.proc-card .icon { flex: none; width: 32px; height: 32px; }
+.proc-card .icon { flex: none; width: 32px; height: 32px; color: var(--gold, #C6A15B); }
 .proc-card h3 { font-family: var(--serif); font-size: 22px; font-weight: 600; color: var(--ink); line-height: 1.2; }
 .note { font-size: 14px; color: var(--muted); font-style: italic; }
 

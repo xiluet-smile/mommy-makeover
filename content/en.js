@@ -4,10 +4,10 @@ module.exports = {
   lang: "en",
   path: "/",
   otherLang: { code: "ES", href: "/es/" },
-  title: "Mommy Makeover in Miami from $7,500 | Xiluet Aesthetic Surgery",
+  title: "Mommy Makeover in Miami from $6,999 | Xiluet Aesthetic Surgery",
   description:
     "Tummy tuck, breast lift or augmentation, and liposuction in one surgery. Preliminary quote after your surgeon reviews your photos. Free 60-second evaluation.",
-  ogTitle: "Mommy Makeover in Miami from $7,500",
+  ogTitle: "Mommy Makeover in Miami from $6,999",
 
   header: { cta: "See if you qualify → 60 sec", logoAlt: "Xiluet mark", brand: "Xiluet", brandSub: "AESTHETIC SURGERY" },
 
@@ -32,9 +32,9 @@ module.exports = {
   hero: {
     eyebrow: "MOMMY MAKEOVER · MIAMI, FL",
     h1Before: "Mommy Makeover in Miami",
-    oldPrice: "$8,900",
+    oldPrice: "$8,500",
     from: "from",
-    newPrice: "$7,500",
+    newPrice: "$6,999",
     sub: "Tummy tuck, breast lift or augmentation, and liposuction in one surgery, with a written quote, a recovery plan built around your kids, and a surgeon you meet before you decide anything.",
     ctaPrimary: "See if you qualify → 60 seconds",
     ctaWhatsApp: "Chat on WhatsApp",
@@ -169,11 +169,11 @@ module.exports = {
 
   pricing: {
     eyebrow: "TRANSPARENT PRICING",
-    h2: "What \"from $7,500\" means. In writing.",
+    h2: "What \"from $6,999\" means. In writing.",
     p: "Every quote is itemized, line by line. Here's the standard Mommy Makeover:",
     tagLabel: "MOMMY MAKEOVER",
-    oldPrice: "$8,900",
-    newPrice: "from $7,500",
+    oldPrice: "$8,500",
+    newPrice: "from $6,999",
     includedTitle: "Included",
     includedCount: "7 ITEMS",
     included: [
@@ -218,7 +218,7 @@ module.exports = {
   faq: {
     h2: "Your questions, answered straight.",
     items: [
-      ["How much does a Mommy Makeover really cost here?", "From $7,500 for the standard Mommy Makeover. You get a preliminary quote after your surgeon reviews your photos, and your final itemized quote at your consultation. What's not included is listed above."],
+      ["How much does a Mommy Makeover really cost here?", "From $6,999 for the standard Mommy Makeover. You get a preliminary quote after your surgeon reviews your photos, and your final itemized quote at your consultation. What's not included is listed above."],
       ["Will I meet the surgeon before surgery?", "Yes. A $250 deposit books your consultation at our office, where your surgeon reviews your case, gives you your treatment plan and final quote, and answers every question before anything is scheduled."],
       ["How bad is the pain?", "The first 2–3 days are the hardest; most patients are off strong pain medication within 3–5 days. Your surgeon will explain the pain plan."],
       ["When can I lift my kids?", "No lifting over ~10 lbs for about 6 weeks. Plan help. See the timeline above."],
